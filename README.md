@@ -4,7 +4,7 @@
 
 French travel is developed in a context of personal project in a design and developer of applications training course.
 
-## techenologies
+## technologies
 
 - ReactJS
 - ExpressJS
