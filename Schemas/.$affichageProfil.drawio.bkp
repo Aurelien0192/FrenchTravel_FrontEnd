@@ -1,0 +1,41 @@
+<mxfile host="Electron" modified="2024-06-19T17:32:43.478Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.5.3 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="FmL28KEf5G1O5w2ZoDoq" version="24.5.3" type="device">
+  <diagram name="Page-1" id="Jwh-wi6TD5reoLAxrxxy">
+    <mxGraphModel dx="778" dy="460" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="5KFBWJYCDLrVbnejkdxh-1" target="5KFBWJYCDLrVbnejkdxh-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-4" value="click" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5KFBWJYCDLrVbnejkdxh-3">
+          <mxGeometry x="-0.0333" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="30" y="370" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5KFBWJYCDLrVbnejkdxh-2" target="5KFBWJYCDLrVbnejkdxh-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-8" value="get objet profil&lt;div&gt;get tableau objet derniers voyages&lt;/div&gt;&lt;div&gt;get&amp;nbsp; URL photos liées au profil&lt;/div&gt;&lt;div&gt;get commentaires lié au profil&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="5KFBWJYCDLrVbnejkdxh-7">
+          <mxGeometry x="-0.0313" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-2" value="Bouton Profil" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-6" value="Backend" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#e51400;fontColor=#ffffff;strokeColor=#B20000;" vertex="1" parent="1">
+          <mxGeometry x="640" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-9" value="Card Voyages" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="354" y="200" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="5KFBWJYCDLrVbnejkdxh-10" value="Card Voyages" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" vertex="1" parent="1">
+          <mxGeometry x="500" y="200" width="120" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
