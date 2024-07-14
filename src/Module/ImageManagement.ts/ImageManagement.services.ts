@@ -2,19 +2,19 @@ import { imageManagementStore, ImageManagementStore } from "./ImageManagement.st
 
 class ImageManagementServices{
 
-    
-
     constructor(
         private _imageManagementStore : ImageManagementStore
     ){}
 
-    handleFileChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    handleFileChange = (filesTabInit:Array<File>, filesUrlInit:Array<string>, e:React.ChangeEvent<HTMLInputElement>) => {
     if(e.target.files){
-      const filesTabInt: Array<File> = []
-      const filesUrlInt: Array<string> = []
+      let filesTabInt: Array<File> = []
+      let filesUrlInt: Array<string> = []
       for(let i=0; i<e.target.files.length;i++){
         filesTabInt.push(e.target.files[i])
         filesUrlInt.push(URL.createObjectURL(e.target.files[i]))
+        filesTabInt = [...filesTabInt, ...filesTabInit]
+        filesUrlInt = [...filesUrlInt, ...filesUrlInit]
       }
 
       this._imageManagementStore.imageTopload$().next(filesTabInt)
