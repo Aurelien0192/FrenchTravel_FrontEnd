@@ -1,5 +1,5 @@
 
-import React, { MutableRefObject, useRef, useState } from "react"
+import React, { FormEvent, MutableRefObject, useRef, useState } from "react"
 import { ImageDisplay } from "./ImageDisplay"
 export function App() {
 
@@ -27,9 +27,17 @@ export function App() {
     }
   }
 
+  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form : HTMLFormElement = e.currentTarget
+    const formData = new FormData(form)
+    const formJson = Object.fromEntries(formData.entries())
+    console.log(formJson.images)
+  }
+
   return (
     <div>
-      <form className="grid grid-cols-2 gap-60 justify-between px-14">
+      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-60 justify-between px-14">
         <div className="flex flex-col gap-6">
           <label className="flex justify-between items-center">
             Nom du lieu
@@ -133,7 +141,7 @@ export function App() {
             placeholder="Réservations, places assises, chaise haute..."></textarea>
           </label>
             <button onClick={handleClick}>ajouter photo</button>
-            <input className="hidden" multiple type="file" ref={hiddenFileInput as MutableRefObject<HTMLInputElement>} onChange={handleFileCHange}></input>
+            <input name="images" className="hidden" multiple type="file" ref={hiddenFileInput as MutableRefObject<HTMLInputElement>} onChange={handleFileCHange}></input>
             <div className=" h-[400px] grid grid-cols-3 gap-2 overflow-y-scroll">
                 {fileUrl?.map((e,index)=>{return(
                   <ImageDisplay key={index} fileUrl={e} />
@@ -141,6 +149,7 @@ export function App() {
 
             </div>
         </div>
+        <button type="submit" onClick={(e) => {e.preventDefault;console.log(e)}}>Valider</button>
       </form>
     </div>
   )
