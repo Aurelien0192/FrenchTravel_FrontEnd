@@ -6,34 +6,22 @@ import { DoubleInput } from "./Components/DoubleInput"
 import { TextArea } from "./Components/TextArea"
 import { SupplementaryInfo } from "./ComplexeComponents/SupplementaryInfo"
 import { PhotosManagement } from "./ComplexeComponents/PhotosManagement"
-import { useImageManagement } from "../Module/ImageManagement.ts/ImageManagement.hook"
+
 export function App() {
 
-  // const [file, setFile] = useState<FileList>()
-  const {filesTab} = useImageManagement()
   const[categorie, setCategorie] = useState<string>("restaurant")
 
   const changeCategorie = (value:string) => {
     setCategorie(value)
   }
 
-
-  // const deleteImage = (name:string) => {
-  //   const filesTabCopy:Array<File|null> = [...filesTab]
-  //   const fileUrlCopy:Array<string> = [...filesUrl]
-  //   const indexToDelete = filesTabCopy.findIndex((file) => file!.name === name)
-  //   filesTabCopy.splice(indexToDelete,1)
-  //   fileUrlCopy.splice(indexToDelete,1)
-  //   setFilesTab(filesTabCopy)
-  //   setFilesUrl(fileUrlCopy)
-  // }
-
   const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form : HTMLFormElement = e.currentTarget
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
-    console.log(filesTab)
+    console.log(formJson)
+
   }
 
   return (

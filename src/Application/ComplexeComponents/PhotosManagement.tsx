@@ -20,7 +20,7 @@ export const PhotosManagement:React.FC = () => {
                 onChange={(e) =>{e.preventDefault(); imageManagementService.handleFileChange(filesTab as Array<File>, filesUrl, e)}}/>
             <div className=" h-[400px] grid grid-cols-3 gap-2 overflow-y-scroll">
                 {filesUrl.map((e,index)=>{return(
-                  <ImageDisplay key={index} fileUrl={e}/>
+                  <ImageDisplay key={index} index={index} fileUrl={e}/>
                 )})}
             </div>
         </div>
