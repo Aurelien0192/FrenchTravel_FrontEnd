@@ -2,6 +2,7 @@ import { useState } from "react"
 
 type imageDisplayProps = {
     fileUrl : string
+    deleteFiles : Function
 }
 
 export const ImageDisplay:React.FC<imageDisplayProps> = (props) => {
