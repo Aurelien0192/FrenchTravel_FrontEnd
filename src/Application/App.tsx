@@ -58,7 +58,7 @@ export function App() {
           <SupplementaryInfo categorie={categorie} />
           <PhotosManagement />
         </div>
-        <button type="submit" onClick={(e) => {e.preventDefault;console.log(e)}}>Valider</button>
+        <button type="submit" onClick={(e) => {e.preventDefault}}>Valider</button>
       </form>
     </div>
   )

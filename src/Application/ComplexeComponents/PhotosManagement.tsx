@@ -15,9 +15,9 @@ export const PhotosManagement:React.FC = () => {
     return(
         <div>
             <button onClick={handleClick}>ajouter photo</button>
-            <input name="images" className="hidden" multiple type="file" 
+            <input name="images" className="hidden" multiple type="file"
                 ref={hiddenFileInput as MutableRefObject<HTMLInputElement>} 
-                onChange={(e) =>{e.preventDefault(); imageManagementService.handleFileChange(filesTab as Array<File>, filesUrl, e)}}/>
+                onChange={(e) =>{imageManagementService.handleFileChange(filesTab as Array<File>, filesUrl, e)}}/>
             <div className=" h-[400px] grid grid-cols-3 gap-2 overflow-y-scroll">
                 {filesUrl.map((e,index)=>{return(
                   <ImageDisplay key={index} index={index} fileUrl={e}/>
