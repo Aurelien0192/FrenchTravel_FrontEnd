@@ -13,9 +13,8 @@ export class PlaceToSubmit{
     public typeOfPlace: Array<string>
     public email: string
     public bookingLink: string
-    public images : Array<File>
 
-    constructor(data:placeSubmit,photos:Array<File>){
+    constructor(data:placeSubmit){
         this.name = data.name
         this.categorie = data.categorie
         this.describe = data.describe
@@ -27,7 +26,6 @@ export class PlaceToSubmit{
         this.typeOfPlace = [data.underCategorie1, data.underCategorie2]
         this.email = data.email
         this.bookingLink = data.bookingLink
-        this.images = photos
         this.moreInfo = this.setInfoSup(data)
 
     }
@@ -85,6 +83,11 @@ export class PlaceToSubmit{
             default :
                 return null
         }
+    }
+
+    static createNewPlaceToSubmit(data:placeSubmit):PlaceToSubmit{
+        const new_placeToSubmit = new PlaceToSubmit(data)
+        return new_placeToSubmit
     }
 
 }

@@ -15,7 +15,6 @@ class ImageManagementServices{
                 filesUrlInt.push(URL.createObjectURL(e.target.files[i]))
                 filesTabInt = [...filesTabInt, ...filesTabInit]
                 filesUrlInt = [...filesUrlInt, ...filesUrlInit]
-                console.log(filesTabInt, filesUrlInt)
             }
 
             this._imageManagementStore.imageTopload$().next(filesTabInt)

@@ -6,10 +6,13 @@ import { DoubleInput } from "./Components/DoubleInput"
 import { TextArea } from "./Components/TextArea"
 import { SupplementaryInfo } from "./ComplexeComponents/SupplementaryInfo"
 import { PhotosManagement } from "./ComplexeComponents/PhotosManagement"
+import { PlaceServices } from "../Module/Place/Place.services"
+import { useImageManagement } from "../Module/ImageManagement.ts/ImageManagement.hook"
 
 export function App() {
 
   const[categorie, setCategorie] = useState<string>("restaurant")
+  const { filesTab } = useImageManagement()
 
   const changeCategorie = (value:string) => {
     setCategorie(value)
@@ -20,7 +23,7 @@ export function App() {
     const form : HTMLFormElement = e.currentTarget
     const formData = new FormData(form)
     const formJson = Object.fromEntries(formData.entries())
-    console.log(formJson)
+    PlaceServices.postNewPlace(filesTab as Array<File>)
 
   }
 
