@@ -4,7 +4,7 @@ export class PlaceToSubmit{
     public name: string
     public categorie: string
     public describe: string
-    public moreInfo: moreInfo
+    public moreInfo: moreInfo|null
     public street: string
     public city: string
     public codePostal: string
@@ -28,7 +28,7 @@ export class PlaceToSubmit{
         this.email = data.email
         this.bookingLink = data.bookingLink
         this.images = photos
-        this.setInfoSup(data)
+        this.moreInfo = this.setInfoSup(data)
 
     }
 
@@ -36,14 +36,13 @@ export class PlaceToSubmit{
 
         switch(data.categorie){
             case "restaurant":
-                this.moreInfo = {
+                return {
                     cook: data.cook as string,
                     services:data.services,
                     price:[Number(data.price1), Number(data.price2)]
                 }
-                break;
             case "hotel":
-                this.moreInfo = {
+                return {
                     services: data.services,
                     equipment: data.equipment as string,
                     accessibility: data.accessibility as string
@@ -51,7 +50,7 @@ export class PlaceToSubmit{
                 }
                 break;
             case "activity":
-                this.moreInfo = {
+                return {
                     schedules:[{
                         day:"monday",
                         open:data.mondayOpen,
@@ -83,7 +82,8 @@ export class PlaceToSubmit{
                     }],
                     duration: data.duration,
                 }
-                break;
+            default :
+                return null
         }
     }
 
