@@ -29,7 +29,7 @@ export const ImageDisplay:React.FC<imageDisplayProps> = (props) => {
                 onMouseLeave={handleHoverImgExit}
                 >
                   <button className=" m-auto uppercase font-bold rounded-xl px-1 py-3 border-2 border-yellow-600 text-yellow-600"
-                    onClick={() => {imageManagementService.deleteImage(filesTab as Array<File>, filesUrl,props.index)}} 
+                    onClick={(e) => {e.preventDefault();imageManagementService.deleteImage(filesTab as Array<File>, filesUrl,props.index)}} 
                   >supprimer</button>
                 </div>
             </div>

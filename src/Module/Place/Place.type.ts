@@ -32,8 +32,8 @@ export type placeSubmit = {
     wednesdayClose:string
     thursdayOpen:string
     thursdayClose:string
-    frisdayOpen:string
-    frisdayClose:string
+    fridayOpen:string
+    fridayClose:string
     saturdayOpen:string
     saturdayClose:string
     sundayOpen:string

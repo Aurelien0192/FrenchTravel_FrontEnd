@@ -8,6 +8,7 @@ import { SupplementaryInfo } from "./ComplexeComponents/SupplementaryInfo"
 import { PhotosManagement } from "./ComplexeComponents/PhotosManagement"
 import { PlaceServices } from "../Module/Place/Place.services"
 import { useImageManagement } from "../Module/ImageManagement.ts/ImageManagement.hook"
+import { placeSubmit } from "../Module/Place/Place.type"
 
 export function App() {
 
@@ -22,10 +23,11 @@ export function App() {
     e.preventDefault()
     const form : HTMLFormElement = e.currentTarget
     const formData = new FormData(form)
-    const formJson = Object.fromEntries(formData.entries())
-    PlaceServices.postNewPlace(filesTab as Array<File>)
-
+    const data: placeSubmit = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
+    PlaceServices.postNewPlace(filesTab as Array<File>,data)
   }
+
+    
 
   return (
     <div>
@@ -50,7 +52,7 @@ export function App() {
             }]} />
             <DoubleInput label="Sous-catégorie" name={["underCategorie1","underCategorie2"]} placeholder={["Française","Traditionnel"]} />
             <Input placeholder="32 rue des Coquelicots" name="street" label="Adresse" />
-            <Input placeholder="75000" name="postalCode" label="Code Postal" />
+            <Input placeholder="75000" name="codePostal" label="Code Postal" />
             <Input placeholder="Paris" name="city" label="Ville" />
             <Input placeholder="Ile-de-France" name="county" label="Département" />
             <Input placeholder="standard@capucine.fr" name="email" label="Adresse mail"/>

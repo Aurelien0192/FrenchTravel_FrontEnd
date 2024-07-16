@@ -27,7 +27,6 @@ class ImageManagementServices{
         const filesUrlInt: Array<string> = [... filesUrlInit]
         filesTabInt.splice(index,1)
         filesUrlInt.splice(index,1)
-        console.log(index)
 
         this._imageManagementStore.imageTopload$().next(filesTabInt)
         this._imageManagementStore.imageToDisplayForUpload$().next(filesUrlInt)

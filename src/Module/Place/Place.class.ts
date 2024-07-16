@@ -9,6 +9,7 @@ export class PlaceToSubmit{
     public city: string
     public codePostal: string
     public county: string
+    public country: string
     public phone: string|null
     public typeOfPlace: Array<string>
     public email: string
@@ -22,6 +23,7 @@ export class PlaceToSubmit{
         this.city = data.city
         this.codePostal = data.codePostal
         this.county = data.county
+        this.country = "France"
         this.phone = data.phone
         this.typeOfPlace = [data.underCategorie1, data.underCategorie2]
         this.email = data.email
@@ -54,27 +56,27 @@ export class PlaceToSubmit{
                         open:data.mondayOpen,
                         close:data.mondayClose
                     },{
-                        day:"monday",
+                        day:"tuesday",
                         open:data.tuesdayOpen,
                         close:data.tuesdayClose
                     },{
-                        day:"monday",
+                        day:"wednesday",
                         open:data.wednesdayOpen,
                         close:data.wednesdayClose
                     },{
-                        day:"monday",
+                        day:"thursday",
                         open:data.thursdayOpen,
                         close:data.thursdayClose
                     },{
-                        day:"monday",
-                        open:data.frisdayOpen,
-                        close:data.frisdayClose
+                        day:"friday",
+                        open:data.fridayOpen,
+                        close:data.fridayClose
                     },{
-                        day:"monday",
+                        day:"saturday",
                         open:data.saturdayOpen,
                         close:data.saturdayClose
                     },{
-                        day:"monday",
+                        day:"sunday",
                         open:data.sundayOpen,
                         close:data.sundayClose
                     }],
