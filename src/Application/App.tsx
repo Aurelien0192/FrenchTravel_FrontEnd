@@ -1,14 +1,13 @@
-
-import { FormEvent, useState } from "react"
+import { useState } from "react"
 import { Input } from "./Components/Input"
 import { SelectInput } from "./Components/SelectInput"
 import { DoubleInput } from "./Components/DoubleInput"
 import { TextArea } from "./Components/TextArea"
 import { SupplementaryInfo } from "./ComplexeComponents/SupplementaryInfo"
 import { PhotosManagement } from "./ComplexeComponents/PhotosManagement"
-import { PlaceServices } from "../Module/Place/Place.services"
 import { useImageManagement } from "../Module/ImageManagement.ts/ImageManagement.hook"
-import { placeSubmit } from "../Module/Place/Place.type"
+import { placeFormularService } from "../Module/PlaceFormular/PlaceFormular.service"
+import { Button } from "./Components/Button"
 
 export function App() {
 
@@ -19,19 +18,11 @@ export function App() {
     setCategorie(value)
   }
 
-  const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form : HTMLFormElement = e.currentTarget
-    const formData = new FormData(form)
-    const data: placeSubmit = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
-    PlaceServices.postNewPlace(filesTab as Array<File>,data)
-  }
-
-    
-
   return (
     <div>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-60 justify-between px-14">
+      <form onSubmit={(e) => {placeFormularService.handleSubmit(e,filesTab as Array<File>)}} 
+        className="grid grid-cols-2 gap-60 justify-between px-14">
+        
         <div className="flex flex-col gap-6">
           <Input placeholder="Les capucines" name="name" label="Nom du lieu"/>
           <SelectInput 
@@ -62,8 +53,8 @@ export function App() {
         <div className="flex flex-col gap-6">
           <SupplementaryInfo categorie={categorie} />
           <PhotosManagement />
+          <Button size="md" type="submit" onClick={()=>{}}>Valider</Button>
         </div>
-        <button type="submit" onClick={(e) => {e.preventDefault}}>Valider</button>
       </form>
     </div>
   )
