@@ -3,6 +3,7 @@ import { Input } from "../Components/Input"
 import { TextArea } from "../Components/TextArea"
 import { SelectInput } from "../Components/SelectInput"
 import { Schedules } from "./Schedules"
+import { HotelCategorieSelector } from "./HotelCategorieSelector"
 
 type supplementaryInfo = {
     categorie:string
@@ -24,6 +25,7 @@ export const SupplementaryInfo:React.FC<supplementaryInfo> = (props) => {
                 <p className="text-end">Infos supplémentaires</p>
                 <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" />
                 <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility"/>
+                <HotelCategorieSelector/>
                 <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" />
             </div>
         )
