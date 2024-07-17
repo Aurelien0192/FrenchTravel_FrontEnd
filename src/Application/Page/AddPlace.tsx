@@ -9,10 +9,15 @@ import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagem
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/Button"
+import { Modal } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
+import { OverlayConfirmationPost } from "../ComplexeComponents/OverlayConfirmationPost"
 
 export function AddPlace() {
 
   const[categorie, setCategorie] = useState<string>("restaurant")
+  const[responseServer, setResponseServer] = useState<number>(0)
+  const [opened,{ open, close }] = useDisclosure(false)
   const { filesTab } = useImageManagement()
   const {hotelCategorie} = useCategorieSelector()
 
@@ -20,9 +25,18 @@ export function AddPlace() {
     setCategorie(value)
   }
 
+  const  addResponseOfServer= async (statusCode:Promise<number>|number)=>{
+    const statusCodeTab = await statusCode
+    setResponseServer(statusCodeTab)
+  }
+
+  const modal = () => {
+    close
+  }
+
   return (
     <div>
-      <form onSubmit={(e) => {placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie)}} 
+      <form onSubmit={(e) => {addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie))}} 
         className="grid grid-cols-2 gap-60 justify-between px-14">
         
         <div className="flex flex-col gap-6">
@@ -55,9 +69,23 @@ export function AddPlace() {
         <div className="flex flex-col gap-6">
           <SupplementaryInfo categorie={categorie} />
           <PhotosManagement />
-          <Button size="md" type="submit">Valider</Button>
+          <Button onClick={open} size="md" type="submit">Valider</Button>
+          <button onClick={open}></button>
         </div>
       </form>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Ajout d'un lieu"
+        centered
+        overlayProps={{
+          backgroundOpacity:0.30,
+          color:'#D98D30',
+          blur:3,
+        }}
+      >
+        <OverlayConfirmationPost close={modal} statusCode={responseServer} statusCodeRes={addResponseOfServer} />
+      </Modal>
     </div>
   )
 }
