@@ -45,6 +45,7 @@ export class PlaceToSubmit{
                 return {
                     services: data.services,
                     equipment: data.equipment as string,
+                    hotelCategorie : data.hotelCategorie as number,
                     accessibility: data.accessibility as string
 
                 }

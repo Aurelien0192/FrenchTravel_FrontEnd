@@ -6,6 +6,7 @@ export type moreInfo = {
     services?: string
     equipment?: string
     accessibility?:string
+    hotelCategorie?:number
 }
 
 export type schedules = {
@@ -24,6 +25,7 @@ export type placeSubmit = {
     services:string
     equipment:string|null
     accessibility:string|null
+    hotelCategorie:number|null
     mondayOpen:string
     mondayClose:string
     tuesdayOpen:string

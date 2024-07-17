@@ -6,6 +6,7 @@ import { TextArea } from "../Components/TextArea"
 import { SupplementaryInfo } from "./../ComplexeComponents/SupplementaryInfo"
 import { PhotosManagement } from "./../ComplexeComponents/PhotosManagement"
 import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
+import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/Button"
 
@@ -13,6 +14,7 @@ export function AddPlace() {
 
   const[categorie, setCategorie] = useState<string>("restaurant")
   const { filesTab } = useImageManagement()
+  const {hotelCategorie} = useCategorieSelector()
 
   const changeCategorie = (value:string) => {
     setCategorie(value)
@@ -20,7 +22,7 @@ export function AddPlace() {
 
   return (
     <div>
-      <form onSubmit={(e) => {placeFormularService.handleSubmit(e,filesTab as Array<File>)}} 
+      <form onSubmit={(e) => {placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie)}} 
         className="grid grid-cols-2 gap-60 justify-between px-14">
         
         <div className="flex flex-col gap-6">
