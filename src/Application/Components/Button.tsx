@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react"
 
 type buttonProps={
     size: "xs"|"md"
-    onClick: MouseEventHandler<HTMLButtonElement> | undefined
+    onClick?: MouseEventHandler<HTMLButtonElement>
     children:React.ReactNode
     type?: "submit" | "reset" | "button" | undefined
 }
