@@ -12,11 +12,11 @@ import { Button } from "../Components/Button"
 import { Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { OverlayConfirmationPost } from "../ComplexeComponents/OverlayConfirmationPost"
+import { axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
 
 export function AddPlace() {
 
   const[categorie, setCategorie] = useState<string>("restaurant")
-  const[responseServer, setResponseServer] = useState<number>(0)
   const [opened,{ open, close }] = useDisclosure(false)
   const { filesTab } = useImageManagement()
   const {hotelCategorie} = useCategorieSelector()
@@ -27,11 +27,7 @@ export function AddPlace() {
 
   const  addResponseOfServer= async (statusCode:Promise<number>|number)=>{
     const statusCodeTab = await statusCode
-    setResponseServer(statusCodeTab)
-  }
-
-  const modal = () => {
-    close
+    axiosResponseServices.updateAxiosResponse(statusCodeTab)
   }
 
   return (
@@ -84,7 +80,7 @@ export function AddPlace() {
           blur:3,
         }}
       >
-        <OverlayConfirmationPost close={modal} statusCode={responseServer} statusCodeRes={addResponseOfServer} />
+        <OverlayConfirmationPost />
       </Modal>
     </div>
   )

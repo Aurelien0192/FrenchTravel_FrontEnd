@@ -2,34 +2,31 @@ import { Loader } from '@mantine/core'
 import {IoCheckmarkCircle, IoCloseCircleSharp} from 'react-icons/io5'
 import { useEffect, useState } from 'react'
 import { NavLinkButton } from '../Components/NavLinkButton'
+import { useResponseAxios } from '../../Module/HTTP/axiosResponse.hook'
+import { axiosResponseServices } from '../../Module/HTTP/axiosResponse.services'
 
-type overlayConfirmationPostProps = {
-    statusCode: number
-    statusCodeRes: Function
-    close:Function
-}
-
-export const OverlayConfirmationPost:React.FC<overlayConfirmationPostProps> = (props) => {
+export const OverlayConfirmationPost:React.FC = () => {
+    const {responseServer} = useResponseAxios()
     const [stepOne, setStepOne] = useState<boolean>(false)
     const [msg, setMsg] = useState<string>("Création en cours")
     const[err, setErr] = useState<string>("")
     const [finish, setFinish]=useState<boolean>(false)
 
     useEffect((() => {
-        
-        if(props.statusCode === 201){
+        console.log(responseServer)
+        if(responseServer === 201){
             setStepOne(true)
             setFinish(true)
             setMsg("La création du lieu c'est correctement déroulée")
-        }else if(props.statusCode=== 405){
+        }else if(responseServer=== 405){
             setErr("des champs requis n'ont pas été renseignés")
-        }else if(props.statusCode=== 500){
+        }else if(responseServer=== 500){
             setErr("une erreur c'est produite avec la base de données")
         }
         return()=> {
-            props.statusCodeRes(0)
+            axiosResponseServices.updateAxiosResponse(0)
         }
-    }),[props.statusCode])
+    }),[responseServer])
 
     return(
         <div>
