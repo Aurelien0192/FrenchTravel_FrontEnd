@@ -1,9 +1,9 @@
 import { http } from "./axios.instance"
-import { PlaceToSubmit } from "../Place/Place.class"
+
 export class AxiosServices{
-    static async postNewPlace(data:PlaceToSubmit){
+    static async postInDataBase<T>(path:string, data:T){
         try{
-            const response = await http.post('/place',data,{validateStatus:() => true})
+            const response = await http.post(path,data,{validateStatus:() => true})
             return response         
         }catch(e){
             console.log(e)
