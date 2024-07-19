@@ -6,6 +6,7 @@ type navLinkButtonProps={
     children:React.ReactNode
     disabled?: boolean
     to:string
+    variant?:"light"|undefined
 }
 
 export const NavLinkButton:React.FC<navLinkButtonProps> = (props) => {
@@ -13,7 +14,7 @@ export const NavLinkButton:React.FC<navLinkButtonProps> = (props) => {
 
     return(
         <NavLink 
-            className={`bg-brown text-sand rounded-lg w-fit px-4 ${props.size === "xs" ? "h-7": "py-4"} 
+            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} ${props.size === "xs" ? "h-7": "py-4"} 
                 ${props.disabled && " hidden"}`} 
             onClick={action}
             to={props.to}

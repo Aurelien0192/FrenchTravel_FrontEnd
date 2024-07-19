@@ -6,6 +6,7 @@ type buttonProps={
     children:React.ReactNode
     type?: "submit" | "reset" | "button" | undefined
     disabled?: boolean
+    variant?:"light"|undefined
 }
 
 export const Button:React.FC<buttonProps> = (props) => {
@@ -16,7 +17,8 @@ export const Button:React.FC<buttonProps> = (props) => {
     }
     return(
         <button 
-            className={`bg-brown text-sand rounded-lg w-fit px-4 ${props.size === "xs" ? "h-7": "py-4"} ${props.disabled && "opacity-75"}`} 
+            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} 
+                rounded-lg w-fit px-4 ${props.size === "xs" ? "h-7": "h-fit py-4"} ${props.disabled && "opacity-75"}`} 
             onClick={action}
             type={props.type}
         >{props.children}</button>

@@ -13,7 +13,6 @@ export const OverlayConfirmationPost:React.FC = () => {
     const [finish, setFinish]=useState<boolean>(false)
 
     useEffect((() => {
-        console.log(responseServer)
         if(responseServer === 201){
             setStepOne(true)
             setFinish(true)
