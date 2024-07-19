@@ -2,7 +2,7 @@
 export type userToSubmit = {
     firstName: string
     lastName: string
-    userType: "professional"|"user"
+    userType: string
     userName: string
     password: string
     email:string

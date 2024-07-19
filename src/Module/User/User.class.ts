@@ -11,7 +11,7 @@ export class UserToSubmit{
     constructor(userToSubmit : userToSubmit){
         this.firstName = userToSubmit.firstName
         this.lastName = userToSubmit.lastName
-        this.userType = userToSubmit.userType
+        this.userType = userToSubmit.userType === "on"? "professional": "user"
         this.userName = userToSubmit.userName
         this.password = userToSubmit.password
         this.email = userToSubmit.email

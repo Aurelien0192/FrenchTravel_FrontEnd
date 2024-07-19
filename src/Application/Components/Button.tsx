@@ -20,7 +20,7 @@ export const Button:React.FC<buttonProps> = (props) => {
             className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} 
                 rounded-lg w-fit px-4 ${props.size === "xs" ? "h-7": "h-fit py-4"} ${props.disabled && "opacity-75"}`} 
             onClick={action}
-            type={props.type}
+            type={props.type? props.type: "button"}
         >{props.children}</button>
     )
 }
