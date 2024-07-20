@@ -9,15 +9,15 @@ import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagem
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/Button"
-import { Modal } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
-import { OverlayConfirmationPost } from "../ComplexeComponents/OverlayConfirmationPost"
 import { axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
+import { AxiosResponseError } from "../../Module/HTTP/axiosResponseError.dto"
+import { AxiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
+import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
 
 export function AddPlace() {
 
   const[categorie, setCategorie] = useState<string>("restaurant")
-  const [opened,{ open, close }] = useDisclosure(false)
+  const [msg, setMsg] = useState<string>("")
   const { filesTab } = useImageManagement()
   const {hotelCategorie} = useCategorieSelector()
 
@@ -25,64 +25,61 @@ export function AddPlace() {
     setCategorie(value)
   }
 
-  const  addResponseOfServer= async (statusCode:Promise<number>|number)=>{
-    const statusCodeTab = await statusCode
-    axiosResponseServices.updateAxiosResponse(statusCodeTab)
+  const  addResponseOfServer= async (responseServer:Promise<AxiosResponseError>)=>{
+    const responseAxios = await responseServer
+    axiosResponseServices.updateAxiosResponse(responseAxios)
+    setMsg(AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()))
+    if(responseAxios.getStatus()=== 201){
+            setTimeout(()=>{
+                window.location.reload()
+            },2000)
+        }else{
+            responseAxios!.getFieldsWithError()?.forEach((e) =>{
+                FormularServices.showError(e)
+            })
+        }
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => {addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie))}} 
-        className="grid grid-cols-2 gap-60 justify-between px-14">
-        
-        <div className="flex flex-col gap-6">
-          <Input placeholder="Les capucines" name="name" label="Nom du lieu"/>
-          <SelectInput 
-          label="Catégorie" 
-          name="categorie"
-          onChange={changeCategorie} 
-          options={
-            [{
-              name: "Restaurant",
-              value: "restaurant"
-            },
-            {
-              name: "Hôtel",
-              value: "hotel"
-            },{
-              name: "Activité",
-              value: "activity"
-            }]} />
-            <DoubleInput label="Sous-catégorie" name={["underCategorie1","underCategorie2"]} placeholder={["Française","Traditionnel"]} />
-            <Input placeholder="32 rue des Coquelicots" name="street" label="Adresse" />
-            <Input placeholder="75000" name="codePostal" label="Code Postal" />
-            <Input placeholder="Paris" name="city" label="Ville" />
-            <Input placeholder="Ile-de-France" name="county" label="Département" />
-            <Input placeholder="standard@capucine.fr" name="email" label="Adresse mail"/>
-            <Input placeholder="01.01.01.01.01" name="phone" label="Numéro" />
-            <TextArea placeholder="Notre restaurant vous acceuille du ..." label="Description" name="describe" size="xl" />
-        </div>
-        <div className="flex flex-col gap-6">
-          <SupplementaryInfo categorie={categorie} />
-          <PhotosManagement />
-          <Button onClick={open} size="md" type="submit">Valider</Button>
-          <button onClick={open}></button>
-        </div>
-      </form>
-      <Modal
-        opened={opened}
-        onClose={close}
-        title="Ajout d'un lieu"
-        centered
-        overlayProps={{
-          backgroundOpacity:0.30,
-          color:'#D98D30',
-          blur:3,
-        }}
-      >
-        <OverlayConfirmationPost />
-      </Modal>
-    </div>
+  
+    <form onSubmit={(e) => {addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie))}} 
+      className="grid grid-cols-2 gap-60 justify-between px-14">
+      
+      <div className="flex flex-col gap-6">
+        <Input placeholder="Les capucines" name="name" label="Nom du lieu"/>
+        <SelectInput 
+        label="Catégorie" 
+        name="categorie"
+        onChange={changeCategorie} 
+        options={
+          [{
+            name: "Restaurant",
+            value: "restaurant"
+          },
+          {
+            name: "Hôtel",
+            value: "hotel"
+          },{
+            name: "Activité",
+            value: "activity"
+          }]} />
+          <DoubleInput label="Sous-catégorie" name={["underCategorie1","underCategorie2"]} placeholder={["Française","Traditionnel"]} />
+          <Input placeholder="32 rue des Coquelicots" name="street" label="Adresse" />
+          <Input placeholder="75000" name="codePostal" label="Code Postal" />
+          <Input placeholder="Paris" name="city" label="Ville" />
+          <Input placeholder="Ile-de-France" name="county" label="Département" />
+          <Input placeholder="standard@capucine.fr" name="email" label="Adresse mail"/>
+          <Input placeholder="01.01.01.01.01" name="phone" label="Numéro" />
+          <TextArea placeholder="Notre restaurant vous acceuille du ..." label="Description" name="describe" size="xl" />
+          <p>{msg}</p>
+      </div>
+      <div className="flex flex-col gap-6">
+        <SupplementaryInfo categorie={categorie} />
+        <PhotosManagement />
+        <Button size="md" type="submit">Valider</Button>
+      </div>
+    </form>
+  
   )
 }
 

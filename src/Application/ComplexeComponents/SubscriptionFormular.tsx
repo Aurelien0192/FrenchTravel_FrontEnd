@@ -6,6 +6,7 @@ import { subscriptionFormularService } from "../../Module/SubscriptionFormular/S
 import { AxiosResponseServices, axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
 import { AxiosResponseError } from "../../Module/HTTP/axiosResponseError.dto"
 import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
+import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
 
 
 export const SubscriptionFormular:React.FC = () => {
@@ -22,29 +23,11 @@ export const SubscriptionFormular:React.FC = () => {
             },2000)
         }else{
             responseAxios!.getFieldsWithError()?.forEach((e) =>{
-                showError(e)
+                FormularServices.showError(e)
             })
         }
     }
-
-    function showError(name:string){
-        const input = document.getElementsByName(name)
-            if(input[0]){
-                const inputClasseNameDefault:string = input[0].className
-                input[0].className = `${input[0].className} errorInit`
-                setTimeout(()=> {
-                    input[0].className = `${input[0].className} errorTransition `
-                },500)
-                setTimeout(()=>{
-                    input[0].className = inputClasseNameDefault
-                    console.log(input[0].className)
-                },3000)
-            }
-        }
-
-
-    
-    
+        
     const [isProfessional, setIsProfessionnel] = useState<boolean>(false)
     return(
         <form onSubmit={(e)=>{addResponseOfServer(subscriptionFormularService.handleSubmit(e))}} className="flex flex-col gap-5 items-center">

@@ -41,6 +41,16 @@ export class AxiosResponseError{
         this._status = newStatus
     }
 
+    static getACopie(ancientResponse : AxiosResponseError){
+        const newAxiosResponseError: axiosResponseError = {
+            msg: ancientResponse.getMsg() as string,
+            fields_with_error: ancientResponse.getFieldsWithError() as Array<string>,
+            fields : ancientResponse.getFields() as object,
+            type_error : ancientResponse.getType_error() as string
+        }
+        const newStatus = ancientResponse.getStatus()
+        return AxiosResponseError.createNewResponseError(newAxiosResponseError, newStatus)
+    }
     static createNewResponseError(responseServer: axiosResponseError|undefined, status:number): AxiosResponseError{
         const newAxiosResponseError = new AxiosResponseError(responseServer, status)
         return newAxiosResponseError

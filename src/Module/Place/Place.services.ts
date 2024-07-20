@@ -9,6 +9,6 @@ export class PlaceServices{
         if (response!.status === 201){
             response = await AxiosServices.postImages(photos, response?.data._id)
         }
-        return response?.status
+        return response
     }
 }
