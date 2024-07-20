@@ -1,16 +1,17 @@
 import { axiosResponseStore, AxiosResponseStore } from "./axiosResponse.store";
+import { AxiosResponseError } from "./axiosResponseError.dto";
 
 export class AxiosResponseServices{
     constructor(
         private _axiosResponseStore: AxiosResponseStore
     ){}
 
-    updateAxiosResponse(responseaxios:number){
-        this._axiosResponseStore.serverResponse$().next(responseaxios)
+    updateAxiosResponse(responseaxios:AxiosResponseError){
+        const newResponseAxios : AxiosResponseError = responseaxios
+        this._axiosResponseStore.serverResponse$().next(newResponseAxios)
     }
 
     static responseServerPostUser(status:number):string{
-        console.log(status)
         switch(status){
             case 405 :
                 return "Des champs obligatoires n'ont pas été renseignées"

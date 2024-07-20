@@ -4,28 +4,46 @@ import { Button } from "../Components/Button"
 import { useState } from "react"
 import { subscriptionFormularService } from "../../Module/SubscriptionFormular/SubscriptionFormular.services"
 import { AxiosResponseServices, axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
+import { AxiosResponseError } from "../../Module/HTTP/axiosResponseError.dto"
 import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
 
 
 export const SubscriptionFormular:React.FC = () => {
-    
+    const {responseServer} = useResponseAxios()    
     const [msg, setMsg] = useState<string>("")
 
-    const { responseServer } = useResponseAxios()
-    
-    const addResponseOfServer= async (statusCode:Promise<number>|number)=>{
-        const statusCodeTab = await statusCode
-        axiosResponseServices.updateAxiosResponse(statusCodeTab)
-        setMsg(AxiosResponseServices.responseServerPostUser(statusCodeTab))
-        console.log("ok")
-        if(statusCodeTab=== 201){
-            console.log("yes")
+    const addResponseOfServer= async (responseAxiosClass:Promise<AxiosResponseError>)=>{
+        const responseAxios:AxiosResponseError = await responseAxiosClass
+        axiosResponseServices.updateAxiosResponse(responseAxios)
+        setMsg(AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()))
+        if(responseAxios.getStatus()=== 201){
             setTimeout(()=>{
-                console.log("titi")
                 window.location.reload()
             },2000)
+        }else{
+            responseAxios!.getFieldsWithError()?.forEach((e) =>{
+                showError(e)
+            })
         }
     }
+
+    function showError(name:string){
+        const input = document.getElementsByName(name)
+            if(input[0]){
+                const inputClasseNameDefault:string = input[0].className
+                input[0].className = `${input[0].className} errorInit`
+                setTimeout(()=> {
+                    input[0].className = `${input[0].className} errorTransition `
+                },500)
+                setTimeout(()=>{
+                    input[0].className = inputClasseNameDefault
+                    console.log(input[0].className)
+                },3000)
+            }
+        }
+
+
+    
     
     const [isProfessional, setIsProfessionnel] = useState<boolean>(false)
     return(
@@ -33,7 +51,7 @@ export const SubscriptionFormular:React.FC = () => {
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-2xl font-bold w-full text-center">Inscrivez-vous</h1>
-                    <p className={`w-full ${responseServer===201?'text-green-500':'text-red-500'} text-center`}>{msg}</p>
+                    <p className={`w-full  text-center ${responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
                 </div>
                 <div className="flex gap-3">
                     <Input name="firstName" placeholder="John" flexDirection="flex-col" label={`Prénom${isProfessional ? "*":""}`}></Input>

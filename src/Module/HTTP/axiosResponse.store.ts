@@ -1,13 +1,14 @@
 import { BehaviorSubject } from "rxjs"
+import { AxiosResponseError } from "./axiosResponseError.dto"
 
 export class AxiosResponseStore{
-    private readonly _serverResponse: BehaviorSubject<number>
+    private readonly _serverResponse: BehaviorSubject<AxiosResponseError>
 
     constructor(){
-        this._serverResponse = new BehaviorSubject(0)
+        this._serverResponse = new BehaviorSubject({} as AxiosResponseError)
     }
 
-    serverResponse$ = ():BehaviorSubject<number> =>{
+    serverResponse$ = ():BehaviorSubject<AxiosResponseError> =>{
         return this._serverResponse
     }
 }

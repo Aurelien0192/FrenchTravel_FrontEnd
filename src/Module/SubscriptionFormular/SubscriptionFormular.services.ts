@@ -1,6 +1,9 @@
 import { FormEvent } from "react"
 import { userToSubmit } from "../User/User.type"
 import { UserServices } from "../User/User.services"
+import { AxiosResponseError } from "../HTTP/axiosResponseError.dto"
+import { AxiosResponse } from "axios"
+import { axiosResponseError } from "../HTTP/axiosResponseError.type"
 
 class SubscriptionFormularService{
     async handleSubmit(e:FormEvent<HTMLFormElement>, ){
@@ -12,11 +15,18 @@ class SubscriptionFormularService{
     const formJson =Object.fromEntries(formData.entries())
     if(formJson.password === formJson.passwordValidation){
         const data: userToSubmit = JSON.parse(JSON.stringify(formJson))
-        const statusCode:number = await UserServices.postNewUser(data) as number
-        return statusCode
+        const responseOfServer:AxiosResponse = await UserServices.postNewUser(data) as AxiosResponse
+        const axiosResponseError = AxiosResponseError.createNewResponseError(responseOfServer.data,responseOfServer.status)
+        return axiosResponseError
     }else{
-        console.log("ok")
-        return 1
+        const errorMsg:axiosResponseError={
+            msg: "Les mots de passe ne correspondent pas",
+            fields_with_error:["password","passwordValidation"],
+            fields:{msg:""},
+            type_error:"no-valid"
+        }
+        const axiosResponseError = AxiosResponseError.createNewResponseError(errorMsg,1)
+        return axiosResponseError
     }
   }
 }

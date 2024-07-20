@@ -14,3 +14,14 @@
 *{
     font-family: 'Nunito';
 }
+
+.errorInit{
+    border : 2px solid red;
+}
+
+.errorTransition{
+    border: 2px solid white;
+    transition-property: border;
+    transition-duration: 3s;
+}
+

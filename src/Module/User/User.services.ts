@@ -7,6 +7,6 @@ export class UserServices{
     static async postNewUser(data: userToSubmit){
         const userToSubmit = UserToSubmit.createNewUserToSUbmit(data)
         let response = await AxiosServices.postInDataBase("/user",userToSubmit)
-        return response?.status
+        return response
     }
 }
