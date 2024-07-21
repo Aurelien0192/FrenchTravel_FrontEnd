@@ -39,7 +39,7 @@ export class PlaceToSubmit{
                 return {
                     cook: data.cook as string,
                     services:data.services,
-                    price:[Number(data.price1), Number(data.price2)]
+                    price:[data.price1 ? Number(data.price1): 0,data.price2 ? Number(data.price2):0]
                 }
             case "hotel":
                 return {

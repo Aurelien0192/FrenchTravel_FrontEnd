@@ -1,7 +1,7 @@
 export type moreInfo = {
     schedules?: Array<schedules>
     duration?: number
-    price?: Array<number>
+    price?: Array<number|undefined>
     cook?: string
     services?: string
     equipment?: string
