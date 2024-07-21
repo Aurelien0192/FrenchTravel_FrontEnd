@@ -9,9 +9,6 @@ import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagem
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/Button"
-import { axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
-import { AxiosResponseError } from "../../Module/HTTP/axiosResponseError.dto"
-import { AxiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
 
 export function AddPlace() {
@@ -25,24 +22,14 @@ export function AddPlace() {
     setCategorie(value)
   }
 
-  const  addResponseOfServer= async (responseServer:Promise<AxiosResponseError>)=>{
-    const responseAxios = await responseServer
-    axiosResponseServices.updateAxiosResponse(responseAxios)
-    setMsg(AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()))
-    if(responseAxios.getStatus()=== 201){
-            setTimeout(()=>{
-                window.location.reload()
-            },2000)
-        }else{
-            responseAxios!.getFieldsWithError()?.forEach((e) =>{
-                FormularServices.showError(e)
-            })
-        }
+  const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+    const newMsg = await FormularServices.addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie),"place")
+    setMsg(newMsg)
   }
-
+  
   return (
   
-    <form onSubmit={(e) => {addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie))}} 
+    <form onSubmit={(e) => {changeMsg(e)}} 
       className="grid grid-cols-2 gap-60 justify-between px-14">
       
       <div className="flex flex-col gap-6">
@@ -71,7 +58,7 @@ export function AddPlace() {
           <Input placeholder="standard@capucine.fr" name="email" label="Adresse mail"/>
           <Input placeholder="01.01.01.01.01" name="phone" label="Numéro" />
           <TextArea placeholder="Notre restaurant vous acceuille du ..." label="Description" name="describe" size="xl" />
-          <p>{msg}</p>
+          <p>{ msg}</p>
       </div>
       <div className="flex flex-col gap-6">
         <SupplementaryInfo categorie={categorie} />

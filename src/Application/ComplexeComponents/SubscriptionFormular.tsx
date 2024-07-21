@@ -3,8 +3,6 @@ import { Input } from "../Components/Input"
 import { Button } from "../Components/Button"
 import { useState } from "react"
 import { subscriptionFormularService } from "../../Module/SubscriptionFormular/SubscriptionFormular.services"
-import { AxiosResponseServices, axiosResponseServices } from "../../Module/HTTP/axiosResponse.services"
-import { AxiosResponseError } from "../../Module/HTTP/axiosResponseError.dto"
 import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
 
@@ -13,24 +11,14 @@ export const SubscriptionFormular:React.FC = () => {
     const {responseServer} = useResponseAxios()    
     const [msg, setMsg] = useState<string>("")
 
-    const addResponseOfServer= async (responseAxiosClass:Promise<AxiosResponseError>)=>{
-        const responseAxios:AxiosResponseError = await responseAxiosClass
-        axiosResponseServices.updateAxiosResponse(responseAxios)
-        setMsg(AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()))
-        if(responseAxios.getStatus()=== 201){
-            setTimeout(()=>{
-                window.location.reload()
-            },2000)
-        }else{
-            responseAxios!.getFieldsWithError()?.forEach((e) =>{
-                FormularServices.showError(e)
-            })
-        }
+    const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+      const newMsg = await FormularServices.addResponseOfServer(subscriptionFormularService.handleSubmit(e),"user")
+      setMsg(newMsg)
     }
-        
+
     const [isProfessional, setIsProfessionnel] = useState<boolean>(false)
     return(
-        <form onSubmit={(e)=>{addResponseOfServer(subscriptionFormularService.handleSubmit(e))}} className="flex flex-col gap-5 items-center">
+        <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-5 items-center">
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-2xl font-bold w-full text-center">Inscrivez-vous</h1>

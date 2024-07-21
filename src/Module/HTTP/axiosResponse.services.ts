@@ -10,7 +10,7 @@ export class AxiosResponseServices{
         this._axiosResponseStore.serverResponse$().next(responseaxios)
     }
 
-    static responseServerPostUser(status:number):string{
+    static async responseServerPostUser(status:number):Promise<string>{
         switch(status){
             case 405 :
                 return "Des champs obligatoires n'ont pas été renseignées"
