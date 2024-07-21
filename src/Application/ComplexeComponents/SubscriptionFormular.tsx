@@ -1,3 +1,13 @@
+/* formulaire de souscription
+
+Selon le type de compte (user ou professional), les informations obligatoires vont être différentes. le type de compte est stocké dans
+le hook useState isProfessional. Si le hoob est false, le nom et prénom sont facultatifs, sinon il le sont.
+
+A la soumission du formulaire, on appelle par le biais de la fonction changeMsg la fontion addResponseServer de la class FormularServices.
+On passe à la fonction la fonction handleSubmit (rôle est de faire la demande serveur d'ajout d'un nouvel utilisateur et de retourner la réponse.)
+addResponseServer de la class FormularServices à pour rôle de traiter le retour de l'information et de fournir un message à afficher en fonction de la réponse
+du serveur. */
+
 import { Checkbox } from "@mantine/core"
 import { Input } from "../Components/Input"
 import { Button } from "../Components/Button"
@@ -10,13 +20,13 @@ import { FormularServices } from "../../Module/FormularGeneralServices/formularS
 export const SubscriptionFormular:React.FC = () => {
     const {responseServer} = useResponseAxios()    
     const [msg, setMsg] = useState<string>("")
+    const [isProfessional, setIsProfessionnel] = useState<boolean>(false)
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
       const newMsg = await FormularServices.addResponseOfServer(subscriptionFormularService.handleSubmit(e),"user")
       setMsg(newMsg)
     }
 
-    const [isProfessional, setIsProfessionnel] = useState<boolean>(false)
     return(
         <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-5 items-center">
             <div className="flex flex-col gap-4">

@@ -1,6 +1,7 @@
 import { axiosResponseStore, AxiosResponseStore } from "./axiosResponse.store";
 import { AxiosResponseError } from "./axiosResponseError.dto";
 
+/* services permettant l'update de l'observable serverResponse et de fournir un message à afficher adéquat à la réponse du serveur */
 export class AxiosResponseServices{
     constructor(
         private _axiosResponseStore: AxiosResponseStore
@@ -13,7 +14,7 @@ export class AxiosResponseServices{
     static async responseServerPostUser(status:number):Promise<string>{
         switch(status){
             case 405 :
-                return "Des champs obligatoires n'ont pas été renseignées"
+                return "Des champs obligatoires n'ont pas été renseignées ou sont incorrectes"
             case 1 :
                 return "Le mots de passe de confirmation ne correspond pas au mot de passe choisi"
             case 201 : 
@@ -28,7 +29,7 @@ export class AxiosResponseServices{
     static responseServerPostPlace(status:number):string{
         switch(status){
             case 405 :
-                return "Des champs obligatoires n'ont pas été renseignées"
+                return "Des champs obligatoires n'ont pas été renseignées ou sont incorrectes"
             case 201 : 
                 return "La création du lieu c'est correctement déroulée"
             case 404 :

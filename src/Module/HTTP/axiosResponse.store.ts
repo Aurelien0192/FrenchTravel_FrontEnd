@@ -1,6 +1,7 @@
 import { BehaviorSubject } from "rxjs"
 import { AxiosResponseError } from "./axiosResponseError.dto"
 
+/*Store pour la réponse du serveur. Observable initialement égal à un objet vide*/
 export class AxiosResponseStore{
     private readonly _serverResponse: BehaviorSubject<AxiosResponseError>
 

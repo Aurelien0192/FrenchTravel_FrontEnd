@@ -1,5 +1,5 @@
 import { axiosResponseError } from "./axiosResponseError.type"
-
+ /* Classe permettant la création d'un objet de la réponse du serveur avec les propriétés nécessaires à leur traitement. */
 export class AxiosResponseError{
     private _msg:string|undefined
     private _fields_with_error:Array<string>|undefined

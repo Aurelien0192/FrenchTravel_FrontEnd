@@ -1,5 +1,7 @@
 import { BehaviorSubject } from "rxjs";
 
+
+/*Store pour le choix de la catégorie d'hôtel. Observable initialement égal à 1 */
 export class HotelCategorieStore{
     private readonly _hotelCategorie : BehaviorSubject<number>
 

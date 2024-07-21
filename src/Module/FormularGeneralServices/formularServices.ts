@@ -3,8 +3,15 @@ import { AxiosResponseServices, axiosResponseServices } from "../HTTP/axiosRespo
 
 export class FormularServices{
 
+    /* foction ayant pour rôle de récupérer la réponse du serveur pour méthode post. Si post succès, on reload la page. Sinon on appelle la fonction shwowError en lui
+    donnant les noms des champs en erreur (présent dans la réponse server dans la propriété Fields_with_error)
+    cette fonction retourne un message d'erreur via une fonction différente par rapport au type de post:
+        - pour un lieu : via la fonction responseServerPostPlace de la class AxiosResponseServices
+        - pour un utilisateur : via la fonction responseServerPostUser de la class AxiosResponseServices
+    */
+
     static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"):Promise<string>=>{
-    const responseAxios = await responseServer
+    const responseAxios: AxiosResponseError = await responseServer
     axiosResponseServices.updateAxiosResponse(responseAxios)
     if(responseAxios.getStatus()=== 201){
             setTimeout(()=>{
@@ -15,21 +22,24 @@ export class FormularServices{
                 FormularServices.showError(e)
             })
         }
-        const msg = typePost === "user"?await AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()) : await AxiosResponseServices.responseServerPostPlace(responseAxios.getStatus())
+        const msg: string = typePost === "user"? await AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()) : await AxiosResponseServices.responseServerPostPlace(responseAxios.getStatus())
         return (msg)
   }
 
+
+  /* Cette fonction à pour rôle de mettre en évidence les champs dans les formulaires étant en erreur. Cette fonction à en argument le nom de l'input étant en défaut
+  fourni par le server*/
+
     static showError(name:string){
-        const input = document.getElementsByName(name)
-            if(input[0]){
-                const inputClasseNameDefault:string = input[0].className
-                input[0].className = `${input[0].className} errorInit`
-                setTimeout(()=> {
-                    input[0].className = `${input[0].className} errorTransition `
+        const input = document.getElementsByName(name)                              //récupération de l'input en erreur via son nom
+            if(input[0]){                                                           //si input trouvé
+                const inputClasseNameDefault:string = input[0].className            //on sauvegarde sa classname précédente : correspondant au style appliqué via Tailwind
+                input[0].className = `${input[0].className} errorInit`              //on y ajoute le style errorInit : bordure rouge sur l'input
+                setTimeout(()=> {                                                   //au bout de 500ms
+                    input[0].className = `${input[0].className} errorTransition `   //on applique le style errorTransition : permet estompage de la bordure
                 },500)
-                setTimeout(()=>{
-                    input[0].className = inputClasseNameDefault
-                    console.log(input[0].className)
+                setTimeout(()=>{                                                    //au bout de 3 secondes
+                    input[0].className = inputClasseNameDefault                     //on raffecte à la classe de l'input sa classe initial via la sauvegarde.
                 },3000)
             }
         }
