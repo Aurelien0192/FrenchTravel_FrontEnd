@@ -1,3 +1,12 @@
+/* composant textArea prenant comme propriété :
+    - placeholder(obligatoire) : texte à afficher avant affichage
+    - name(obligatoire) : nom de l'input
+    - label(obligatoire) : fourni le label à afficher
+    - size(obligatoire) : 3 valeurs possibles :
+        -xs : hauteur 180px
+        -md : hauteur 260px
+        - xl: hauteur 384px (valeur par défaut) */
+
 type textAreaProps = {
     label: string
     placeholder: string

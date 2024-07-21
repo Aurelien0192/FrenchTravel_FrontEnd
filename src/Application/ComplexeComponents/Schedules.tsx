@@ -1,3 +1,5 @@
+/* composant permettant l'affichage du formulaires des horaires lorsque la catégorie activité est sélectionnée dans la page AddPlace.*/
+
 import { DoubleInput } from "../Components/DoubleInput"
 
 export const Schedules:React.FC = () => {

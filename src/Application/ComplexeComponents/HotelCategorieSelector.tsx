@@ -1,3 +1,8 @@
+/* composant présent dans l'ajout d'un nouveau lieu
+pour chaque catégorie d'hotel existante (présent dans le tableau categorieHotel), génération d'une étoile en lui fournissant sa catégorie.
+Lorsque qu'une étoile est sélectionnée, selected du custom hook useCategorieSelector passe à true, changeant le comportement des étoiles.
+*/
+
 import { StarHotel } from "../Components/StarsHotel"
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 

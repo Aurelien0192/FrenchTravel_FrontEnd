@@ -1,3 +1,9 @@
+/* composant permettant l'insertion d'un double input sous le même label.
+possède comme propriété:
+  - placeholder : tableau de string, index 0 correspond à l'input 1 et index 1 à l'input 2
+  - name : tableau de string fournissant le nom des inputs, index 0 correspond à l'input 1 et index 1 à l'input 2
+  - label : fourni le label à afficher*/
+
 type doublesInputProps = {
     placeholder: Array<string>
     name: Array<string> 

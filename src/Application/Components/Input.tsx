@@ -1,3 +1,10 @@
+/* Composant input recevant comme propriété:
+    - placeholder(obligatoire) : texte à afficher avant affichage
+    - name(obligatoire) : nom de l'input
+    - label(obligatoire) : fourni le label à afficher
+    - type(facultatif) : si password, l'input devient de type password
+    - flexDirection(facultatif) : si flex-col, le label se trouve au dessus de l'input, par défaut l'input se trouve à droite du label*/
+
 type inputProps = {
     placeholder: string
     name: string 

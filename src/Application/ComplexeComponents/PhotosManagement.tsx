@@ -1,3 +1,14 @@
+/* Composant permettant le management des photos (ajout et affichage) dans la page AddPlace 
+Ce composant est composé d'un bouton, d'un input type file et d'un cadre recceuillant l'affichage des photos sélectionnées.
+Le clique sur le bouton va provoquer le click sur input (qui est hidden) via le hook useRef hiddenFileInput.
+
+ceci va permettre l'ouverture d'un overlay permettant l'insertion de photos par l'utilisateur. Les photos sélectionnées vont être stocké par l'input.
+Lorsque l'input change (à l'ajout d'une ou plusieurs photos), les observables filesUrl et filesTab sont mis à jour. Ces observables gardent en mémoire les
+photos sélectionnées et leur adresses, permettant, pour filesTab leurs envoient au serveur et pour filesUrl l'affichage dans le cadre.
+
+pour chaque addresse d'image stocké dans l'affichage un composant ImageDisplay est généré en lui fournissant l'adresse de l'image à afficher et son index.
+*/
+
 import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
 import { imageManagementService } from "../../Module/ImageManagement.ts/ImageManagement.services"
 import { Button } from "../Components/Button"
@@ -15,7 +26,7 @@ export const PhotosManagement:React.FC = () => {
 
     return(
         <div className="flex flex-col gap-3 items-end ">
-            <Button onClick={handleClick} size="xs">ajouter photos</Button>
+            <Button onClick={handleClick} size="xs">ajouter photos</Button> 
             <input name="images" className="hidden" multiple type="file"
                 ref={hiddenFileInput as MutableRefObject<HTMLInputElement>} 
                 onChange={(e) =>{imageManagementService.handleFileChange(filesTab as Array<File>, filesUrl, e)}}/>

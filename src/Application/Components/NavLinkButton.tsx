@@ -1,3 +1,10 @@
+/* Composant NavLink prenant comme propriétés : 
+    - size : obligatoire : deux tailles possibles, soit xs soit md, si xs, bouton d'une hauteur de 28px, si md, bouton avec padding sur axe y de 16px
+    - to : obligatoire : fourni la path de la page à acceder lors du clique sur le navLink
+    - children : obligatoire : element à placer entre les deux balises boutons
+    - disabled : facultatif : si true, le bouton est désactivé, rendant le bouton hidden. par défaut à false
+    - variant : permet de définir si bouton clair ou foncé. Si light, inversion des couleurs par rapport à celle par défaut */
+
 import { MouseEventHandler } from "react"
 import { NavLink } from "react-router-dom"
 

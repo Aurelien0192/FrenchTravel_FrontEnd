@@ -1,3 +1,15 @@
+/* Composant étoile prenant comme propriété 3 éléments :
+    - selected: boolean permettant de savoir si l'utilisateur à choisi une catégorie d'hotel
+    - hisCategorie: nombre correspondant de la catégorie hotel affectée à l'étoile
+    - changeSelected : function permettant de passer selected à true ==> implique qu'une catégorie a été sélectionnée
+Lorsque aucune catégorie n'est sélectionnée, le survol d'une étoile va définir la catégorie comme étant la valeur de l'étoile //1
+à la sortie de la souris de l'élément, si aucune catégorie n'a été sélectionnée, la catégorie va repassé à 1, valeur minimale pour une catégorie d'hotel //2
+Enfin, si l'utilisateur clique sur l'étoile, selected passe à true, et la catégorie d'hotel prend la valeur de l'hôtel //3
+Lorsque selected est à true, le survol des étoiles n'a plus d'effet.
+
+Enfin si une étoile ayant une valeur supérieure ou égale à une autre étoile, cette étoile est rempli d'orange, sinon elle reste blanche(tant que selected et false) //4
+     */
+
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { hotelCategorieService } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.services"
 
@@ -12,10 +24,10 @@ export const StarHotel:React.FC<starHotelProps> =(props) => {
     const {hotelCategorie} = useCategorieSelector()
     
     return(
-        <svg className={`hover:cursor-pointer ${hotelCategorie>= props.hisCategorie? 'fill-orange':'fill-white'}`}
-        onMouseEnter={() => {!props.selected && hotelCategorieService.changehotelCategorie(props.hisCategorie)}}
-        onMouseLeave={() => {!props.selected && hotelCategorieService.changehotelCategorie(1)}}
-        onClick={()=> {props.changeSelected();hotelCategorieService.changehotelCategorie(props.hisCategorie)}}
+        <svg className={`hover:cursor-pointer ${hotelCategorie>= props.hisCategorie? 'fill-orange':'fill-white'}`} //4
+        onMouseEnter={() => {!props.selected && hotelCategorieService.changehotelCategorie(props.hisCategorie)}} //1
+        onMouseLeave={() => {!props.selected && hotelCategorieService.changehotelCategorie(1)}} //2
+        onClick={()=> {props.changeSelected();hotelCategorieService.changehotelCategorie(props.hisCategorie)}} //3
         width="40" height="40" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_i_385_2577)">
                 <path d="M9.04894 2.92705C9.3483 2.00574 10.6517 2.00574 10.9511 2.92705L12.0206 6.21885C12.1545 6.63087 12.5385 6.90983 12.9717 6.90983H16.4329C17.4016 6.90983 17.8044 8.14945 17.0207 8.71885L14.2205 10.7533C13.87 11.0079 13.7234 11.4593 13.8572 11.8713L14.9268 15.1631C15.2261 16.0844 14.1717 16.8506 13.388 16.2812L10.5878 14.2467C10.2373 13.9921 9.7627 13.9921 9.41221 14.2467L6.61204 16.2812C5.82833 16.8506 4.77385 16.0844 5.0732 15.1631L6.14277 11.8713C6.27665 11.4593 6.12999 11.0079 5.7795 10.7533L2.97933 8.71885C2.19562 8.14945 2.59839 6.90983 3.56712 6.90983H7.02832C7.46154 6.90983 7.8455 6.63087 7.97937 6.21885L9.04894 2.92705Z" fill="white"/>

@@ -1,3 +1,9 @@
+/* composant permettant l'affichage dynamique de la partie info supplémentaire dans la page AddPlace
+En fonction de la catégorie sélectionnée par l'utilisateur (fourni par la propriété categorie), les champs disponibles vont être différents :
+    - si restaurant, affichage des champs : price1, price2, cook et services 
+    - si hotel, affichage des champs : accessibility, equipment et services
+    - si activité, affichage des champs : schedules et duration*/
+
 import { DoubleInput } from "../Components/DoubleInput"
 import { Input } from "../Components/Input"
 import { TextArea } from "../Components/TextArea"

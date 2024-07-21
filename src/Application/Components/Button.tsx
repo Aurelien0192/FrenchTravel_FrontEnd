@@ -1,3 +1,11 @@
+/* Composant bouton prenant comme propriétés : 
+    - size : obligatoire : deux tailles possibles, soit xs soit md, si xs, bouton d'une hauteur de 28px, si md, bouton avec padding sur axe y de 16px
+    - onClick : facultatif : function permettant de définir une action lors du click sur le bouton
+    - children : obligatoire : element à placer entre les deux balises boutons
+    - type : facultatif : permet de définir le type du bouton entre button, submit et reset. par défaut est un button 
+    - disabled : facultatif : si true, le bouton est désactivé, rendant le bouton opaque à 75%. par défaut à false
+    - variant : permet de définir si bouton clair ou foncé. Si light, inversion des couleurs par rapport à celle par défaut */
+
 import { MouseEventHandler } from "react"
 
 type buttonProps={

@@ -1,3 +1,7 @@
+/* Header Component*/
+
+
+
 import { Button } from "../Components/Button"
 import logoTravel from "../../../public/Logo/logoTravel 1.svg"
 import { Modal } from "@mantine/core"

@@ -1,3 +1,9 @@
+/* composant select ayant comme propriété:
+    - label(obligatoire) : fourni le label à afficher
+    - name(obligatoire) : nom de l'input
+    - options(obligatoire) : fourni le nom et la valeur des options à fournir au select. si value undefined, le nom de l'option devient sa value
+    - onChange(facultatif) : function permettant de définir des actions lorque select change */
+
 type option = {
     name:string
     value?:string|number
