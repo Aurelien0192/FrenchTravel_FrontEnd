@@ -13,10 +13,10 @@ export class FormularServices{
     static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"|"login"):Promise<string>=>{
     const responseAxios: AxiosResponseError = await responseServer
     axiosResponseServices.updateAxiosResponse(responseAxios)
-    if(responseAxios.getStatus()=== 201){
+    if(responseAxios.getStatus()=== 201 || responseAxios.getStatus()=== 200){
             setTimeout(()=>{
                 window.location.reload()
-            },2000)
+            },responseAxios.getStatus() === 201 ?2000 : 0)
         }else{
             responseAxios!.getFieldsWithError()?.forEach((e) =>{
                 FormularServices.showError(e)

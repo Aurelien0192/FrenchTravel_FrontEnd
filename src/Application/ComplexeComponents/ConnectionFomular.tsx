@@ -5,7 +5,6 @@ import { FormularServices } from "../../Module/FormularGeneralServices/formularS
 import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
 import { useState } from "react"
 import { AuthentificationServices } from "../../Module/Authentification/Authentification.service"
-import { useAuthentification } from "../../Module/Authentification/authentification.hook"
 
 export const ConnectionFormular: React.FC = () => {
 
@@ -16,9 +15,6 @@ export const ConnectionFormular: React.FC = () => {
         const newMsg = await FormularServices.addResponseOfServer(AuthentificationServices.handleSubmit(e),"login")
       setMsg(newMsg)
     }
-
-    const { authentifiateUser } = useAuthentification()
-    console.log(authentifiateUser)
 
     return(
         <form className="flex flex-col gap-5 items-center" onSubmit={(e) => changeMsg(e)}>
