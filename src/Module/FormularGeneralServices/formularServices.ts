@@ -10,7 +10,7 @@ export class FormularServices{
         - pour un utilisateur : via la fonction responseServerPostUser de la class AxiosResponseServices
     */
 
-    static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"):Promise<string>=>{
+    static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"|"login"):Promise<string>=>{
     const responseAxios: AxiosResponseError = await responseServer
     axiosResponseServices.updateAxiosResponse(responseAxios)
     if(responseAxios.getStatus()=== 201){
@@ -22,7 +22,17 @@ export class FormularServices{
                 FormularServices.showError(e)
             })
         }
-        const msg: string = typePost === "user"? await AxiosResponseServices.responseServerPostUser(responseAxios.getStatus()) : await AxiosResponseServices.responseServerPostPlace(responseAxios.getStatus())
+        let msg: string =""
+        switch (typePost){
+            case 'user':
+                msg= await AxiosResponseServices.responseServerPostUser(responseAxios.getStatus())
+                break
+            case 'place':
+                msg= await AxiosResponseServices.responseServerPostPlace(responseAxios.getStatus())
+                break
+            case 'login':
+                msg = await AxiosResponseServices.responseServerLogin(responseAxios.getStatus())   
+        }
         return (msg)
   }
 

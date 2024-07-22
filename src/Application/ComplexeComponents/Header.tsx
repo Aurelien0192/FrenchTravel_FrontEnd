@@ -8,11 +8,27 @@ import { Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import { SubscriptionFormular } from "./SubscriptionFormular"
 import { ConnectionFormular } from "./ConnectionFomular"
+import { useAuthentification } from "../../Module/Authentification/authentification.hook"
 
 export const Header:React.FC = () => {
     const [openedSubscription, manageSubscription] = useDisclosure(false)
     const [openedConnection, manageConnection] = useDisclosure(false)
 
+    const { authentifiateUser} = useAuthentification()
+
+    const disconnect = () => {
+        sessionStorage.removeItem("UserAuthentifiate")
+        window.location.reload()
+    }
+
+    if(Object.keys(authentifiateUser).length>0){
+        return(
+            <div>
+                <p>hello {authentifiateUser.getUsername()}</p>
+                <Button onClick={disconnect} size="md">Déconnexion</Button>
+            </div>
+        )
+    }
     return(
         <div className="flex justify-between items-center">
             <img src={logoTravel} />

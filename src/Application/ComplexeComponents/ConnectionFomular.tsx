@@ -9,22 +9,23 @@ import { useAuthentification } from "../../Module/Authentification/authentificat
 
 export const ConnectionFormular: React.FC = () => {
 
-    // const {responseServer} = useResponseAxios()    
-    // const [msg, setMsg] = useState<string>("")
+    const {responseServer} = useResponseAxios()    
+    const [msg, setMsg] = useState<string>("")
 
-    //  const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-    //   const newMsg = await FormularServices.addResponseOfServer(authentificationService.handleSubmit(e),"user")
-    //   setMsg(newMsg)
-    // }
+    const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+        const newMsg = await FormularServices.addResponseOfServer(AuthentificationServices.handleSubmit(e),"login")
+      setMsg(newMsg)
+    }
 
     const { authentifiateUser } = useAuthentification()
     console.log(authentifiateUser)
 
     return(
-        <form className="flex flex-col gap-5 items-center" onSubmit={(e) => AuthentificationServices.handleSubmit(e)}>
+        <form className="flex flex-col gap-5 items-center" onSubmit={(e) => changeMsg(e)}>
             <h1 className="text-2xl font-bold w-full text-center">Heureux de vous revoir !</h1>
+            <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
             <div className=" flex flex-col gap-5 w-full">
-                <Input label="Adresse E-mail" placeholder="henry.dupont@mail.com" name="username" flexDirection="flex-col" />
+                <Input label="Pseudonyme" placeholder="henry.dupont@mail.com" name="username" flexDirection="flex-col" />
                 <Input label="Mot de passe" type="password" placeholder="*********" name="password" flexDirection="flex-col" />
             </div>
             <p className="text-brown underline underline-offset-2">mot de passe oublié?</p>

@@ -40,6 +40,19 @@ export class AxiosResponseServices{
                 return ""
         }
     }
+
+    static responseServerLogin(status:number):string{
+        switch(status){
+            case 405 :
+                return "Des champs obligatoires n'ont pas été renseignées ou sont incorrectes"
+            case 401 :
+                return "Le nom d'utilisateur ou mot de passe n'est pas correct"
+            case 500 :
+                return "une erreur interne au serveur c'est produite, réessayer ultérieurement"
+            default :
+                return ""
+        }
+    }
 }
 
 export const axiosResponseServices = new AxiosResponseServices(axiosResponseStore)
