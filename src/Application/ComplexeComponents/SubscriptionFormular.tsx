@@ -38,7 +38,7 @@ export const SubscriptionFormular:React.FC = () => {
                     <Input name="firstName" placeholder="John" flexDirection="flex-col" label={`Prénom${isProfessional ? "*":""}`}></Input>
                     <Input name="lastName" placeholder="Doe" flexDirection="flex-col" label={`Nom${isProfessional? "*":""}`}></Input>
                 </div>
-                <Input name="userName" placeholder="johndoe" flexDirection="flex-col" label="Pseudonyme*"></Input>
+                <Input name="username" placeholder="johndoe" flexDirection="flex-col" label="Pseudonyme*"></Input>
                 <Input name="email" placeholder="john.doe@mail.fr" flexDirection="flex-col" label="Adresse E-mail*"></Input>
                 <Input name="password" placeholder="********" type="password" flexDirection="flex-col" label="Mot de passe*"></Input>
                 <Input name="passwordValidation" placeholder="********" type="password" flexDirection="flex-col" label="Mot de passe*"></Input>

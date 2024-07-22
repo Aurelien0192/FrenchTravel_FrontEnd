@@ -4,7 +4,7 @@ export class UserToSubmit{
     public firstName: string
     public lastName: string
     public userType: "professional"|"user"
-    public userName: string
+    public username: string
     public password: string
     public email:string
 
@@ -12,7 +12,7 @@ export class UserToSubmit{
         this.firstName = userToSubmit.firstName
         this.lastName = userToSubmit.lastName
         this.userType = userToSubmit.userType === "on"? "professional": "user"
-        this.userName = userToSubmit.userName
+        this.username = userToSubmit.username
         this.password = userToSubmit.password
         this.email = userToSubmit.email
     }
