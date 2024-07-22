@@ -9,13 +9,23 @@ import { useDisclosure } from "@mantine/hooks"
 import { SubscriptionFormular } from "./SubscriptionFormular"
 import { ConnectionFormular } from "./ConnectionFomular"
 import { useAuthentification } from "../../Module/Authentification/authentification.hook"
+import { IoChevronDown } from "react-icons/io5";
+import { FaUser } from "react-icons/fa"
+import { BiLogOutCircle } from "react-icons/bi"
+import { useState } from "react"
+
 
 export const Header:React.FC = () => {
     const [openedSubscription, manageSubscription] = useDisclosure(false)
     const [openedConnection, manageConnection] = useDisclosure(false)
+    const [hidden, setHidden] = useState(true)
+
+    function changeHidden(){
+        setHidden(!hidden)
+    }
 
     const { authentifiateUser} = useAuthentification()
-
+    console.log(authentifiateUser)
     const disconnect = () => {
         sessionStorage.removeItem("UserAuthentifiate")
         window.location.reload()
@@ -23,9 +33,30 @@ export const Header:React.FC = () => {
 
     if(Object.keys(authentifiateUser).length>0){
         return(
-            <div>
-                <p>hello {authentifiateUser.getUsername()}</p>
-                <Button onClick={disconnect} size="md">Déconnexion</Button>
+            <div className="flex justify-between items-center">
+                <img src={logoTravel} />
+                <div className="relative">
+                    <div className="cursor-pointer" onClick={changeHidden}>
+                    <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
+                        <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
+                            <IoChevronDown color={"#8C3616"} />
+                        </div>
+                    </div>
+                    <div>
+                        <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 ${hidden && "hidden"}`}>
+                            <ul className="w-fill">
+                                <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                    <FaUser size={"25px"}  />
+                                    <p className="text-2xl font-bold">Profil </p>
+                                </li>
+                                <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                    <BiLogOutCircle size={"25px"}  />
+                                    <p className="text-2xl font-bold">Déconnexion </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
