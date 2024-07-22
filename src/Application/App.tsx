@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
+import { useAuthentification } from "../Module/Authentification/authentification.hook"
 
 export function App() {
 
+  const { authentifiateUser } = useAuthentification()
+
+  console.log(authentifiateUser)
   
   return (
     <div className="p-11">

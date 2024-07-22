@@ -24,6 +24,7 @@ export class AuthentificationServices{
         const responseServer:AxiosResponse = await this.submitAuthentification(data) as AxiosResponse
         if(responseServer.status === 200){
             authentificationService.updateAuthentifiateUser(AuthentifiateUser.createAuthentifiateUser(responseServer))
+            sessionStorage.setItem("UserAuthentifiate",JSON.stringify(responseServer))
         }
 
         console.log(responseServer)
