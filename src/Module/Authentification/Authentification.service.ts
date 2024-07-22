@@ -5,6 +5,7 @@ import { AxiosServices } from "../HTTP/axios.services";
 import { AxiosResponse } from "axios";
 import { authentificationStore, AuthentificationStore } from "./Authentification.store";
 import { AxiosResponseError } from "../HTTP/axiosResponseError.dto";
+
 export class AuthentificationServices{
 
     constructor(
@@ -24,7 +25,8 @@ export class AuthentificationServices{
         const data: authentificationRequestData = JSON.parse(JSON.stringify(formJSON))
         const responseServer:AxiosResponse = await this.submitAuthentification(data) as AxiosResponse
         if(responseServer.status === 200){
-            authentificationService.updateAuthentifiateUser(AuthentifiateUser.createAuthentifiateUser(responseServer))
+            const user : AuthentifiateUser= AuthentifiateUser.createAuthentifiateUser(responseServer)
+            authentificationService.updateAuthentifiateUser(user)
             sessionStorage.setItem("UserAuthentifiate",JSON.stringify(responseServer))
         }
         return  AxiosResponseError.createNewResponseError(responseServer.data, responseServer.status)

@@ -23,6 +23,7 @@ import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelC
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/Button"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
+import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
 
 export function AddPlace() {
 
@@ -30,6 +31,7 @@ export function AddPlace() {
   const [msg, setMsg] = useState<string>("")
   const { filesTab } = useImageManagement()
   const {hotelCategorie} = useCategorieSelector()
+  const { responseServer } = useResponseAxios()
 
   const changeCategorie = (value:string) => {
     setCategorie(value)
@@ -71,7 +73,7 @@ export function AddPlace() {
           <Input placeholder="standard@capucine.fr" name="email" label="Adresse mail"/>
           <Input placeholder="01.01.01.01.01" name="phone" label="Numéro" />
           <TextArea placeholder="Notre restaurant vous acceuille du ..." label="Description*" name="describe" size="xl" />
-          <p>{msg}</p>
+          <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
       </div>
       <div className="flex flex-col gap-6">
         <SupplementaryInfo categorie={categorie} />
