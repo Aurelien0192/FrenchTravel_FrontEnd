@@ -14,6 +14,15 @@ export class AxiosServices{
         }
     }
 
+    static async getDataFromDatabase<T>(path:string){
+        try{
+            const response = await http.get<T>(path)
+            return response.data
+        }catch(e){
+            console.log(e)
+        }
+    }
+
     /* fonction permettant le post d'image via la méthode post sur le server via axios */
     static async postImages(photos:Array<File>,place_id:string){
         try{

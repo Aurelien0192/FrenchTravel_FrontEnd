@@ -1,5 +1,5 @@
-import { moreInfo, placeSubmit } from "./Place.type"
-
+import { moreInfo, place, placeSubmit } from "./Place.type"
+import { image } from "../Image/Image.type"
 export class PlaceToSubmit{
     public name: string
     public categorie: string
@@ -93,4 +93,117 @@ export class PlaceToSubmit{
         return new_placeToSubmit
     }
 
+}
+
+export class Place{
+    private readonly id: string
+    private name : string
+    private categorie: string
+    private typeOfPlace: Array<string>
+    private describe : string
+    private email: string
+    private phone : string
+    private moreInfo : moreInfo
+    private street : string
+    private city: string
+    private codePostal: string
+    private county: string
+    private country: string
+    private latCoordinate: string
+    private lonCoordinate: string
+    private notation:number
+    private images : Array<image>
+
+    constructor(placeFromApi : place){
+        this.id = placeFromApi._id
+        this.name = placeFromApi.name
+        this.categorie = placeFromApi.categorie
+        this.typeOfPlace = placeFromApi.typeOfPlace
+        this.describe = placeFromApi.describe
+        this.email = placeFromApi.email
+        this.phone = placeFromApi.phone
+        this.moreInfo = placeFromApi.moreInfo
+        this.street = placeFromApi.street
+        this.city = placeFromApi.city
+        this.codePostal = placeFromApi.codePostal
+        this.county = placeFromApi.county
+        this.country = placeFromApi.country
+        this.latCoordinate = placeFromApi.latCoordinate
+        this.lonCoordinate = placeFromApi.lonCoordinate
+        this.notation = placeFromApi.notation
+        this.images = placeFromApi.images
+    }
+
+    getId(){
+        return this.id
+    }
+
+    getName(){
+        return this.name
+    }
+
+    getCategorie(){
+        return this.categorie
+    }
+
+    getTypeOfPlace(){
+        return this.typeOfPlace
+    }
+
+    getDescribe(){
+        return this.describe
+    }
+
+    getEmail(){
+        return this.email
+    }
+
+    getPhone(){
+        return this.phone
+    }
+
+    getMoreInfo(){
+        return this.moreInfo
+    }
+    
+    getStreet(){
+        return this.street
+    }
+
+    getCity(){
+        return this.city
+    }
+
+    getCodePostal(){
+        return this.codePostal
+    }
+
+    getCounty(){
+        return this.county
+    }
+
+    getCountry(){
+        return this.country
+    }
+
+    getLatCoordinate(){
+        return this.latCoordinate
+    }
+
+    getLonCoordinate(){
+        return this.lonCoordinate
+    }
+
+    getNotation(){
+        return this.notation
+    }
+
+    getImage(){
+        return this.images
+    }
+
+    static createNewPlace(placeApi : place):Place{
+        const newPlace = new Place(placeApi)
+        return newPlace
+    }
 }

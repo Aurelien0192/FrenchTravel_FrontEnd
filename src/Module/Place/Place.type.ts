@@ -1,3 +1,5 @@
+import { image } from "../Image/Image.type"
+
 export type moreInfo = {
     schedules?: Array<schedules>
     duration?: number
@@ -51,4 +53,28 @@ export type placeSubmit = {
     typeOfPlace: Array<string>
     email: string
     bookingLink: string
+}
+
+export type place = {
+    _id : string
+    name : string,
+    categorie: string,
+    typeOfPlace: Array<string>
+    email: string
+    phone:string
+    describe : string,
+    moreInfo : moreInfo,
+    street : string,
+    city: string,
+    codePostal: string,
+    county: string,
+    country: string,
+    latCoordinate: string,
+    lonCoordinate: string,
+    create_at: Date,
+    owner: string,
+    notation:number,
+    images : Array<image>
+
+
 }
