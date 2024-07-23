@@ -43,7 +43,7 @@ export const Header:React.FC = () => {
                     </div>
                     {!hidden &&(
                         <div ref={ref}>
-                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0`}>
+                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <FaUser size={"25px"}  />

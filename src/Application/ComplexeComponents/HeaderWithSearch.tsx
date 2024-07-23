@@ -10,9 +10,9 @@ import { FaUser } from "react-icons/fa"
 import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
 import { NavLinkButton } from "../Components/NavLinkButton"
-import { Input } from "../Components/Input"
-import logoSearch from "../../../public/Logo/Search.svg"
 import { MdAddBusiness } from "react-icons/md"
+import { NavLink } from "react-router-dom"
+import { SearchBar } from "../Components/SearchBar"
 
 
 export const HeaderWithSearch:React.FC = () => {
@@ -33,10 +33,7 @@ export const HeaderWithSearch:React.FC = () => {
             <div className="flex items-center gap-14">
                 <img src={logoTravel} />
                 <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
-                <form className="flex w-full">
-                    <Input placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" name="search" forcefull={true} label="" icon={logoSearch} />
-                    <Button size="xs">Rechercher</Button>
-                </form>
+                <SearchBar />
                 <div className="relative ">
                     <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
                     <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
@@ -46,15 +43,17 @@ export const HeaderWithSearch:React.FC = () => {
                     </div>
                     {!hidden &&(
                         <div ref={ref}>
-                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0`}>
+                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <FaUser size={"25px"}  />
                                         <p className="text-2xl font-bold">Profil </p>
                                     </li>
-                                    <li>
-                                        <MdAddBusiness size={'25px'} />
-                                        <p className="text-2xl font-bold">Ajouter un lieu</p>
+                                    <li >
+                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/AddPlace">
+                                            <MdAddBusiness size={'25px'} />
+                                            <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
+                                        </NavLink>
                                     </li>
                                     <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <BiLogOutCircle size={"25px"}  />
@@ -71,10 +70,7 @@ export const HeaderWithSearch:React.FC = () => {
         <div className="flex items-center gap-14">
             <img src={logoTravel} />
             <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
-                <form className="flex w-full">
-                    <Input placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" name="search" forcefull={true} label="" icon={logoSearch} />
-                    <Button size="xs">Rechercher</Button>
-                </form>
+                <SearchBar />
             <div className="flex gap-3 mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
