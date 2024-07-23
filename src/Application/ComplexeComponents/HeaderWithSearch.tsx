@@ -32,10 +32,10 @@ export const HeaderWithSearch:React.FC = () => {
             <div className="flex items-center gap-14">
                 <img src={logoTravel} />
                 <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
-                <div className="flex w-full">
+                <form className="flex w-full">
                     <Input placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" name="search" forcefull={true} label="" icon={logoSearch} />
                     <Button size="xs">Rechercher</Button>
-                </div>
+                </form>
                 <div className="relative ">
                     <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
                     <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
@@ -63,8 +63,13 @@ export const HeaderWithSearch:React.FC = () => {
         )
     }
     return(
-        <div className="flex justify-between items-center">
+        <div className="flex items-center gap-14">
             <img src={logoTravel} />
+            <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
+                <form className="flex w-full">
+                    <Input placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" name="search" forcefull={true} label="" icon={logoSearch} />
+                    <Button size="xs">Rechercher</Button>
+                </form>
             <div className="flex gap-3 mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
