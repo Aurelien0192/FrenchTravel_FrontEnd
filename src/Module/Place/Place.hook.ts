@@ -3,17 +3,17 @@ import { placeStore } from "./Place.store"
 import { Place } from "./Place.class"
 import { placeService } from "./Place.services"
 
-export const usePlaceToDisplay = () =>{
-    const[placeTab, setPlacesTab] = useState<Array<Place>>([])
+export const usePlaceToDisplayInFirstPage = () =>{
+    const[placesFirstPage, setPlacesFirstPage] = useState<Array<Place>>([])
 
     useEffect(()=>{
-        placeService.updatePlace('/place/669f589f75435542ceef47ea')
-        const placesToDisplay = placeStore.places$().subscribe((newPlacesTab) => {
-            setPlacesTab([...newPlacesTab])
+        placeService.getPlace('/places/random')
+        const placesToDisplayInFirstPage = placeStore.places$().subscribe((newPlacesTab) => {
+            setPlacesFirstPage([...newPlacesTab])
         })
 
-        return(() => {placesToDisplay.unsubscribe()})
+        return(() => {placesToDisplayInFirstPage.unsubscribe()})
     },[])
 
-    return { placeTab }
+    return { placesFirstPage }
 }

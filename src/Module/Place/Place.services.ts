@@ -9,9 +9,9 @@ export class PlaceServices{
         private _placeStore: PlaceStore
     ){}
 
-    async updatePlace(path:string){
-        const placeApi:place = await AxiosServices.getDataFromDatabase(path) as place
-        const place:Array<Place> = [Place.createNewPlace(placeApi)]
+    async getPlace(path:string){
+        const placeApi:Array<place> = await AxiosServices.getDataFromDatabase(path) as Array<place>
+        const place:Array<Place>=  placeApi.map((e) => {return Place.createNewPlace(e)})
         this._placeStore.places$().next(place)
     }
 
