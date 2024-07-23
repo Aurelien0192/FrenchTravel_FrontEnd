@@ -21,8 +21,8 @@ export const NavLinkButton:React.FC<navLinkButtonProps> = (props) => {
 
     return(
         <NavLink 
-            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} ${props.size === "xs" ? "h-7": "py-4"} 
-                ${props.disabled && " hidden"}`} 
+            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} ${props.size === "xs" ? "h-7 py-[2px]": "py-4"} 
+                ${props.disabled && " hidden"} rounded-lg w-fit px-4`} 
             onClick={action}
             to={props.to}
         >{props.children}</NavLink>

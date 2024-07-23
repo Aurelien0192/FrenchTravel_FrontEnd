@@ -4,7 +4,7 @@ import { Header } from "../ComplexeComponents/Header"
 export const Index:React.FC =() => {
 
     return(
-        <div className="px-14">
+        <div className="px-14 flex flex-col gap-7">
             <Header />
             <Outlet />
         </div>

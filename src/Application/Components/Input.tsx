@@ -11,16 +11,20 @@ type inputProps = {
     label: string
     type?: "password"|undefined
     flexDirection? : "flex-col"|undefined
+    icon?:string
+    forcefull?:boolean //only if flexDirection
 }
 
 export const Input:React.FC<inputProps> = (props) => {
     return(
-        <label className={`flex ${props.flexDirection === "flex-col"? "flex-col gap-[5px] items-start":"justify-between items-center"} `}>
+        <label className={`flex ${props.flexDirection === "flex-col"? "flex-col gap-[5px] items-start":"justify-between items-center"} w-full`}>
             {props.label}
-            <input type={props.type? props.type:"text"}
-            name={props.name}
-            className={`${props.flexDirection==="flex-col"?"w-full":"w-9/12"} h-[26px] rounded-md shadow px-2`} 
-            placeholder={props.placeholder}></input>
+            <div className={`${props.flexDirection==="flex-col"?"w-full":`${props.forcefull? "w-full":"w-9/12"}`} flex h-[26px] rounded-md shadow px-2`}>
+                <img src={props.icon} />
+                <input className="w-full" type={props.type? props.type:"text"}
+                    name={props.name} 
+                    placeholder={props.placeholder}></input>
+            </div>
           </label>
     )
 }
