@@ -5,7 +5,7 @@
 import { Button } from "../Components/Button"
 import logoTravel from "../../../public/Logo/logoTravel 1.svg"
 import { Modal } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
+import { useClickOutside, useDisclosure } from "@mantine/hooks"
 import { SubscriptionFormular } from "./SubscriptionFormular"
 import { ConnectionFormular } from "./ConnectionFomular"
 import { useAuthentification } from "../../Module/Authentification/authentification.hook"
@@ -19,10 +19,7 @@ export const Header:React.FC = () => {
     const [openedSubscription, manageSubscription] = useDisclosure(false)
     const [openedConnection, manageConnection] = useDisclosure(false)
     const [hidden, setHidden] = useState(true)
-
-    function changeHidden(){
-        setHidden(!hidden)
-    }
+    const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
     console.log(authentifiateUser)
@@ -36,26 +33,27 @@ export const Header:React.FC = () => {
             <div className="flex justify-between items-center">
                 <img src={logoTravel} />
                 <div className="relative">
-                    <div className="cursor-pointer" onClick={changeHidden}>
+                    <div className="cursor-pointer" onClick={() => setHidden(false)}>
                     <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
                         <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
                             <IoChevronDown color={"#8C3616"} />
                         </div>
                     </div>
-                    <div>
-                        <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 ${hidden && "hidden"}`}>
-                            <ul className="w-fill">
-                                <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                    <FaUser size={"25px"}  />
-                                    <p className="text-2xl font-bold">Profil </p>
-                                </li>
-                                <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                    <BiLogOutCircle size={"25px"}  />
-                                    <p className="text-2xl font-bold">Déconnexion </p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    {!hidden &&(
+                        <div ref={ref}>
+                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0`}>
+                                <ul className="w-fill">
+                                    <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                        <FaUser size={"25px"}  />
+                                        <p className="text-2xl font-bold">Profil </p>
+                                    </li>
+                                    <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                        <BiLogOutCircle size={"25px"}  />
+                                        <p className="text-2xl font-bold">Déconnexion </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>)}
                 </div>
             </div>
         )
