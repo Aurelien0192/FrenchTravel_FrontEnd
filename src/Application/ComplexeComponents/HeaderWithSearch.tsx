@@ -12,6 +12,7 @@ import { useState } from "react"
 import { NavLinkButton } from "../Components/NavLinkButton"
 import { Input } from "../Components/Input"
 import logoSearch from "../../../public/Logo/Search.svg"
+import { MdAddBusiness } from "react-icons/md"
 
 
 export const HeaderWithSearch:React.FC = () => {
@@ -50,6 +51,10 @@ export const HeaderWithSearch:React.FC = () => {
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <FaUser size={"25px"}  />
                                         <p className="text-2xl font-bold">Profil </p>
+                                    </li>
+                                    <li>
+                                        <MdAddBusiness size={'25px'} />
+                                        <p className="text-2xl font-bold">Ajouter un lieu</p>
                                     </li>
                                     <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <BiLogOutCircle size={"25px"}  />

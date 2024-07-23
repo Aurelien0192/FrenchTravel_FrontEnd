@@ -13,6 +13,8 @@ import { IoChevronDown } from "react-icons/io5";
 import { FaUser } from "react-icons/fa"
 import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
+import { MdAddBusiness } from "react-icons/md"
+import { NavLink } from "react-router-dom"
 
 
 export const Header:React.FC = () => {
@@ -46,6 +48,12 @@ export const Header:React.FC = () => {
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <FaUser size={"25px"}  />
                                         <p className="text-2xl font-bold">Profil </p>
+                                    </li>
+                                    <li >
+                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/AddPlace">
+                                            <MdAddBusiness size={'25px'} />
+                                            <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
+                                        </NavLink>
                                     </li>
                                     <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <BiLogOutCircle size={"25px"}  />
