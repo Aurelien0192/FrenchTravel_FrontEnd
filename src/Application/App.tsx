@@ -13,7 +13,15 @@ export function App() {
         <div className="flex flex-col gap-3 w-full">
           <h1 className=" font-bold text-2xl text-start gap-3" >Activité à découvrir</h1>
           <div className="flex gap-5">
-            {placesFirstPage.length>0 ? placesFirstPage.map((e, index) => {
+            {placesFirstPage['activity'].length>0 ? placesFirstPage['activity'].map((e, index) => {
+              return (<PlaceDisplayLittleCard key={index} place={e} />)
+            }) : <Loader color="#D98D30" />}
+          </div>
+        </div>
+        <div className="flex flex-col gap-3 w-full">
+          <h1 className=" font-bold text-2xl text-start gap-3" >Restaurant à découvrir</h1>
+          <div className="flex gap-5">
+            {placesFirstPage['restaurant'].length>0 ? placesFirstPage['restaurant'].map((e, index) => {
               return (<PlaceDisplayLittleCard key={index} place={e} />)
             }) : <Loader color="#D98D30" />}
           </div>
