@@ -6,15 +6,16 @@ import { placeService } from "./Place.services"
 type PlacesTabToFirstPage = {
     restaurant : Array<Place>
     activity : Array<Place>
+    hotel: Array<Place>
 }
 
 export const usePlaceToDisplayInFirstPage = () =>{
-    const[placesFirstPage, setPlacesFirstPage] = useState<PlacesTabToFirstPage>({restaurant:[],activity:[]})
+    const[placesFirstPage, setPlacesFirstPage] = useState<PlacesTabToFirstPage>({restaurant:[],activity:[],hotel:[]})
 
     useEffect(()=>{
         placeService.getPlace('/places/random')
         const placesToDisplayInFirstPage = placeStore.places$().subscribe((newPlacesTab) => {
-            const PlacesTabToFirstPage: PlacesTabToFirstPage = {restaurant:[],activity:[]}
+            const PlacesTabToFirstPage: PlacesTabToFirstPage = {restaurant:[],activity:[],hotel:[]}
             newPlacesTab.forEach((place) => {
                 PlacesTabToFirstPage[place.getCategorie()].push(place)
             })
