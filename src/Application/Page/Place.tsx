@@ -4,6 +4,8 @@ import { Place } from "../../Module/Place/Place.class"
 import { PlaceServices } from "../../Module/Place/Place.services"
 import { Loader } from "@mantine/core"
 import { IoChevronBackOutline, IoChevronForwardOutline } from "react-icons/io5"
+import { TypePlaceLabel } from "../Components/TypePlaceLabel"
+import { Button } from "../Components/Button"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -38,11 +40,28 @@ export const PlacePage:React.FC = () => {
     if(dataOnePlace){
 
         return(
-            <div>
-                <h1 className="text-2xl font-bold">{dataOnePlace.getName()}</h1>
-                <p>{`${dataOnePlace.getCountry()} > ${dataOnePlace.getCounty()} > ${dataOnePlace.getCity()}`}</p>
-                <div className="flex gap-5">
-                    <p>{dataOnePlace.getDescribe()}</p>
+            <div className="flex flex-col gap-11">
+                <div>
+                    <div className="flex justify-between">
+                        <div className="flex flex-col">
+                            <h1 className="text-2xl font-bold">{dataOnePlace.getName()}</h1>
+                            <p>{`${dataOnePlace.getCountry()} > ${dataOnePlace.getCounty()} > ${dataOnePlace.getCity()}`}</p>
+                            <Button size="xs">contact</Button>
+                        </div>
+                        <div className="flex gap-3">
+                            <TypePlaceLabel labelName={dataOnePlace.getCategorie()} />
+                            {dataOnePlace.getTypeOfPlace().length> 0 && dataOnePlace.getTypeOfPlace().map((typeOfPlace) => {
+                                return(
+                                    <div>
+                                        { typeOfPlace.length > 0 && <TypePlaceLabel labelName={typeOfPlace} />}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </div>
+                <div className="flex justify-between">
+                    <p className="w-[700px]">{dataOnePlace.getDescribe()}</p>
                     <div className="w-[776px] h-[407px]">
                     <div className="relative w-[776px] h-[407px] overflow-clip">
                         <div style={{
