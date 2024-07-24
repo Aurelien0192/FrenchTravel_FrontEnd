@@ -51,7 +51,7 @@ export const HeaderWithSearch:React.FC = () => {
                                         <p className="text-2xl font-bold">Profil </p>
                                     </li>
                                     <li >
-                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/AddPlace">
+                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/index/AddPlace">
                                             <MdAddBusiness size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
                                         </NavLink>
