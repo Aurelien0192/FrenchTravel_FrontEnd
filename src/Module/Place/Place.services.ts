@@ -9,10 +9,17 @@ export class PlaceServices{
         private _placeStore: PlaceStore
     ){}
 
-    async getPlace(path:string){
+    async getManyPlace(path:string){
         const placeApi:Array<place> = await AxiosServices.getDataFromDatabase(path) as Array<place>
         const place:Array<Place>=  placeApi.map((e) => {return Place.createNewPlace(e)})
         this._placeStore.places$().next(place)
+    }
+
+    static async getOnePlace(path:string): Promise<Place>{
+        const placeApi:place = await AxiosServices.getDataFromDatabase(path) as place
+        console.log(placeApi)
+        const place = Place.createNewPlace(placeApi)
+        return place
     }
 
     static async postNewPlace(photos:Array<File>,data: placeSubmit){

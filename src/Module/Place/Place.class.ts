@@ -132,6 +132,13 @@ export class Place{
         this.lonCoordinate = placeFromApi.lonCoordinate
         this.notation = placeFromApi.notation
         this.images = placeFromApi.images
+        this.setImagesPath()
+    }
+
+    setImagesPath(){
+        this.images.forEach((image)=>{
+            image.path = "http://localhost:3001/"+image.path
+        })
     }
 
     getId(){

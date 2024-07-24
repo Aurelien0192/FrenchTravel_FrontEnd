@@ -13,7 +13,7 @@ export const usePlaceToDisplayInFirstPage = () =>{
     const[placesFirstPage, setPlacesFirstPage] = useState<PlacesTabToFirstPage>({restaurant:[],activity:[],hotel:[]})
 
     useEffect(()=>{
-        placeService.getPlace('/places/random')
+        placeService.getManyPlace('/places/random')
         const placesToDisplayInFirstPage = placeStore.places$().subscribe((newPlacesTab) => {
             const PlacesTabToFirstPage: PlacesTabToFirstPage = {restaurant:[],activity:[],hotel:[]}
             newPlacesTab.forEach((place) => {

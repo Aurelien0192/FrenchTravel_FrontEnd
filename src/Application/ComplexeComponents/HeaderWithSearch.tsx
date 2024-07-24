@@ -11,7 +11,7 @@ import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
 import { NavLinkButton } from "../Components/NavLinkButton"
 import { MdAddBusiness } from "react-icons/md"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { SearchBar } from "../Components/SearchBar"
 
 
@@ -19,6 +19,7 @@ export const HeaderWithSearch:React.FC = () => {
     const [openedSubscription, manageSubscription] = useDisclosure(false)
     const [openedConnection, manageConnection] = useDisclosure(false)
     const [hidden, setHidden] = useState(true)
+    const navigate = useNavigate()
     const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
@@ -32,11 +33,11 @@ export const HeaderWithSearch:React.FC = () => {
         return(
             <div className="flex items-center gap-14">
                 <img src={logoTravel} />
-                <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
+                <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
                 <SearchBar />
                 <div className="relative ">
                     <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
-                    <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
+                        <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
                         <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
                             <IoChevronDown color={"#8C3616"} />
                         </div>
