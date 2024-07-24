@@ -1,4 +1,3 @@
-import { Loader } from "@mantine/core"
 import { Place } from "../../Module/Place/Place.class"
 import { NavLink } from "react-router-dom"
 
@@ -7,7 +6,6 @@ type propsPlaceDisplayLittleCard = {
 }
 
 export const PlaceDisplayLittleCard:React.FC<propsPlaceDisplayLittleCard> = (props) =>{
-    if(props.place){
     return(
         <NavLink to='' className=" flex flex-col gap-2 shadow rounded-xl w-full h-[396px] p-[10px]">
             <div className="relative h-64">
@@ -19,10 +17,5 @@ export const PlaceDisplayLittleCard:React.FC<propsPlaceDisplayLittleCard> = (pro
                 <p className="text-wrap truncate h-5/6 ">{props.place.getDescribe()}</p>
             </div>
         </NavLink>
-    )}else
-    return(
-        <div className="shadow rounded-xl w-[430px] h-[396px]">
-            <Loader />
-        </div>
     )
 }
