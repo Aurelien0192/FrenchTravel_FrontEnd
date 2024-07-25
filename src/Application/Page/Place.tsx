@@ -124,14 +124,40 @@ export const PlacePage:React.FC = () => {
                         </div>
                         }
                 </div>
-                <div>
-                    <div>
-                        <h2 className="font-bold uppercase"> Activités similaires aux alentours</h2>
+                <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-3">
+                        <h2 className="font-bold uppercase"> Activités aux alentours</h2>
                         <div className="flex gap-3">
                             {placesFirstPage ? 
                                 placesFirstPage.activity.map((place, index) => {
                                     return(
-                                        <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                        dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                    )
+                                }):
+                                <Loader />
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="font-bold uppercase"> Hôtels aux alentours</h2>
+                        <div className="flex gap-3">
+                            {placesFirstPage ? 
+                                placesFirstPage.hotel.map((place, index) => {
+                                    return(
+                                        dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                    )
+                                }):
+                                <Loader />
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
+                        <div className="flex gap-3">
+                            {placesFirstPage ? 
+                                placesFirstPage.restaurant.map((place, index) => {
+                                    return(
+                                        dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
                                     )
                                 }):
                                 <Loader />
