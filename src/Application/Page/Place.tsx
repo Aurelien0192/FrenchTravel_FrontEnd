@@ -15,6 +15,7 @@ import { useClickOutside } from "@mantine/hooks"
 import { MoreInfoHotel } from "../ComplexeComponents/MoreInfoHotel.tsx"
 import { MoreInfoRestaurant } from "../ComplexeComponents/MoreInfoRestaurant.tsx"
 import { usePlaceToDisplayInFirstPage } from "../../Module/Place/Place.hook.ts"
+import { PlaceDisplayLittleCard } from "../ComplexeComponents/PlaceDisplayLittleCards.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -33,7 +34,7 @@ export const PlacePage:React.FC = () => {
             setDataOnePlace(dataPlace)
         }
         getPlace()
-    },[])
+    },[id])
 
     if(dataOnePlace){
         return(
@@ -122,6 +123,21 @@ export const PlacePage:React.FC = () => {
                             }
                         </div>
                         }
+                </div>
+                <div>
+                    <div>
+                        <h2 className="font-bold uppercase"> Activités similaires aux alentours</h2>
+                        <div className="flex gap-3">
+                            {placesFirstPage ? 
+                                placesFirstPage.activity.map((place, index) => {
+                                    return(
+                                        <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                    )
+                                }):
+                                <Loader />
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         )
