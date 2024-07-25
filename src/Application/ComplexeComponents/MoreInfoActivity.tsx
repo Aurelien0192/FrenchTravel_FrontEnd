@@ -20,7 +20,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                                 <p>{dayName}</p>
                                 <p>{props.moreInfos.schedules ?
                                         props.moreInfos.schedules[index].open.length> 0 ?
-                                            `${props.moreInfos.schedules[index].open} - ${props.moreInfos.schedules[index].open}`:
+                                            `${props.moreInfos.schedules[index].open} - ${props.moreInfos.schedules[index].close}`:
                                             'non renseigné':
                                         'non renseigné'
                                     }

@@ -12,6 +12,7 @@ import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagem
 import { AxiosServices } from "../../Module/HTTP/axios.services"
 import { useAuthentification } from "../../Module/Authentification/authentification.hook.ts"
 import { MoreInfoActivity } from "../ComplexeComponents/MoreInfoActivity.tsx"
+import { useClickOutside } from "@mantine/hooks"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -20,6 +21,8 @@ export const PlacePage:React.FC = () => {
 
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
     const [photoOpen, photoOpenController] = useDisclosure()
+    const [hiddenContact, setHiddenContact] = useState<boolean>(true)
+    const ref = useClickOutside(() => setHiddenContact(true))
     const {filesTab} = useImageManagement()
     console.log(AuthentifiateUser)
 
@@ -36,11 +39,11 @@ export const PlacePage:React.FC = () => {
             <div className="flex flex-col gap-14">
                 <div className="flex flex-col gap-11">
                     <div>
-                        <div className="flex justify-between">
+                        <div className="flex relative justify-between">
                             <div className="flex flex-col">
                                 <h1 className="text-2xl font-bold">{dataOnePlace.getName()}</h1>
                                 <p>{`${dataOnePlace.getCountry()} > ${dataOnePlace.getCounty()} > ${dataOnePlace.getCity()}`}</p>
-                                <Button size="xs">contact</Button>
+                                <Button onClick={() => setHiddenContact(false)} size="xs">contact</Button>
                             </div>
                             <div className="flex gap-3">
                                 <TypePlaceLabel labelName={dataOnePlace.getCategorie()} />
@@ -52,6 +55,31 @@ export const PlacePage:React.FC = () => {
                                     )
                                 })}
                             </div>
+                            {!hiddenContact &&
+                                <div className="absolute top-24 left-3 bg-white rounded-xl shadow-xl p-3" ref={ref}>
+                                    <ul className="flex flex-col gap-3">
+                                        <li className="flex gap-3">
+                                            <p className="font-bold">Adresse : </p>
+                                            <div className="flex flex-col items-end">
+                                                <p>{dataOnePlace.getStreet()}</p>
+                                                <p>{`${dataOnePlace.getCodePostal()} ${dataOnePlace.getCity()}`}</p>
+                                            </div>
+                                        </li>
+                                        <li className="flex justify-between">
+                                            <p className="font-bold">Téléphone : </p>
+                                            <div className="flex flex-col items-end">
+                                                <p>{dataOnePlace.getPhone().length>0 ? dataOnePlace.getPhone() : "non renseigné"}</p>
+                                            </div>
+                                        </li>
+                                        <li className="flex justify-between">
+                                            <p className="font-bold">E-mail : </p>
+                                            <div className="flex flex-col items-end">
+                                                <p>{dataOnePlace.getEmail().length>0 ? dataOnePlace.getEmail() : "non renseigné"}</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
                         </div>
                     </div>
                     <div className="flex justify-between">
