@@ -98,7 +98,7 @@ export class PlaceToSubmit{
 export class Place{
     private readonly id: string
     private name : string
-    private categorie: "activity"|"restaurant"
+    private categorie: "activity"|"restaurant"|"hotel"
     private typeOfPlace: Array<string>
     private describe : string
     private email: string

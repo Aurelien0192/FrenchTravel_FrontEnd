@@ -13,6 +13,7 @@ import { AxiosServices } from "../../Module/HTTP/axios.services"
 import { useAuthentification } from "../../Module/Authentification/authentification.hook.ts"
 import { MoreInfoActivity } from "../ComplexeComponents/MoreInfoActivity.tsx"
 import { useClickOutside } from "@mantine/hooks"
+import { MoreInfoHotel } from "../ComplexeComponents/MoreInfoHotel.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -111,7 +112,14 @@ export const PlacePage:React.FC = () => {
                     </Modal>
                 </div>
                 <div>
-                    <h2 className="text-2xl font-bold">Infos pratiques</h2>
+                    {dataOnePlace.getCategorie() !== "activity" &&
+                        <div className="flex flex-col gap-4"> 
+                            <h2 className="text-2xl font-bold">Infos pratiques</h2>
+                            {
+                                dataOnePlace.getCategorie() ==="hotel" && <MoreInfoHotel moreInfos={dataOnePlace.getMoreInfo()} />
+                            }
+                        </div>
+                        }
                 </div>
             </div>
         )
