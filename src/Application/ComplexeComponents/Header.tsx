@@ -85,7 +85,7 @@ export const Header:React.FC = () => {
                     <SubscriptionFormular/>
                 </Modal>
                 <Modal
-                opened={openedConnection}
+                    opened={openedConnection}
                     onClose={manageConnection.close}
                     centered
                     overlayProps={{
