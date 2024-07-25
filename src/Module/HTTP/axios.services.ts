@@ -14,9 +14,9 @@ export class AxiosServices{
         }
     }
 
-    static async getDataFromDatabase<T>(path:string){
+    static async getDataFromDatabase<T>(path:string,data?:object){
         try{
-            const response = await http.get<T>(path)
+            const response = await http.get<T>(path,data && data)
             return response.data
         }catch(e){
             console.log(e)

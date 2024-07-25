@@ -19,9 +19,9 @@ export const Carroussel:React.FC<carrousselProps> = (props) => {
                 }} 
                 className={`absolute flex gap-5 `}
                 >
-                    {props.imagesTab.map((image) => {
+                    {props.imagesTab.map((image, index) => {
                         return(
-                            <div className="w-[716px] h-[402px] rounded-xl">
+                            <div key={index} className="w-[716px] h-[402px] rounded-xl">
                                 <img className=" rounded-xl object-cover size-full" src={image.path}></img>
                             </div>
                         )

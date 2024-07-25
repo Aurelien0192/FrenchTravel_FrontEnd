@@ -16,7 +16,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                 <ul>
                     {daysName.map((dayName,index) => {
                         return(
-                            <li className=" flex justify-between w-48">
+                            <li key={index} className=" flex justify-between w-48">
                                 <p>{dayName}</p>
                                 <p>{props.moreInfos.schedules ?
                                         props.moreInfos.schedules[index].open.length> 0 ?

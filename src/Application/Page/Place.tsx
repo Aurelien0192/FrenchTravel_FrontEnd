@@ -10,23 +10,22 @@ import { PhotosManagement } from "../ComplexeComponents/PhotosManagement"
 import { useDisclosure } from "@mantine/hooks"
 import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
 import { AxiosServices } from "../../Module/HTTP/axios.services"
-import { useAuthentification } from "../../Module/Authentification/authentification.hook.ts"
 import { MoreInfoActivity } from "../ComplexeComponents/MoreInfoActivity.tsx"
 import { useClickOutside } from "@mantine/hooks"
 import { MoreInfoHotel } from "../ComplexeComponents/MoreInfoHotel.tsx"
 import { MoreInfoRestaurant } from "../ComplexeComponents/MoreInfoRestaurant.tsx"
+import { usePlaceToDisplayInFirstPage } from "../../Module/Place/Place.hook.ts"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
-
-    const AuthentifiateUser = useAuthentification()
 
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
     const [photoOpen, photoOpenController] = useDisclosure()
     const [hiddenContact, setHiddenContact] = useState<boolean>(true)
     const ref = useClickOutside(() => setHiddenContact(true))
     const {filesTab} = useImageManagement()
-    console.log(AuthentifiateUser)
+    const { placesFirstPage } = usePlaceToDisplayInFirstPage("suggestions",{latCoordinate: dataOnePlace?.getLatCoordinate(), lonCoordinate: dataOnePlace?.getLonCoordinate()})
+    console.log(placesFirstPage)
 
     useEffect(() => {
         const getPlace = async () => {
@@ -49,9 +48,9 @@ export const PlacePage:React.FC = () => {
                             </div>
                             <div className="flex gap-3">
                                 <TypePlaceLabel labelName={dataOnePlace.getCategorie()} />
-                                {dataOnePlace.getTypeOfPlace().length> 0 && dataOnePlace.getTypeOfPlace().map((typeOfPlace) => {
+                                {dataOnePlace.getTypeOfPlace().length> 0 && dataOnePlace.getTypeOfPlace().map((typeOfPlace, index) => {
                                     return(
-                                        <div>
+                                        <div key={index}>
                                             { typeOfPlace.length > 0 && <TypePlaceLabel labelName={typeOfPlace} />}
                                         </div>
                                     )

@@ -9,8 +9,8 @@ export class PlaceServices{
         private _placeStore: PlaceStore
     ){}
 
-    async getManyPlace(path:string){
-        const placeApi:Array<place> = await AxiosServices.getDataFromDatabase(path) as Array<place>
+    async getManyPlace(path:string, body?:object){
+        const placeApi:Array<place> = await AxiosServices.getDataFromDatabase(path, body && body) as Array<place>
         const place:Array<Place>=  placeApi.map((e) => {return Place.createNewPlace(e)})
         this._placeStore.places$().next(place)
     }

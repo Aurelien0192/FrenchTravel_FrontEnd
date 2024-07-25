@@ -9,11 +9,11 @@ type PlacesTabToFirstPage = {
     hotel: Array<Place>
 }
 
-export const usePlaceToDisplayInFirstPage = () =>{
+export const usePlaceToDisplayInFirstPage = (type:string,body?:object) =>{
     const[placesFirstPage, setPlacesFirstPage] = useState<PlacesTabToFirstPage>({restaurant:[],activity:[],hotel:[]})
 
     useEffect(()=>{
-        placeService.getManyPlace('/places/random')
+        placeService.getManyPlace(`/places/${type}`,body && body)
         const placesToDisplayInFirstPage = placeStore.places$().subscribe((newPlacesTab) => {
             const PlacesTabToFirstPage: PlacesTabToFirstPage = {restaurant:[],activity:[],hotel:[]}
             newPlacesTab.forEach((place) => {

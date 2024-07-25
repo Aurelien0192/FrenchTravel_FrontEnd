@@ -5,7 +5,7 @@ import { SearchPlacesManagement } from "./ComplexeComponents/SearchPlacesManager
 
 export function App() {
 
-  const { placesFirstPage } = usePlaceToDisplayInFirstPage()
+  const { placesFirstPage } = usePlaceToDisplayInFirstPage("random")
   
   return (
     <div className="p-11 flex flex-col gap-7 items-center">
