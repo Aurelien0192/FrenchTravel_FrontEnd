@@ -17,7 +17,7 @@ export const Carroussel:React.FC<carrousselProps> = (props) => {
                     left:`-${imagePosition}px`,
                     transition : "left ease-in-out 0.5s"
                 }} 
-                className={`absolute flex pl-7m gap-5 `}
+                className={`absolute flex pl-[30px] gap-5 `}
                 >
                     {props.imagesTab.map((image, index) => {
                         return(
