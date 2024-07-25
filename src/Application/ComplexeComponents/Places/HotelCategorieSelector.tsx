@@ -3,8 +3,8 @@ pour chaque catégorie d'hotel existante (présent dans le tableau categorieHote
 Lorsque qu'une étoile est sélectionnée, selected du custom hook useCategorieSelector passe à true, changeant le comportement des étoiles.
 */
 
-import { StarHotel } from "../Components/StarsHotel"
-import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
+import { StarHotel } from "../../Components/Place/StarsHotel"
+import { useCategorieSelector } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 
 export const HotelCategorieSelector: React.FC = () => {
     const categorieHotel = [1,2,3,4,5]

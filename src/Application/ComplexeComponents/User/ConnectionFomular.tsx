@@ -1,10 +1,10 @@
 import { Checkbox } from "@mantine/core"
-import { Input } from "../Components/Input"
-import { Button } from "../Components/Button"
-import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
-import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
+import { Input } from "../../Components/General/Input"
+import { Button } from "../../Components/General/Button"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { useResponseAxios } from "../../../Module/HTTP/axiosResponse.hook"
 import { useState } from "react"
-import { AuthentificationServices } from "../../Module/Authentification/Authentification.service"
+import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
 
 export const ConnectionFormular: React.FC = () => {
 

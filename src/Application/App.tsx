@@ -1,7 +1,7 @@
 import { Loader } from "@mantine/core"
 import { usePlaceToDisplayInFirstPage } from "../Module/Place/Place.hook"
-import { PlaceDisplayLittleCard } from "./ComplexeComponents/PlaceDisplayLittleCards"
-import { SearchPlacesManagement } from "./ComplexeComponents/SearchPlacesManager"
+import { PlaceDisplayLittleCard } from "./ComplexeComponents/Places/PlaceDisplayLittleCards"
+import { SearchPlacesManagement } from "./ComplexeComponents/Places/SearchPlacesManager"
 
 export function App() {
 

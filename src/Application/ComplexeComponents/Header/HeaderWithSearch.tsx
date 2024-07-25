@@ -1,26 +1,25 @@
-/* Header Component*/
-
-
-
-import { Button } from "../Components/Button"
-import logoTravel from "../../../public/Logo/logoTravel 1.svg"
+import { Button } from "../../Components/General/Button"
+import logoTravel from "../../../../public/Logo/logoTravel 1.svg"
 import { Modal } from "@mantine/core"
 import { useClickOutside, useDisclosure } from "@mantine/hooks"
-import { SubscriptionFormular } from "./SubscriptionFormular"
-import { ConnectionFormular } from "./ConnectionFomular"
-import { useAuthentification } from "../../Module/Authentification/authentification.hook"
+import { SubscriptionFormular } from "../Places/SubscriptionFormular"
+import { ConnectionFormular } from "../User/ConnectionFomular"
+import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
 import { IoChevronDown } from "react-icons/io5";
 import { FaUser } from "react-icons/fa"
 import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
+import { NavLinkButton } from "../../Components/General/NavLinkButton"
 import { MdAddBusiness } from "react-icons/md"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { SearchBar } from "../../Components/General/SearchBar"
 
 
-export const Header:React.FC = () => {
+export const HeaderWithSearch:React.FC = () => {
     const [openedSubscription, manageSubscription] = useDisclosure(false)
     const [openedConnection, manageConnection] = useDisclosure(false)
     const [hidden, setHidden] = useState(true)
+    const navigate = useNavigate()
     const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
@@ -32,11 +31,13 @@ export const Header:React.FC = () => {
 
     if(Object.keys(authentifiateUser).length>0){
         return(
-            <div className="flex justify-between items-center">
+            <div className="flex items-center gap-14">
                 <img src={logoTravel} />
-                <div className="relative">
-                    <div className="cursor-pointer" onClick={() => setHidden(false)}>
-                    <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
+                <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
+                <SearchBar />
+                <div className="relative ">
+                    <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
+                        <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
                         <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
                             <IoChevronDown color={"#8C3616"} />
                         </div>
@@ -61,14 +62,17 @@ export const Header:React.FC = () => {
                                     </li>
                                 </ul>
                             </div>
-                        </div>)}
+                        </div>
+                    )}
                 </div>
             </div>
         )
     }
     return(
-        <div className="flex justify-between items-center">
+        <div className="flex items-center gap-14">
             <img src={logoTravel} />
+            <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
+                <SearchBar />
             <div className="flex gap-3 mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
@@ -85,7 +89,7 @@ export const Header:React.FC = () => {
                     <SubscriptionFormular/>
                 </Modal>
                 <Modal
-                    opened={openedConnection}
+                opened={openedConnection}
                     onClose={manageConnection.close}
                     centered
                     overlayProps={{

@@ -10,8 +10,8 @@ Lorsque selected est à true, le survol des étoiles n'a plus d'effet.
 Enfin si une étoile ayant une valeur supérieure ou égale à une autre étoile, cette étoile est rempli d'orange, sinon elle reste blanche(tant que selected et false) //4
      */
 
-import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
-import { hotelCategorieService } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.services"
+import { useCategorieSelector } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
+import { hotelCategorieService } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.services"
 
 type starHotelProps = {
     selected: boolean

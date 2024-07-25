@@ -1,5 +1,5 @@
 import { IoTimeOutline } from "react-icons/io5"
-import { moreInfo } from "../../Module/Place/Place.type"
+import { moreInfo } from "../../../Module/Place/Place.type"
 
 type MoreInfoActivityProps = {
     moreInfos : moreInfo

@@ -1,7 +1,7 @@
 import { IoTvSharp } from "react-icons/io5"
-import { moreInfo } from "../../Module/Place/Place.type"
+import { moreInfo } from "../../../Module/Place/Place.type"
 import { FaAccessibleIcon } from "react-icons/fa"
-import service from './../../../public/Logo/service.svg'
+import service from '../../../../public/Logo/service.svg'
 
 type MoreInfoHotelProps = {
     moreInfos : moreInfo

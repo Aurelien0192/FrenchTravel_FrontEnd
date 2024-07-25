@@ -1,4 +1,4 @@
-import logoSearch from "../../../public/Logo/Search.svg"
+import logoSearch from "../../../../public/Logo/Search.svg"
 import { Button } from "./Button"
 import { Input } from "./Input"
 

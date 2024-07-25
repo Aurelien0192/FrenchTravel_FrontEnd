@@ -1,4 +1,4 @@
-import { moreInfo } from "../../Module/Place/Place.type"
+import { moreInfo } from "../../../Module/Place/Place.type"
 
 type moreInfoRestaurantProps = {
     moreInfo : moreInfo

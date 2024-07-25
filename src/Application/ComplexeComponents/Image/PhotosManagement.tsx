@@ -9,9 +9,9 @@ photos sélectionnées et leur adresses, permettant, pour filesTab leurs envoien
 pour chaque addresse d'image stocké dans l'affichage un composant ImageDisplay est généré en lui fournissant l'adresse de l'image à afficher et son index.
 */
 
-import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
-import { imageManagementService } from "../../Module/ImageManagement.ts/ImageManagement.services"
-import { Button } from "../Components/Button"
+import { useImageManagement } from "../../../Module/ImageManagement.ts/ImageManagement.hook"
+import { imageManagementService } from "../../../Module/ImageManagement.ts/ImageManagement.services"
+import { Button } from "../../Components/General/Button"
 import { ImageDisplay } from "./ImageDisplay"
 import { MutableRefObject, useRef } from "react"
 

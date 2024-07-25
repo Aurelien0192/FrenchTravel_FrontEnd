@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { SearchBar } from "../Components/SearchBar"
-import { SelectorButton } from "../Components/SelectorButton"
+import { SearchBar } from "../../Components/General/SearchBar"
+import { SelectorButton } from "../../Components/General/SelectorButton"
 
 const Categories:Array<string> = ["Tout Rechercher","Hôtels","Restaurants","Activités"]
 

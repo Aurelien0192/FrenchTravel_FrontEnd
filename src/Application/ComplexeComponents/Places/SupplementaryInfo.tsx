@@ -4,10 +4,10 @@ En fonction de la catégorie sélectionnée par l'utilisateur (fourni par la pro
     - si hotel, affichage des champs : accessibility, equipment et services
     - si activité, affichage des champs : schedules et duration*/
 
-import { DoubleInput } from "../Components/DoubleInput"
-import { Input } from "../Components/Input"
-import { TextArea } from "../Components/TextArea"
-import { SelectInput } from "../Components/SelectInput"
+import { DoubleInput } from "../../Components/General/DoubleInput"
+import { Input } from "../../Components/General/Input"
+import { TextArea } from "../../Components/General/TextArea"
+import { SelectInput } from "../../Components/General/SelectInput"
 import { Schedules } from "./Schedules"
 import { HotelCategorieSelector } from "./HotelCategorieSelector"
 

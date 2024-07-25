@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { Header } from "../ComplexeComponents/Header"
+import { Header } from "../ComplexeComponents/Header/Header"
 
 export const Index:React.FC =() => {
 

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { HeaderWithSearch } from "../ComplexeComponents/HeaderWithSearch"
+import { HeaderWithSearch } from "../ComplexeComponents/Header/HeaderWithSearch"
 
 export const IndexWithSearch:React.FC =() => {
 

@@ -9,12 +9,12 @@ addResponseServer de la class FormularServices à pour rôle de traiter le retou
 du serveur. */
 
 import { Checkbox } from "@mantine/core"
-import { Input } from "../Components/Input"
-import { Button } from "../Components/Button"
+import { Input } from "../../Components/General/Input"
+import { Button } from "../../Components/General/Button"
 import { useState } from "react"
-import { subscriptionFormularService } from "../../Module/SubscriptionFormular/SubscriptionFormular.services"
-import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
-import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
+import { subscriptionFormularService } from "../../../Module/SubscriptionFormular/SubscriptionFormular.services"
+import { useResponseAxios } from "../../../Module/HTTP/axiosResponse.hook"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 
 
 export const SubscriptionFormular:React.FC = () => {

@@ -1,4 +1,4 @@
-import { Place } from "../../Module/Place/Place.class"
+import { Place } from "../../../Module/Place/Place.class"
 import { NavLink } from "react-router-dom"
 
 type propsPlaceDisplayLittleCard = {

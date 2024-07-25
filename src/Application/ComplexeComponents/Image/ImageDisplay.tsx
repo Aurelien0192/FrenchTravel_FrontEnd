@@ -17,8 +17,8 @@ prends deux propriétés :
   A*/
 
 import { useState } from "react"
-import { imageManagementService } from "../../Module/ImageManagement.ts/ImageManagement.services"
-import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
+import { imageManagementService } from "../../../Module/ImageManagement.ts/ImageManagement.services"
+import { useImageManagement } from "../../../Module/ImageManagement.ts/ImageManagement.hook"
 
 type imageDisplayProps = {
     fileUrl : string

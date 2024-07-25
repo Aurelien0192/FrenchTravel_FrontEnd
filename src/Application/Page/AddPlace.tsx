@@ -12,16 +12,16 @@
 */
 
 import { useState } from "react"
-import { Input } from "./..//Components/Input"
-import { SelectInput } from "./..//Components/SelectInput"
-import { DoubleInput } from "./..//Components/DoubleInput"
-import { TextArea } from "../Components/TextArea"
-import { SupplementaryInfo } from "./../ComplexeComponents/SupplementaryInfo"
-import { PhotosManagement } from "./../ComplexeComponents/PhotosManagement"
+import { Input } from "../Components/General/Input"
+import { SelectInput } from "../Components/General/SelectInput"
+import { DoubleInput } from "../Components/General/DoubleInput"
+import { TextArea } from "../Components/General/TextArea"
+import { SupplementaryInfo } from "../ComplexeComponents/Places/SupplementaryInfo"
+import { PhotosManagement } from "../ComplexeComponents/Image/PhotosManagement"
 import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
 import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
-import { Button } from "../Components/Button"
+import { Button } from "../Components/General/Button"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
 import { useResponseAxios } from "../../Module/HTTP/axiosResponse.hook"
 
