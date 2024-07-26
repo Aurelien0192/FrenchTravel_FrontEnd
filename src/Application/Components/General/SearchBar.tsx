@@ -1,14 +1,16 @@
+import { MouseEventHandler } from "react"
 import logoSearch from "../../../../public/Logo/Search.svg"
 import { Button } from "./Button"
 import { Input } from "./Input"
 
 type SearchBarProps = {
-    categorie?:string
+    onClick?: MouseEventHandler<HTMLElement>
+    onSubmit?: React.FormEventHandler<HTMLFormElement>
 }
 
-export const SearchBar: React.FC<SearchBarProps> = () => {
+export const SearchBar: React.FC<SearchBarProps> = (props) => {
     return(
-        <form className="flex w-full">
+        <form onSubmit={props.onSubmit} className="flex w-full">
             <Input 
                 placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" 
                 name="search" 
@@ -16,7 +18,7 @@ export const SearchBar: React.FC<SearchBarProps> = () => {
                 label="" 
                 icon={logoSearch} 
             />
-            <Button type="submit" size="xs">Rechercher</Button>
+            <Button type="submit" onClick={props.onClick} size="xs">Rechercher</Button>
         </form>
     )
 }
