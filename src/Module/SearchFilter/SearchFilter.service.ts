@@ -10,7 +10,7 @@ export class SearchFilterServices{
     ){}
 
     addSearchFilter(searchFilter:searchFilter){
-        const newSearchFilter =  SearchFilter.createNewSearchFilter(searchFilter)
+        const newSearchFilter:SearchFilter  =  SearchFilter.createNewSearchFilter(searchFilter)
         this._searchFilterStore.searchFilter$().next(newSearchFilter)
     }
 }

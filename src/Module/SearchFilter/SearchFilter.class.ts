@@ -1,10 +1,10 @@
 import { searchFilter } from "./SearchFilter.type"
 
 export class SearchFilter {
-    private search : string
-    private notation? : number
-    private hotelCategorie? : number
-    private categorie? : "hotel"|"restaurant"|"restaurant"
+    search : string
+    notation? : number
+    hotelCategorie? : number
+    categorie? : "hotel"|"restaurant"|"activity"
 
     constructor(newFilter:searchFilter){
         this.search = newFilter.search
@@ -13,24 +13,8 @@ export class SearchFilter {
         this.categorie = newFilter.categorie
     }
 
-    getSearch(){
-        return this.search
-    }
-
-    getNotation(){
-        return this.notation
-    }
-
-    getHotelCategorie(){
-        return this.hotelCategorie
-    }
-
-    getCategorie(){
-        return this.categorie
-    }
-
     static createNewSearchFilter(newFilter:searchFilter): SearchFilter{
-        const newSearchFilter:SearchFilter = new SearchFilter(newFilter)
+        const newSearchFilter: SearchFilter = new SearchFilter(newFilter)
         return newSearchFilter
     }
 }

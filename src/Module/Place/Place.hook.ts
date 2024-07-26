@@ -3,27 +3,32 @@ import { placeStore } from "./Place.store"
 import { Place } from "./Place.class"
 import { placeService } from "./Place.services"
 
-type PlacesTabToFirstPage = {
+type placesTab = {
     restaurant : Array<Place>
     activity : Array<Place>
     hotel: Array<Place>
+    search: Array<Place>
 }
 
-export const usePlaceToDisplayInFirstPage = (type:string,body?:object) =>{
-    const[placesFirstPage, setPlacesFirstPage] = useState<PlacesTabToFirstPage>({restaurant:[],activity:[],hotel:[]})
+export const usePlaceToDisplay = (type:string,body?:object) =>{
+    const[placeToDisplay, setPlacesFirstPage] = useState<placesTab>({restaurant:[],activity:[],hotel:[],search:[]})
 
     useEffect(()=>{
-        placeService.getManyPlace(`/places/${type}`,body && body)
-        const placesToDisplayInFirstPage = placeStore.places$().subscribe((newPlacesTab) => {
-            const PlacesTabToFirstPage: PlacesTabToFirstPage = {restaurant:[],activity:[],hotel:[]}
-            newPlacesTab.forEach((place) => {
-                PlacesTabToFirstPage[place.getCategorie()].push(place)
-            })
-            setPlacesFirstPage(PlacesTabToFirstPage)
+        placeService.getManyPlace(`/places${type}`,body && body)
+        const placesToDisplay = placeStore.places$().subscribe((newPlacesTab) => {
+            const PlacesTab: placesTab = {restaurant:[],activity:[],hotel:[],search:[]}
+            if(type){
+                newPlacesTab.forEach((place) => {
+                    PlacesTab[place.getCategorie()].push(place)
+                })
+            }else{
+                PlacesTab.search = [... newPlacesTab]
+            }
+            setPlacesFirstPage(PlacesTab)
         })
 
-        return(() => {placesToDisplayInFirstPage.unsubscribe()})
+        return(() => {placesToDisplay.unsubscribe()})
     },[])
 
-    return { placesFirstPage }
+    return { placeToDisplay }
 }

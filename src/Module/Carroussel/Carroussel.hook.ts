@@ -6,7 +6,6 @@ export const useCarroussel = () => {
 
     useEffect(()=> {
         setImagePosition(736*index)
-        console.log(index)
     },[index])
 
     function indexUp(max:number):void{

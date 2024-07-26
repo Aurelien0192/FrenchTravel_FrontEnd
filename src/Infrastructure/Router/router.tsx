@@ -4,6 +4,7 @@ import { AddPlace } from "../../Application/Page/AddPlace";
 import { Index } from "../../Application/Page/Index";
 import { IndexWithSearch } from "../../Application/Page/IndexWithSearch";
 import { PlacePage } from "../../Application/Page/Place";
+import { SearchPage } from "../../Application/Page/SearchPage";
 
 export const router = createBrowserRouter([
     {
@@ -12,6 +13,9 @@ export const router = createBrowserRouter([
         children:[{
             element: <App />,
             index:true
+        },{
+            path:"/index/search",
+            element: <SearchPage />
         }]
     },{
         path:"/index",

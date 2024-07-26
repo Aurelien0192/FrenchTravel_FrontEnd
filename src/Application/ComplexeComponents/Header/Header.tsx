@@ -24,7 +24,6 @@ export const Header:React.FC = () => {
     const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
-    console.log(authentifiateUser)
     const disconnect = () => {
         sessionStorage.removeItem("UserAuthentifiate")
         window.location.reload()

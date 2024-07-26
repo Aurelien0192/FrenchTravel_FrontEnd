@@ -14,7 +14,7 @@ import { MoreInfoActivity } from "../ComplexeComponents/Places/MoreInfoActivity.
 import { useClickOutside } from "@mantine/hooks"
 import { MoreInfoHotel } from "../ComplexeComponents/Places/MoreInfoHotel.tsx"
 import { MoreInfoRestaurant } from "../ComplexeComponents/Places/MoreInfoRestaurant.tsx"
-import { usePlaceToDisplayInFirstPage } from "../../Module/Place/Place.hook.ts"
+import { usePlaceToDisplay } from "../../Module/Place/Place.hook.ts"
 import { PlaceDisplayLittleCard } from "../ComplexeComponents/Places/PlaceDisplayLittleCards.tsx"
 
 export const PlacePage:React.FC = () => {
@@ -25,8 +25,7 @@ export const PlacePage:React.FC = () => {
     const [hiddenContact, setHiddenContact] = useState<boolean>(true)
     const ref = useClickOutside(() => setHiddenContact(true))
     const {filesTab} = useImageManagement()
-    const { placesFirstPage } = usePlaceToDisplayInFirstPage("suggestions",{latCoordinate: dataOnePlace?.getLatCoordinate(), lonCoordinate: dataOnePlace?.getLonCoordinate()})
-    console.log(placesFirstPage)
+    const { placeToDisplay } = usePlaceToDisplay("/suggestions",{latCoordinate: dataOnePlace?.getLatCoordinate(), lonCoordinate: dataOnePlace?.getLonCoordinate()})
 
     useEffect(() => {
         const getPlace = async () => {
@@ -128,8 +127,8 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Activités aux alentours</h2>
                         <div className="flex gap-3">
-                            {placesFirstPage ? 
-                                placesFirstPage.activity.map((place, index) => {
+                            {placeToDisplay ? 
+                                placeToDisplay.activity.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
                                     )
@@ -141,8 +140,8 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Hôtels aux alentours</h2>
                         <div className="flex gap-3">
-                            {placesFirstPage ? 
-                                placesFirstPage.hotel.map((place, index) => {
+                            {placeToDisplay ? 
+                                placeToDisplay.hotel.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
                                     )
@@ -154,8 +153,8 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
                         <div className="flex gap-3">
-                            {placesFirstPage ? 
-                                placesFirstPage.restaurant.map((place, index) => {
+                            {placeToDisplay ? 
+                                placeToDisplay.restaurant.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
                                     )

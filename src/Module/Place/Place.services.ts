@@ -1,4 +1,5 @@
 import { AxiosServices } from "../HTTP/axios.services";
+import { responseGetManyPlaces } from "../HTTP/axiosResponseError.type";
 import { Place, PlaceToSubmit } from "./Place.class";
 import { placeStore, PlaceStore } from "./Place.store";
 import { place, placeSubmit } from "./Place.type";
@@ -10,14 +11,24 @@ export class PlaceServices{
     ){}
 
     async getManyPlace(path:string, body?:object){
-        const placeApi:Array<place> = await AxiosServices.getDataFromDatabase(path, body && body) as Array<place>
-        const place:Array<Place>=  placeApi.map((e) => {return Place.createNewPlace(e)})
+        const responseServeur: Array<place> = await AxiosServices.getDataFromDatabase(path, body && body) as Array<place>
+        const place:Array<Place>=  responseServeur.map((e) => {return Place.createNewPlace(e)})
         this._placeStore.places$().next(place)
+    }
+
+    async getManyPlaceSearch(path:string){
+        const responseServeur:responseGetManyPlaces = await AxiosServices.getDataFromDatabase(path) as responseGetManyPlaces
+        const placesApi: Array<place> = responseServeur.results
+        const places:Array<Place>=  placesApi.map((e) => {return Place.createNewPlace(e)})
+        return places
+    }
+
+    async razPlacesInObservable(){
+        this._placeStore.places$().next([])
     }
 
     static async getOnePlace(path:string): Promise<Place>{
         const placeApi:place = await AxiosServices.getDataFromDatabase(path) as place
-        console.log(placeApi)
         const place = Place.createNewPlace(placeApi)
         return place
     }
@@ -30,6 +41,7 @@ export class PlaceServices{
         }
         return response
     }
+
 }
 
 export const placeService = new PlaceServices(placeStore)

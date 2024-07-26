@@ -6,7 +6,6 @@ export class AxiosServices{
     static async postInDataBase<T>(path:string, data:T){
         try{
             const response = await http.post(path,data,{validateStatus:() => true})
-            console.log(response)
             return response         
         }catch(e){
             console.log(e)
