@@ -47,7 +47,7 @@ export class SearchFilterServices{
         return query
     }
 
-    static searchPlaces(e:React.FormEvent<HTMLFormElement>, categorieChoice: string){
+    static searchPlaces(e:React.FormEvent<HTMLFormElement>, categorieChoice?: string){
         e.preventDefault()
         const searchOption:searchFilter = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries())))
 

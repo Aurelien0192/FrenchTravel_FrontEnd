@@ -11,8 +11,9 @@ import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
 import { NavLinkButton } from "../../Components/General/NavLinkButton"
 import { MdAddBusiness } from "react-icons/md"
-import { NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate, createSearchParams } from "react-router-dom"
 import { SearchBar } from "../../Components/General/SearchBar"
+import { SearchFilterServices } from "../../../Module/SearchFilter/SearchFilter.service"
 
 
 export const HeaderWithSearch:React.FC = () => {
@@ -33,7 +34,13 @@ export const HeaderWithSearch:React.FC = () => {
             <div className="flex items-center gap-14">
                 <img src={logoTravel} />
                 <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
-                <SearchBar />
+                <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e);
+                navigate({
+                    pathname:`/index/search/`,
+                    search:`?${createSearchParams({
+                        search:`${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`,
+                    })}`    
+                })}} />
                 <div className="relative ">
                     <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
                         <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
@@ -71,7 +78,13 @@ export const HeaderWithSearch:React.FC = () => {
         <div className="flex items-center gap-14">
             <img src={logoTravel} />
             <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
-                <SearchBar />
+                <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e);
+                navigate({
+                    pathname:`/index/search/`,
+                    search:`?${createSearchParams({
+                        search:`${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`,
+                    })}`    
+                })}} />
             <div className="flex gap-3 mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
