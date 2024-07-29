@@ -2,6 +2,7 @@ import { SearchFilter } from "./SearchFilter.class";
 import { searchFilterStore, SearchFilterStore } from "./SearchFilter.store";
 import { searchFilter } from "./SearchFilter.type";
 import { placeService } from "../Place/Place.services";
+import { SearchParameters } from "./SearchFilter.type";
 
 
 export class SearchFilterServices{
@@ -31,6 +32,9 @@ export class SearchFilterServices{
             case "Activités":
                 searchFilter.categorie = "activity"
                 break;
+            default:
+                searchFilter.categorie=undefined
+                break;
         }
         console.log(searchFilter)
         this._searchFilterStore.searchFilter$().next({...searchFilter})
@@ -59,11 +63,34 @@ export class SearchFilterServices{
             case "Activités":
                 searchOption.categorie = "activity"
                 break;
+            default:
+                searchOption.categorie=undefined
+                break;
         }
         
         searchFilterServices.addSearchFilter(searchOption)
         placeService.razPlacesInObservable()
     }
+
+    static pathSearchParser (pathSearch:string|undefined){
+        let pathSearchParams:SearchParameters = {}
+        if (pathSearch){
+            const splitPathSearch:Array<string> = pathSearch?.split('&')
+            splitPathSearch.forEach((element) => {
+                const searchParams:Array<string> = element.split("=")
+                console.log(searchParams[0])
+                pathSearchParams[`${searchParams[0]}`] = searchParams[1]
+            })
+        }
+        return pathSearchParams
+    }
+
+    static pathConstructorForSearch = (e:React.FormEvent<HTMLFormElement>,category:number, categorieChoice:string):string => {
+        const setSearch: string = `search=${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`
+        const setCategory:string = categorieChoice === "Tout Rechercher"? "" : `&category=${category}`
+        return setSearch+setCategory
+    }
+
    
 }
 

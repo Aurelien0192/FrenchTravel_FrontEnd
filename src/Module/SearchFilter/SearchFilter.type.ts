@@ -4,3 +4,7 @@ export type searchFilter = {
     hotelCategorie? : number
     categorie? : "hotel"|"restaurant"|"activity"
 }
+
+export type SearchParameters = {
+    [key:string] :string
+}
