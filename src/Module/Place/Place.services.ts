@@ -1,4 +1,5 @@
 import { AxiosServices } from "../HTTP/axios.services";
+import { queryGetPlace } from "../HTTP/axios.type";
 import { responseGetManyPlaces } from "../HTTP/axiosResponseError.type";
 import { Place, PlaceToSubmit } from "./Place.class";
 import { placeStore, PlaceStore } from "./Place.store";
@@ -10,10 +11,12 @@ export class PlaceServices{
         private _placeStore: PlaceStore
     ){}
 
-    async getManyPlace(path:string, body?:object){
+    async getManyPlace(path:string, body?:queryGetPlace){
         const responseServeur: Array<place> = await AxiosServices.getDataFromDatabase(path, body && body) as Array<place>
-        const place:Array<Place>=  responseServeur.map((e) => {return Place.createNewPlace(e)})
-        this._placeStore.places$().next(place)
+        console.log(path)
+        const places:Array<Place>=  responseServeur.map((e) => {return Place.createNewPlace(e)})
+        this._placeStore.places$().next(places)
+        return places
     }
 
     async getManyPlaceSearch(path:string){

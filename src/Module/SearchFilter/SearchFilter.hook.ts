@@ -3,31 +3,31 @@ import { searchFilterStore } from "./SearchFilter.store"
 import { SearchFilter } from "./SearchFilter.class"
 import { placeService } from "../Place/Place.services"
 import { Place } from "../Place/Place.class"
+import { SearchFilterServices } from "./SearchFilter.service"
+import { Categories } from "../../Application/ComplexeComponents/Places/Categories.variable"
 
 export const useSearchFilter = () => {
     const[searchFilter, setSearchFilter] = useState<SearchFilter>()
     const[placesSearch, setPlaceSearch] = useState<Array<Place>>()
+    const [selectedIndex, setSelectedIndex] = useState<number>(0)
+    const [categorieChoice, setCategoryChoice] = useState<string>(Categories[0])
+
 
     useEffect(()=>{
         const searchFilte = searchFilterStore.searchFilter$().subscribe(async (newSearch) => {
-            const places = await placeService.getManyPlaceSearch("/places"+createAxiosQuery(newSearch))
-            console.log(places)
+            const places = await placeService.getManyPlaceSearch("/places"+SearchFilterServices.createAxiosQuery(newSearch))
             setPlaceSearch(places as Array<Place>)
             setSearchFilter(newSearch)
         })
         
         return(() => {searchFilte.unsubscribe()})
-    },[])
+    },[categorieChoice])
 
-    return {searchFilter, placesSearch}
-}
-
-function createAxiosQuery(searchFilter:SearchFilter){
-        let query:string ="?"
-        const keys = Object.keys(searchFilter)
-        keys.forEach((key,index)=>{
-            query = query+`${index!==0 ?"&":""}${key}=${searchFilter[key as keyof SearchFilter] ?searchFilter[key as keyof SearchFilter]:""}`
-        })
-        return query
+    function changeSelected(newSelect: number){
+        setCategoryChoice(Categories[newSelect])
+        setSelectedIndex(newSelect)
     }
+
+    return {searchFilter, placesSearch, selectedIndex, categorieChoice, changeSelected}
+}
 

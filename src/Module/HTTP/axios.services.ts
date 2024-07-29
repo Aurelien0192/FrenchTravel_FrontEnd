@@ -1,4 +1,5 @@
 import { http } from "./axios.instance"
+import { queryGetPlace } from "./axios.type"
 
 export class AxiosServices{
 
@@ -13,9 +14,13 @@ export class AxiosServices{
         }
     }
 
-    static async getDataFromDatabase<T>(path:string,data?:object){
+    static async getDataFromDatabase<T>(path:string,data?:queryGetPlace){
         try{
-            const response = await http.get<T>(path,data && data)
+            if(data){
+                const response = await http.get<T>(path+`?latCoordinate=${data.latCoordinate}&lonCoordinate=${data.lonCoordinate}`)
+                return response.data
+            }
+            const response = await http.get<T>(path)
             return response.data
         }catch(e){
             console.log(e)

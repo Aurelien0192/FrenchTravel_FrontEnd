@@ -25,11 +25,13 @@ export const PlacePage:React.FC = () => {
     const [hiddenContact, setHiddenContact] = useState<boolean>(true)
     const ref = useClickOutside(() => setHiddenContact(true))
     const {filesTab} = useImageManagement()
-    const { placeToDisplay } = usePlaceToDisplay("/suggestions",{latCoordinate: dataOnePlace?.getLatCoordinate(), lonCoordinate: dataOnePlace?.getLonCoordinate()})
-
+    const { placeToDisplay, updatePlaceToDisplay } = usePlaceToDisplay()
+    
     useEffect(() => {
         const getPlace = async () => {
             const dataPlace: Place = await PlaceServices.getOnePlace(`/place/${id}`)
+            console.log(dataPlace)
+            updatePlaceToDisplay("/suggestions",{latCoordinate : dataPlace.getLatCoordinate(), lonCoordinate: dataPlace.getLonCoordinate()})
             setDataOnePlace(dataPlace)
         }
         getPlace()
@@ -127,7 +129,7 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Activités aux alentours</h2>
                         <div className="flex gap-3">
-                            {placeToDisplay ? 
+                            {placeToDisplay.activity ? 
                                 placeToDisplay.activity.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
@@ -140,7 +142,7 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Hôtels aux alentours</h2>
                         <div className="flex gap-3">
-                            {placeToDisplay ? 
+                            {placeToDisplay.hotel ? 
                                 placeToDisplay.hotel.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
@@ -153,7 +155,7 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-3">
                         <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
                         <div className="flex gap-3">
-                            {placeToDisplay ? 
+                            {placeToDisplay.restaurant ? 
                                 placeToDisplay.restaurant.map((place, index) => {
                                     return(
                                         dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />

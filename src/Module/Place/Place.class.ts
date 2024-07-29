@@ -109,8 +109,8 @@ export class Place{
     private codePostal: string
     private county: string
     private country: string
-    private latCoordinate: string
-    private lonCoordinate: string
+    private latCoordinate: number
+    private lonCoordinate: number
     private notation:number
     private images : Array<image>
 
