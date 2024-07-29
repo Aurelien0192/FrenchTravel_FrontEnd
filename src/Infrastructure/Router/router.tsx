@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
             element: <App />,
             index:true
         },{
-            path:"/index/search/:pathSearch",
+            path:"/index/search/",
             element: <SearchPage />
         }]
     },{

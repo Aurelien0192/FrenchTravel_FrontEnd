@@ -6,7 +6,7 @@ import { Input } from "./Input"
 type SearchBarProps = {
     onClick?: MouseEventHandler<HTMLElement>
     onSubmit?: React.FormEventHandler<HTMLFormElement>
-    value?:string
+    value?:string|null
 }
 
 export const SearchBar: React.FC<SearchBarProps> = (props) => {

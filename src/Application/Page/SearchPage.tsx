@@ -5,20 +5,18 @@ import { SearchBar } from "../Components/General/SearchBar"
 import { SearchFilterServices, searchFilterServices } from "../../Module/SearchFilter/SearchFilter.service"
 import { Categories } from "../ComplexeComponents/Places/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
-import { useParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import { useEffect } from "react"
 
 export const SearchPage:React.FC = () => {
     
     const { searchFilter,placesSearch,selectedIndex, categorieChoice, changeSelected } = useSearchFilter()
 
-    const  {pathSearch} = useParams()
-    
-    const searchParameters = SearchFilterServices.pathSearchParser(pathSearch)
-    
+    const [pathNewSearch, setPathNewSearch] = useSearchParams()
+    console.log(pathNewSearch)
     useEffect(()=>{    
-        if(searchParameters.category && Number(searchParameters.category) !== selectedIndex){
-            changeSelected(Number(searchParameters.category))
+        if(pathNewSearch.get('category') && Number(pathNewSearch.get('category')) !== selectedIndex){
+            changeSelected(Number(pathNewSearch.get('category')))
         }
     },[])
 
@@ -26,7 +24,15 @@ export const SearchPage:React.FC = () => {
         return(
             <div className="flex flex-row-reverse">
                 <div>
-                    <SearchBar value={searchParameters.search && searchParameters.search} onSubmit={(e) => {e.preventDefault();SearchFilterServices.searchPlaces(e, categorieChoice)}}/>
+                    <SearchBar value={pathNewSearch.get('search') && pathNewSearch.get('search')} 
+                    onSubmit={(e) => {
+                        e.preventDefault()
+                        SearchFilterServices.searchPlaces(e, categorieChoice)
+                        setPathNewSearch({
+                            search: JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search,
+                            category: selectedIndex.toString()
+                        })
+                        }}/>
                     {placesSearch.map((e) => {
                         return(
                             <PlaceDisplayLittleCard place={e} />
@@ -40,7 +46,11 @@ export const SearchPage:React.FC = () => {
                             <SelectorButton 
                                 value={category} 
                                 key={index} 
-                                onClick={(e) => {changeSelected(index);searchFilterServices.changeCategorie(searchFilter!,e.currentTarget.value)}} 
+                                onClick={(e) => {changeSelected(index);
+                                    searchFilterServices.changeCategorie(searchFilter!,e.currentTarget.value);
+                                    setPathNewSearch({
+                                        search:`${pathNewSearch.get('search')}`,
+                                        category:index.toString()})}} 
                                 selected={index === selectedIndex ? true: false}
                             >
                                 {category}

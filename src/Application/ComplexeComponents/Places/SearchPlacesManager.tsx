@@ -1,7 +1,7 @@
 import { SearchBar } from "../../Components/General/SearchBar"
 import { SelectorButton } from "../../Components/General/SelectorButton"
 import { SearchFilterServices } from "../../../Module/SearchFilter/SearchFilter.service"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, createSearchParams } from "react-router-dom"
 import { Categories } from "./Categories.variable"
 import { useSearchFilter } from "../../../Module/SearchFilter/SearchFilter.hook"
 
@@ -22,7 +22,14 @@ export const SearchPlacesManagement: React.FC = () => {
                     <SelectorButton value={category} key={index} onClick={() => {changeSelected(index)}} selected={index === selectedIndex ? true: false}>{category}</SelectorButton>
                 )})}
             </div>
-            <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e,categorieChoice);navigate(`/index/search/${SearchFilterServices.pathConstructorForSearch(e,selectedIndex, categorieChoice)}`)}} />
+            <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e,categorieChoice);
+                navigate({
+                    pathname:`/index/search/`,
+                    search:`?${createSearchParams({
+                        search:`${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`,
+                        category:`${selectedIndex}`
+                    })}`    
+                })}} />
         </div>
     )
 }
