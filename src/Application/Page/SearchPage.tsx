@@ -1,5 +1,4 @@
 import { Loader } from "@mantine/core"
-import { PlaceDisplayLittleCard } from "../ComplexeComponents/Places/PlaceDisplayLittleCards"
 import { useSearchFilter } from "../../Module/SearchFilter/SearchFilter.hook"
 import { SearchBar } from "../Components/General/SearchBar"
 import { SearchFilterServices, searchFilterServices } from "../../Module/SearchFilter/SearchFilter.service"
@@ -7,13 +6,13 @@ import { Categories } from "../ComplexeComponents/Places/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { useSearchParams } from "react-router-dom"
 import { useEffect } from "react"
+import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 
 export const SearchPage:React.FC = () => {
     
     const { searchFilter,placesSearch,selectedIndex, categorieChoice, changeSelected } = useSearchFilter()
 
     const [pathNewSearch, setPathNewSearch] = useSearchParams()
-    console.log(pathNewSearch)
     useEffect(()=>{    
         if(pathNewSearch.get('category') && Number(pathNewSearch.get('category')) !== selectedIndex){
             changeSelected(Number(pathNewSearch.get('category')))
@@ -22,8 +21,8 @@ export const SearchPage:React.FC = () => {
 
     if(placesSearch){
         return(
-            <div className="flex flex-row-reverse">
-                <div>
+            <div className="flex flex-row-reverse gap-4">
+                <div className="flex flex-col gap-5 w-5/6">
                     <SearchBar value={pathNewSearch.get('search') && pathNewSearch.get('search')} 
                     onSubmit={(e) => {
                         e.preventDefault()
@@ -33,17 +32,20 @@ export const SearchPage:React.FC = () => {
                             category: selectedIndex.toString()
                         })
                         }}/>
-                    {placesSearch.map((e) => {
-                        return(
-                            <PlaceDisplayLittleCard place={e} />
-                        )
-                    })}
+                    <div className="flex flex-col gap-4">
+                        {placesSearch.map((e,index) => {
+                            return(
+                                <ResultSearchCard key={index} place={e} />
+                            )
+                        })}
+                    </div>
                 </div>
-                <aside className="bg-sand">
-                    <h2>Filtre</h2>
-                    <div>
-                        {Categories.map((category, index) => {return(
-                            <SelectorButton 
+                <aside className="w-1/6">
+                    <div className="flex flex-col gap-2">
+                        <h2 className="text-2xl font-bold">Filtre</h2>
+                        <div className="flex flex-col">
+                            {Categories.map((category, index) => {return(
+                                <SelectorButton 
                                 value={category} 
                                 key={index} 
                                 onClick={(e) => {changeSelected(index);
@@ -51,11 +53,12 @@ export const SearchPage:React.FC = () => {
                                     setPathNewSearch({
                                         search:`${pathNewSearch.get('search')}`,
                                         category:index.toString()})}} 
-                                selected={index === selectedIndex ? true: false}
-                            >
-                                {category}
-                            </SelectorButton>
-                        )})}
+                                        selected={index === selectedIndex ? true: false}
+                                        >
+                                    {category}
+                                </SelectorButton>
+                            )})}
+                        </div>
                     </div>
                 </aside>
             </div>

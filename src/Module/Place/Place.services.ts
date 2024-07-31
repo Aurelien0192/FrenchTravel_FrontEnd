@@ -13,7 +13,6 @@ export class PlaceServices{
 
     async getManyPlace(path:string, body?:queryGetPlace){
         const responseServeur: Array<place> = await AxiosServices.getDataFromDatabase(path, body && body) as Array<place>
-        console.log(path)
         const places:Array<Place>=  responseServeur.map((e) => {return Place.createNewPlace(e)})
         this._placeStore.places$().next(places)
         return places

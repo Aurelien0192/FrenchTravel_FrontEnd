@@ -30,7 +30,6 @@ export const PlacePage:React.FC = () => {
     useEffect(() => {
         const getPlace = async () => {
             const dataPlace: Place = await PlaceServices.getOnePlace(`/place/${id}`)
-            console.log(dataPlace)
             updatePlaceToDisplay("/suggestions",{latCoordinate : dataPlace.getLatCoordinate(), lonCoordinate: dataPlace.getLonCoordinate()})
             setDataOnePlace(dataPlace)
         }

@@ -3,7 +3,7 @@ import { image } from "../Image/Image.type"
 export type moreInfo = {
     schedules?: Array<schedules>
     duration?: number
-    price?: Array<number|undefined>
+    price?: Array<number>
     cook?: string
     services?: string
     equipment?: string

@@ -34,7 +34,6 @@ export class SearchFilterServices{
                 searchFilter.categorie=undefined
                 break;
         }
-        console.log(searchFilter)
         this._searchFilterStore.searchFilter$().next({...searchFilter})
     }
 

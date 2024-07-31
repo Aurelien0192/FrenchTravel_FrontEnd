@@ -13,9 +13,6 @@ export const router = createBrowserRouter([
         children:[{
             element: <App />,
             index:true
-        },{
-            path:"/index/search/",
-            element: <SearchPage />
         }]
     },{
         path:"/index",
@@ -27,6 +24,9 @@ export const router = createBrowserRouter([
         },{
             path:"/index/Place/:id",
             element : <PlacePage />
+        },{
+            path:"/index/search/",
+            element: <SearchPage />,
         }]
     },
 ])
