@@ -10,22 +10,25 @@ export const useSearchFilter = () => {
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [categorieChoice, setCategoryChoice] = useState<string>(Categories[0])
     const [pathNewSearch, setPathNewSearch] = useSearchParams()
+    const [totalOfPlace, setTotalOfPlace] = useState<number>(0)
+    const [page, setPage] = useState<number>(1)
 
 
     useEffect(()=>{
-        console.log("ok")
-
         async function getDataFromSearch(){
             const places = await placeService.getManyPlaceSearch("/places/?"+pathNewSearch.toString())
-            setPlaceSearch(places as Array<Place>)
+            setPlaceSearch(places.places as Array<Place>)
+            setTotalOfPlace(places.total)
         }
         getDataFromSearch()
         },[pathNewSearch])
 
     function changeSelected(newSelect: number){
+            setPage(1)
             setPathNewSearch({
                 search:`${pathNewSearch.get('search')}`,
-                categorie: catergoriesMap(newSelect)
+                categorie: catergoriesMap(newSelect),
+                page:"1"
             })
             setCategoryChoice(Categories[newSelect])
             console.log(pathNewSearch.toString())
@@ -33,14 +36,25 @@ export const useSearchFilter = () => {
             
     }
 
-    function changeSearchInput(inputValue:string){
+    function changePage(page:number){
+        setPage(page)
         setPathNewSearch({
-                search:inputValue,
-                categorie: `${pathNewSearch.get('categorie')}`
+                search:`${pathNewSearch.get('search')}`,
+                categorie: `${pathNewSearch.get('categorie')}`,
+                page: page.toString()
             })
     }
 
-    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, changeSelected, changeSearchInput}
+    function changeSearchInput(inputValue:string){
+        setPage(1)
+        setPathNewSearch({
+                search:inputValue,
+                categorie: `${pathNewSearch.get('categorie')}`,
+                page:"1"
+            })
+    }
+
+    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, totalOfPlace, page, changePage, changeSelected, changeSearchInput}
 }
 
 function catergoriesMap(index:number){

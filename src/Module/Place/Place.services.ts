@@ -24,7 +24,7 @@ export class PlaceServices{
         console.log(responseServeur)
         const placesApi: Array<place> = responseServeur.results
         const places:Array<Place>=  placesApi.map((e) => {return Place.createNewPlace(e)})
-        return places
+        return {places, total: responseServeur.count}
     }
 
     async razPlacesInObservable(){

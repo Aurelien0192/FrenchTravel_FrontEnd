@@ -1,4 +1,4 @@
-import { Loader } from "@mantine/core"
+import { Loader, Pagination } from "@mantine/core"
 import { useSearchFilter } from "../../Module/SearchFilter/SearchFilter.hook"
 import { SearchBar } from "../Components/General/SearchBar"
 import { Categories } from "../ComplexeComponents/Places/Categories.variable"
@@ -7,9 +7,7 @@ import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 
 export const SearchPage:React.FC = () => {
     
-    const { placesSearch,pathNewSearch,selectedIndex, changeSearchInput, changeSelected } = useSearchFilter()
-
-
+    const { placesSearch,pathNewSearch,selectedIndex, totalOfPlace, page, changePage, changeSearchInput, changeSelected } = useSearchFilter()
     if(placesSearch){
         return(
             <div className="flex flex-row-reverse gap-4">
@@ -25,6 +23,13 @@ export const SearchPage:React.FC = () => {
                             )
                         })}
                     </div>
+                    <Pagination 
+                        total={Math.ceil(totalOfPlace/7)}
+                        color={"#8C3616"}
+                        value={page}
+                        onChange={(value:number) => changePage(value)}
+                        onNextPage={() => changePage(page+1)}
+                        onPreviousPage={() => changePage(page-1)} />
                 </div>
                 <aside className="w-1/6">
                     <div className="flex flex-col gap-2">
