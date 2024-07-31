@@ -16,12 +16,11 @@ export const useSearchFilter = () => {
         console.log("ok")
 
         async function getDataFromSearch(){
-            setPlaceSearch([])
             const places = await placeService.getManyPlaceSearch("/places/?"+pathNewSearch.toString())
             setPlaceSearch(places as Array<Place>)
         }
         getDataFromSearch()
-        },[categorieChoice])
+        },[pathNewSearch])
 
     function changeSelected(newSelect: number){
             setPathNewSearch({
@@ -34,7 +33,14 @@ export const useSearchFilter = () => {
             
     }
 
-    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, changeSelected}
+    function changeSearchInput(inputValue:string){
+        setPathNewSearch({
+                search:inputValue,
+                categorie: `${pathNewSearch.get('categorie')}`
+            })
+    }
+
+    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, changeSelected, changeSearchInput}
 }
 
 function catergoriesMap(index:number){
