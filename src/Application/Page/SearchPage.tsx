@@ -4,15 +4,14 @@ import { SearchBar } from "../Components/General/SearchBar"
 import { SearchFilterServices, searchFilterServices } from "../../Module/SearchFilter/SearchFilter.service"
 import { Categories } from "../ComplexeComponents/Places/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
-import { useSearchParams } from "react-router-dom"
 import { useEffect } from "react"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 
 export const SearchPage:React.FC = () => {
     
-    const { searchFilter,placesSearch,selectedIndex, categorieChoice, changeSelected } = useSearchFilter()
+    const { placesSearch,pathNewSearch,selectedIndex, categorieChoice, changeSelected } = useSearchFilter()
 
-    const [pathNewSearch, setPathNewSearch] = useSearchParams()
+    
     useEffect(()=>{    
         if(pathNewSearch.get('category') && Number(pathNewSearch.get('category')) !== selectedIndex){
             changeSelected(Number(pathNewSearch.get('category')))
@@ -27,10 +26,10 @@ export const SearchPage:React.FC = () => {
                     onSubmit={(e) => {
                         e.preventDefault()
                         SearchFilterServices.searchPlaces(e, categorieChoice)
-                        setPathNewSearch({
-                            search: JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search,
-                            category: selectedIndex.toString()
-                        })
+                        // setPathNewSearch({
+                        //     search: JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search,
+                        //     category: selectedIndex.toString()
+                        // })
                         }}/>
                     <div className="flex flex-col gap-4">
                         {placesSearch.map((e,index) => {
@@ -48,13 +47,10 @@ export const SearchPage:React.FC = () => {
                                 <SelectorButton 
                                 value={category} 
                                 key={index} 
-                                onClick={(e) => {changeSelected(index);
-                                    searchFilterServices.changeCategorie(searchFilter!,e.currentTarget.value);
-                                    setPathNewSearch({
-                                        search:`${pathNewSearch.get('search')}`,
-                                        category:index.toString()})}} 
-                                        selected={index === selectedIndex ? true: false}
-                                        >
+                                onClick={() => {changeSelected(index);
+                                }} 
+                                selected={index === selectedIndex ? true: false}
+                                >
                                     {category}
                                 </SelectorButton>
                             )})}

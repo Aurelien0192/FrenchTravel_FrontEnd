@@ -1,33 +1,58 @@
 import { useEffect, useState } from "react"
-import { searchFilterStore } from "./SearchFilter.store"
-import { SearchFilter } from "./SearchFilter.class"
 import { placeService } from "../Place/Place.services"
 import { Place } from "../Place/Place.class"
-import { SearchFilterServices } from "./SearchFilter.service"
 import { Categories } from "../../Application/ComplexeComponents/Places/Categories.variable"
+import { useSearchParams } from "react-router-dom"
 
 export const useSearchFilter = () => {
-    const[searchFilter, setSearchFilter] = useState<SearchFilter>()
+
     const[placesSearch, setPlaceSearch] = useState<Array<Place>>()
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [categorieChoice, setCategoryChoice] = useState<string>(Categories[0])
+    const [pathNewSearch, setPathNewSearch] = useSearchParams()
 
 
     useEffect(()=>{
-        const searchFilte = searchFilterStore.searchFilter$().subscribe(async (newSearch) => {
-            const places = await placeService.getManyPlaceSearch("/places"+SearchFilterServices.createAxiosQuery(newSearch))
+        console.log("ok")
+
+        async function getDataFromSearch(){
+            setPlaceSearch([])
+            const places = await placeService.getManyPlaceSearch("/places/?"+pathNewSearch.toString())
             setPlaceSearch(places as Array<Place>)
-            setSearchFilter(newSearch)
-        })
-        
-        return(() => {searchFilte.unsubscribe()})
-    },[categorieChoice])
+        }
+        getDataFromSearch()
+        },[categorieChoice])
 
     function changeSelected(newSelect: number){
-        setCategoryChoice(Categories[newSelect])
-        setSelectedIndex(newSelect)
+            setPathNewSearch({
+                search:`${pathNewSearch.get('search')}`,
+                categorie: catergoriesMap(newSelect)
+            })
+            setCategoryChoice(Categories[newSelect])
+            console.log(pathNewSearch.toString())
+            setSelectedIndex(newSelect)
+            
     }
 
-    return {searchFilter, placesSearch, selectedIndex, categorieChoice, changeSelected}
+    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, changeSelected}
+}
+
+function catergoriesMap(index:number){
+    let category = ""
+    switch(index){
+        case 1 :
+            category = "hotel"
+            break;
+        case 2:
+            category = "restaurant"
+            break;
+        case 3:
+            category = "activity"
+            break;
+        default:
+            category=""
+            break;
+    }
+    return category
 }
 
