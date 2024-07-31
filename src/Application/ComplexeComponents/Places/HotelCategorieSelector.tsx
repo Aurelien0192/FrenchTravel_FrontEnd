@@ -6,18 +6,22 @@ Lorsque qu'une étoile est sélectionnée, selected du custom hook useCategorieS
 import { StarHotel } from "../../Components/Place/StarsHotel"
 import { useCategorieSelector } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
 
-export const HotelCategorieSelector: React.FC = () => {
+type hotelCategorieSelectorProps = {
+    labelHidden?: boolean
+}
+
+export const HotelCategorieSelector: React.FC<hotelCategorieSelectorProps> = (props) => {
     const categorieHotel = [1,2,3,4,5]
-    const {selected,categorieSelected} = useCategorieSelector()
+    const {hotelCategorieSelected,categorieSelected} = useCategorieSelector()
 
     return(
         <div className="flex gap-2 justify-between items-center">
-            <p>Categorie d'hôtel</p>
+            {!props.labelHidden && <p>Categorie d'hôtel</p>}
             <div className="flex gap-2 w-9/12">
                 {categorieHotel.map((e,index) => {
                     return(<StarHotel 
                         key={index} 
-                        selected={selected}
+                        selected={hotelCategorieSelected}
                         hisCategorie={e}
                         changeSelected={categorieSelected}
                         />)

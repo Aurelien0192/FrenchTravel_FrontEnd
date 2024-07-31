@@ -3,6 +3,7 @@ import { placeService } from "../Place/Place.services"
 import { Place } from "../Place/Place.class"
 import { Categories } from "../../Application/ComplexeComponents/Places/Categories.variable"
 import { useSearchParams } from "react-router-dom"
+import { useCategorieSelector } from "../HotelCategorieSelector/HotelCategorieSelector.hook"
 
 export const useSearchFilter = () => {
 
@@ -12,49 +13,63 @@ export const useSearchFilter = () => {
     const [pathNewSearch, setPathNewSearch] = useSearchParams()
     const [totalOfPlace, setTotalOfPlace] = useState<number>(0)
     const [page, setPage] = useState<number>(1)
+    const {hotelCategorie} = useCategorieSelector()
 
+    console.log(hotelCategorie)
 
     useEffect(()=>{
         async function getDataFromSearch(){
             const places = await placeService.getManyPlaceSearch("/places/?"+pathNewSearch.toString())
             setPlaceSearch(places.places as Array<Place>)
             setTotalOfPlace(places.total)
+            
         }
         getDataFromSearch()
-        },[pathNewSearch])
+    },[pathNewSearch])
+    
+    useEffect(() => {
+        if(hotelCategorie > 1){
+            pathNewSearch.get("hotelCategorie")? pathNewSearch.set("hotelCategorie",hotelCategorie.toString()) : pathNewSearch.append("hotelCategorie",hotelCategorie.toString())
+        }else{
+            pathNewSearch.get("hotelCategorie") && pathNewSearch.delete("hotelCategorie")
+        }
+        setPathNewSearch(pathNewSearch)
+    },[hotelCategorie])
 
-    function changeSelected(newSelect: number){
-            setPage(1)
-            setPathNewSearch({
-                search:`${pathNewSearch.get('search')}`,
-                categorie: catergoriesMap(newSelect),
-                page:"1"
-            })
-            setCategoryChoice(Categories[newSelect])
-            console.log(pathNewSearch.toString())
-            setSelectedIndex(newSelect)
-            
+    function changeCategorieIndex(newSelect: number){
+        setPage(1)
+        if(newSelect!==1){
+            pathNewSearch.get('hotelCategorie') && pathNewSearch.delete('hotelCategorie')
+        }
+        pathNewSearch.set("categorie",catergoriesMap(newSelect))
+        pathNewSearch.set('page',"1")
+        setPathNewSearch(pathNewSearch)
+        setCategoryChoice(Categories[newSelect])
+        setSelectedIndex(newSelect)          
     }
 
     function changePage(page:number){
         setPage(page)
-        setPathNewSearch({
-                search:`${pathNewSearch.get('search')}`,
-                categorie: `${pathNewSearch.get('categorie')}`,
-                page: page.toString()
-            })
+        pathNewSearch.set('page',page.toString())
+        setPathNewSearch(pathNewSearch)
     }
 
     function changeSearchInput(inputValue:string){
         setPage(1)
-        setPathNewSearch({
-                search:inputValue,
-                categorie: `${pathNewSearch.get('categorie')}`,
-                page:"1"
-            })
+        pathNewSearch.set('search',inputValue)
+        setPathNewSearch(pathNewSearch)
     }
 
-    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, totalOfPlace, page, changePage, changeSelected, changeSearchInput}
+    // function changeHotelCategorieFilter(){
+    //     if(hotelCategorie > 1){
+    //         pathNewSearch.get("hotelCategorie")? pathNewSearch.set("hotelCategorie",hotelCategorie.toString()) : pathNewSearch.append("hotelCategorie",hotelCategorie.toString())
+    //     }else{
+    //         pathNewSearch.delete("hotelCategorie")
+    //     }
+    //     setPathNewSearch(pathNewSearch)
+    // }
+
+    return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, totalOfPlace, page, changePage, changeCategorieIndex, changeSearchInput}
 }
 
 function catergoriesMap(index:number){

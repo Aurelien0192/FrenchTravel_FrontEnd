@@ -19,9 +19,7 @@ export class PlaceServices{
     }
 
     async getManyPlaceSearch(path:string){
-        console.log(path)
         const responseServeur:responseGetManyPlaces = await AxiosServices.getDataFromDatabase(path) as responseGetManyPlaces
-        console.log(responseServeur)
         const placesApi: Array<place> = responseServeur.results
         const places:Array<Place>=  placesApi.map((e) => {return Place.createNewPlace(e)})
         return {places, total: responseServeur.count}

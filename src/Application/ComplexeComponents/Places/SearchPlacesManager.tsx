@@ -9,7 +9,7 @@ import { useSearchFilter } from "../../../Module/SearchFilter/SearchFilter.hook"
 export const SearchPlacesManagement: React.FC = () => {
 
 
-    const { selectedIndex, categorieChoice, changeSelected } = useSearchFilter()
+    const { selectedIndex, categorieChoice, changeCategorieIndex } = useSearchFilter()
 
     const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ export const SearchPlacesManagement: React.FC = () => {
         <div className=" w-9/12 flex flex-col gap-[6px]">
             <div>
                 {Categories.map((category, index) => {return(
-                    <SelectorButton value={category} key={index} onClick={() => {changeSelected(index)}} selected={index === selectedIndex ? true: false}>{category}</SelectorButton>
+                    <SelectorButton value={category} key={index} onClick={() => {changeCategorieIndex(index)}} selected={index === selectedIndex ? true: false}>{category}</SelectorButton>
                 )})}
             </div>
             <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e,categorieChoice);

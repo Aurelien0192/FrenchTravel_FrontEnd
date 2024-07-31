@@ -4,10 +4,11 @@ import { SearchBar } from "../Components/General/SearchBar"
 import { Categories } from "../ComplexeComponents/Places/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
+import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector"
 
 export const SearchPage:React.FC = () => {
     
-    const { placesSearch,pathNewSearch,selectedIndex, totalOfPlace, page, changePage, changeSearchInput, changeSelected } = useSearchFilter()
+    const { placesSearch,pathNewSearch,selectedIndex, totalOfPlace, page, changePage, changeSearchInput, changeCategorieIndex } = useSearchFilter()
     if(placesSearch){
         return(
             <div className="flex flex-row-reverse gap-4">
@@ -39,7 +40,7 @@ export const SearchPage:React.FC = () => {
                                 <SelectorButton 
                                 value={category} 
                                 key={index} 
-                                onClick={() => {changeSelected(index);
+                                onClick={() => {changeCategorieIndex(index);
                                 }} 
                                 selected={index === selectedIndex ? true: false}
                                 >
@@ -47,6 +48,11 @@ export const SearchPage:React.FC = () => {
                                 </SelectorButton>
                             )})}
                         </div>
+                        {pathNewSearch.get('categorie')==="hotel" && 
+                        <div className="flex flex-col gap-1">
+                            <h2 className="text-2xl font-bold">Categorie d'hotel :</h2>
+                            <HotelCategorieSelector labelHidden={true} /> 
+                        </div>}
                     </div>
                 </aside>
             </div>
