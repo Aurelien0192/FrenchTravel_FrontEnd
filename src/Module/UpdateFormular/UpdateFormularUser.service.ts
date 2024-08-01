@@ -7,7 +7,7 @@ import { AuthentifiateUser } from "../Authentification/Authentification.class"
 import { authentificationService } from "../Authentification/Authentification.service"
 
 export class UpdateFormularService{
-    static async handleSubmit(e:FormEvent<HTMLFormElement>, ){
+    static async handleSubmit(e:FormEvent<HTMLFormElement>){
     
     e.preventDefault()
 

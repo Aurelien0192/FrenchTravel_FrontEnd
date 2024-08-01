@@ -10,13 +10,13 @@ export class FormularServices{
         - pour un utilisateur : via la fonction responseServerPostUser de la class AxiosResponseServices
     */
 
-    static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"|"login"|"updateUser"):Promise<string>=>{
+    static addResponseOfServer= async (responseServer:Promise<AxiosResponseError>,typePost:"user"|"place"|"login"|"updateUser"|"updatePlace"):Promise<string>=>{
     const responseAxios: AxiosResponseError = await responseServer
     axiosResponseServices.updateAxiosResponse(responseAxios)
     if(responseAxios.getStatus()=== 201 || responseAxios.getStatus()=== 200){
-            setTimeout(()=>{
-                window.location.reload()
-            },responseAxios.getStatus() === 201 ?2000 : 0)
+            // setTimeout(()=>{
+            //     window.location.reload()
+            // },responseAxios.getStatus() === 201 ?2000 : 0)
         }else{
             responseAxios!.getFieldsWithError()?.forEach((e) =>{
                 FormularServices.showError(e)
@@ -29,6 +29,9 @@ export class FormularServices{
                 break
             case 'updateUser':
                 msg= await AxiosResponseServices.responseServerUpdateUser(responseAxios.getStatus())
+                break;
+            case 'updatePlace':
+                msg = await AxiosResponseServices.responseServerUpdatePlace(responseAxios.getStatus())
                 break;
             case 'place':
                 msg= await AxiosResponseServices.responseServerPostPlace(responseAxios.getStatus())

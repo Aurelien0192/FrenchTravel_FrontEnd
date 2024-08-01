@@ -7,6 +7,9 @@ import { moreInfo } from "../../../Module/Place/Place.type"
 import { Modal } from "@mantine/core"
 import { Schedules } from "./Schedules"
 import { SelectInput } from "../../Components/General/SelectInput"
+import { useState } from "react"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
 
 type MoreInfoActivityProps = {
     dataOnePlace : Place
@@ -18,6 +21,12 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
 
     const {authentifiateUser} = useAuthentification()
     const [udpateMoreInfo, udpateMoreInfoManager] = useDisclosure()
+    const [msg, setMsg] = useState<string>("")
+
+    const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId()),"updatePlace")
+      setMsg(newMsg)
+    }
 
     const moreInfo: moreInfo|undefined = props.dataOnePlace.getMoreInfo()
     console.log(moreInfo.duration == 360)
@@ -67,7 +76,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                                     color:'#D98D30',
                                     blur:3,
                                 }}>
-                                <form className="flex flex-col gap-3 items-end">
+                                <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                     <div className="w-full flex flex-col gap-3">
                                         <p>Horaire d'ouverture</p>
                                         <Schedules value={moreInfo.schedules}/>
@@ -120,6 +129,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                                             ]} />
                                     </div>
                                     <Button size="xs" type="submit">Valider</Button>
+                                    <p className="text-red-500">{msg}</p>
                                 </form>
                             </Modal>
                         </div>

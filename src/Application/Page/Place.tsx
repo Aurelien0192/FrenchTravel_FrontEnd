@@ -20,6 +20,9 @@ import { TextArea } from "../Components/General/TextArea.tsx"
 import { DoubleInput } from "../Components/General/DoubleInput.tsx"
 import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector.tsx"
 import { moreInfo } from "../../Module/Place/Place.type.ts"
+import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook.ts"
+import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
+import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -30,6 +33,8 @@ export const PlacePage:React.FC = () => {
     const [describeUpdate, describeUpdateManager] = useDisclosure()
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
     const {filesTab} = useImageManagement()
+    const {hotelCategorie} = useCategorieSelector()
+    const [msg, setMsg] = useState<string>("")
 
     const moreInfo: moreInfo|undefined = dataOnePlace?.getMoreInfo()
 
@@ -41,6 +46,11 @@ export const PlacePage:React.FC = () => {
         }
         getPlace()
     },[id])
+
+    const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, hotelCategorie, dataOnePlace!.getId()),"updatePlace")
+      setMsg(newMsg)
+    }
 
     if(dataOnePlace){
         return(
@@ -63,7 +73,7 @@ export const PlacePage:React.FC = () => {
                                     color:'#D98D30',
                                     blur:3,
                                 }}>
-                                <form className="flex flex-col gap-3 items-end">
+                                <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                     <div className="w-full flex flex-col gap-3">
                                         <TextArea placeholder="Obligatoire" value={dataOnePlace.getDescribe()} size="md" name="describe" label="Description" flexDirection="flex-col"/>
                                     </div>
@@ -94,6 +104,7 @@ export const PlacePage:React.FC = () => {
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
                             <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId())}}>Valider</Button>
+                            {msg && <p className="text-red-500">{msg}</p>}
                         </div>
                     </Modal>
                 </div>
@@ -113,22 +124,23 @@ export const PlacePage:React.FC = () => {
                                             color:'#D98D30',
                                             blur:3,
                                         }}>
-                                        <form className="flex flex-col gap-3 items-end">
+                                        <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                             {dataOnePlace.getCategorie()==="restaurant"?
-                                                    <div className=" w-full flex flex-col gap-3">
-                                                        <DoubleInput placeholder={["15","25"]} label="Fourchette de prix" name={["price1","price2"]} value1={moreInfo && moreInfo.price && moreInfo.price[0].toString()} value2={moreInfo && moreInfo.price && moreInfo.price[1].toString()}/>
-                                                        <Input placeholder="Gastronomique, Epicée ..." label="Cuisine" name="cook" value={moreInfo && moreInfo.cook}/>
-                                                        <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
-                                                    </div>
+                                                <div className=" w-full flex flex-col gap-3">
+                                                    <DoubleInput placeholder={["15","25"]} label="Fourchette de prix" name={["price1","price2"]} value1={moreInfo && moreInfo.price && moreInfo.price[0].toString()} value2={moreInfo && moreInfo.price && moreInfo.price[1].toString()}/>
+                                                    <Input placeholder="Gastronomique, Epicée ..." label="Cuisine" name="cook" value={moreInfo && moreInfo.cook}/>
+                                                    <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
+                                                </div>
                                             :
-                                                    <div className="w-full flex flex-col gap-3">
-                                                        <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
-                                                        <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
-                                                        <HotelCategorieSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
-                                                        <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
-                                                    </div>
+                                                <div className="w-full flex flex-col gap-3">
+                                                    <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
+                                                    <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
+                                                    <HotelCategorieSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
+                                                    <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
+                                                </div>
                                             }
                                             <Button size="xs" type="submit">Valider</Button>
+                                            {msg && <p className="text-red-500">{msg}</p>}
                                         </form>
                                     </Modal>
                                 </div>

@@ -56,6 +56,23 @@ export class AxiosResponseServices{
         }
     }
 
+    static responseServerUpdatePlace(status:number):string{
+        switch(status){
+            case 405 :
+                return "Des champs obligatoires n'ont pas été renseignées ou sont incorrectes"
+            case 200 : 
+                return "La mise à jour du lieu c'est correctement déroulée"
+            case 401 :
+                return "La modification du lieu ne vous est pas autorisé"
+            case 404 :
+                return "L'adresse renseignée n'a pas été trouvée, vérifier l'adresse"
+            case 500 :
+                return "une erreur interne au serveur c'est produite, réessayer ultérieurement"
+            default :
+                return ""
+        }
+    }
+
     static responseServerLogin(status:number):string{
         switch(status){
             case 405 :

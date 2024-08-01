@@ -8,6 +8,8 @@ import { Modal } from "@mantine/core"
 import { Input } from "../General/Input"
 import { DoubleInput } from "../General/DoubleInput"
 import { SelectInput } from "../General/SelectInput"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -21,7 +23,12 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
     const [nameUpdate, nameUpdateManager] = useDisclosure()
     const [contactUpdate, contactUpdateManager] = useDisclosure()
     const ref = useClickOutside(() => setHiddenContact(true))
-    console.log(authentifiateUser)
+    const [msg, setMsg] = useState<string>("")
+
+    const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId()),"updatePlace")
+      setMsg(newMsg)
+    }
 
     return(
         <div className="flex relative justify-between">
@@ -44,7 +51,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                             color:'#D98D30',
                             blur:3,
                         }}>
-                            <form className="flex flex-col gap-3 items-end">
+                            <form onSubmit={(e) => {changeMsg(e)}}className="flex flex-col gap-3 items-end">
                                 <div className="w-full flex flex-col gap-3">
                                     <Input label="nom" placeholder="Obligatoire" name="name" value={props.dataOnePlace.getName()} />
                                     <DoubleInput placeholder={["facultatif","facultatif"]} label="Sous Categories" name={["underCategorie1","underCategorie2"]} value1={props.dataOnePlace.getTypeOfPlace()[0]} value2={props.dataOnePlace.getTypeOfPlace()[1]} />
@@ -70,6 +77,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                                     />
                                 </div>
                                 <Button size="xs" type="submit">Valider</Button>
+                                <p className="text-red-500">{msg}</p>
                             </form>
                         </Modal>
                     </div>}

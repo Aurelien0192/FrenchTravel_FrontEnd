@@ -1,9 +1,10 @@
+import { AxiosResponse } from "axios";
 import { AxiosServices } from "../HTTP/axios.services";
 import { queryGetPlace } from "../HTTP/axios.type";
 import { responseGetManyPlaces } from "../HTTP/axiosResponseError.type";
 import { Place, PlaceToSubmit } from "./Place.class";
 import { placeStore, PlaceStore } from "./Place.store";
-import { place, placeSubmit } from "./Place.type";
+import { place, placeSubmit} from "./Place.type";
 
 export class PlaceServices{
 
@@ -41,6 +42,11 @@ export class PlaceServices{
         if (response!.status === 201){
             response = await AxiosServices.postImages(photos, response?.data._id)
         }
+        return response
+    }
+
+    static async updateOnePlace(data:any,id:string){
+        let response:AxiosResponse = await AxiosServices.updateElementOnServer(`/place/${id}`,data) as AxiosResponse
         return response
     }
 

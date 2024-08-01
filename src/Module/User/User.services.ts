@@ -13,7 +13,6 @@ export class UserServices{
 
     static async updateUser(data: userToUpdate){
         const userToUpdate = UserToUpdate.createNewUserToUpdate(data)
-        console.log(userToUpdate)
         try{
             const response: AxiosResponse = await AxiosServices.updateElementOnServer(`/user/${JSON.parse(sessionStorage.getItem("UserAuthentifiate")as string).data._id }`,userToUpdate) as AxiosResponse
             return response
