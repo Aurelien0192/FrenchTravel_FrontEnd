@@ -6,6 +6,7 @@ import { NavLinkButton } from "../Components/General/NavLinkButton"
 import { useDisclosure } from "@mantine/hooks"
 import { UpdateFormularUser } from "../ComplexeComponents/User/UpdateFormularUser"
 import { PhotoProfileDisplay } from "../ComplexeComponents/User/PhotoProfileDisplay"
+import { Outlet } from "react-router-dom"
 
 
 export const UserPage:React.FC = () => {
@@ -14,18 +15,19 @@ export const UserPage:React.FC = () => {
 
   
     return(
-        <div className="flex justify-between items-center">
-            <div className="flex gap-5 items-end">
-                <PhotoProfileDisplay />
-                <div>
-                    <h1 className="text-4xl font-medium">{Object.keys(authentifiateUser).length !==0  && authentifiateUser.getUsername()}</h1>
+        <div className="flex flex-col gap-4">
+            <div className="flex justify-between items-center">
+                <div className="flex gap-5 items-end">
+                    <PhotoProfileDisplay />
+                    <div>
+                        <h1 className="text-4xl font-medium">{Object.keys(authentifiateUser).length !==0  && authentifiateUser.getUsername()}</h1>
+                    </div>
                 </div>
-            </div>
-            <div className="flex gap-2">
-                {Object.keys(authentifiateUser).length !==0 && authentifiateUser.getUserType()==="professional" && Object.keys(authentifiateUser).length !==0 && <NavLinkButton to={"/index/AddPlace"}variant="transparent">Ajouter un établissement</NavLinkButton>}
-                <Button onClick={manageProfileModifier.open} variant="transparent">Modifier le profil</Button>
-            </div>
-            <Modal
+                <div className="flex gap-2">
+                    {Object.keys(authentifiateUser).length !==0 && authentifiateUser.getUserType()==="professional" && Object.keys(authentifiateUser).length !==0 && <NavLinkButton to={"/index/AddPlace"}variant="transparent">Ajouter un établissement</NavLinkButton>}
+                    <Button onClick={manageProfileModifier.open} variant="transparent">Modifier le profil</Button>
+                </div>
+                <Modal
                     opened={openedProfileModifier}
                     onClose={manageProfileModifier.close}
                     centered
@@ -38,6 +40,8 @@ export const UserPage:React.FC = () => {
                     >
                     <UpdateFormularUser />
                 </Modal>
+            </div>
+            <Outlet />
         </div>
     )
 }

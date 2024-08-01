@@ -53,7 +53,7 @@ export const HeaderWithSearch:React.FC = () => {
                             <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to={`/index/user`}>
+                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to={"/index/user/places"}>
                                             <IoPerson size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Profil</p>
                                         </NavLink>
