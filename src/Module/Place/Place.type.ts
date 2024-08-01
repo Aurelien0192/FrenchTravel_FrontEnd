@@ -57,8 +57,8 @@ export type placeSubmit = {
 
 export type place = {
     _id : string
-    name : string,
-    categorie: "activity"|"restaurant",
+    name : string
+    categorie: "activity"|"restaurant"
     typeOfPlace: Array<string>
     email: string
     phone:string

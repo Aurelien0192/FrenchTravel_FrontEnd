@@ -7,6 +7,7 @@
 type option = {
     name:string
     value?:string|number
+    selected?:boolean
 }
 
 type selectInputProps = {
@@ -23,7 +24,7 @@ export const SelectInput:React.FC<selectInputProps> = (props) => {
             {props.label}
             <select name={props.name} onChange={props.onChange && ((e) =>{props.onChange!(e.currentTarget.value)})} className="w-9/12 h-[26px] rounded-md shadow">
                 {props.options.map((option,index) => {return(
-                    <option key={index} value={option.value? option.value : option.name}>{option.name}</option>
+                    <option key={index} value={option.value? option.value : option.name} selected={option.selected}>{option.name}</option>
                 )})}
             </select>
         </label>

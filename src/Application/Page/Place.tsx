@@ -14,13 +14,24 @@ import { MoreInfoHotel } from "../ComplexeComponents/Places/MoreInfoHotel.tsx"
 import { MoreInfoRestaurant } from "../ComplexeComponents/Places/MoreInfoRestaurant.tsx"
 import { HeaderPlacePage } from "../Components/Place/HeaderPlacePage.tsx"
 import { SuggestionsPanel } from "../Components/Place/SuggestionsPanel.tsx"
+import { useAuthentification } from "../../Module/Authentification/authentification.hook.ts"
+import { Input } from "../Components/General/Input.tsx"
+import { TextArea } from "../Components/General/TextArea.tsx"
+import { DoubleInput } from "../Components/General/DoubleInput.tsx"
+import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector.tsx"
+import { moreInfo } from "../../Module/Place/Place.type.ts"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
+    const {authentifiateUser} = useAuthentification()
 
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
     const [photoOpen, photoOpenController] = useDisclosure()
+    const [describeUpdate, describeUpdateManager] = useDisclosure()
+    const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
     const {filesTab} = useImageManagement()
+
+    const moreInfo: moreInfo|undefined = dataOnePlace?.getMoreInfo()
 
     
     useEffect(() => {
@@ -39,8 +50,30 @@ export const PlacePage:React.FC = () => {
                     <div className="flex justify-between">
                         <div className="flex flex-col gap-4">
                             <p className="w-[700px] mr-5">{dataOnePlace.getDescribe()}</p>
+                            {Object.keys(authentifiateUser).length>0 && dataOnePlace.getOwner() === authentifiateUser.getId() &&
+                        <div>
+                            <Button onClick={describeUpdateManager.open} size="xs">Modifier</Button>
+                            <Modal
+                                opened={describeUpdate}
+                                onClose={describeUpdateManager.close}
+                                size="lg"
+                                centered
+                                overlayProps={{
+                                    backgroundOpacity:0.30,
+                                    color:'#D98D30',
+                                    blur:3,
+                                }}>
+                                <form className="flex flex-col gap-3 items-end">
+                                    <div className="w-full flex flex-col gap-3">
+                                        <TextArea placeholder="Obligatoire" value={dataOnePlace.getDescribe()} size="md" name="describe" label="Description" flexDirection="flex-col"/>
+                                    </div>
+                                    <Button size="xs" type="submit">Valider</Button>
+                                </form>
+                            </Modal>
+                        </div>
+                    }
                             {dataOnePlace.getCategorie()==="activity" && 
-                                <MoreInfoActivity moreInfos={dataOnePlace.getMoreInfo()}  /> 
+                                <MoreInfoActivity dataOnePlace={dataOnePlace} /> 
                             }
                         </div>
                         <div className="flex flex-col gap-4 items-end">
@@ -67,6 +100,39 @@ export const PlacePage:React.FC = () => {
                 <div>
                     {dataOnePlace.getCategorie() !== "activity" &&
                         <div className="flex flex-col gap-4"> 
+                            {Object.keys(authentifiateUser).length>0 && dataOnePlace.getOwner() === authentifiateUser.getId() &&
+                                <div>
+                                    <Button onClick={moreInfoUpdateManager.open} size="xs">Modifier</Button>
+                                    <Modal
+                                        opened={moreInfoUpdate}
+                                        onClose={moreInfoUpdateManager.close}
+                                        size="lg"
+                                        centered
+                                        overlayProps={{
+                                            backgroundOpacity:0.30,
+                                            color:'#D98D30',
+                                            blur:3,
+                                        }}>
+                                        <form className="flex flex-col gap-3 items-end">
+                                            {dataOnePlace.getCategorie()==="restaurant"?
+                                                    <div className=" w-full flex flex-col gap-3">
+                                                        <DoubleInput placeholder={["15","25"]} label="Fourchette de prix" name={["price1","price2"]} value1={moreInfo && moreInfo.price && moreInfo.price[0].toString()} value2={moreInfo && moreInfo.price && moreInfo.price[1].toString()}/>
+                                                        <Input placeholder="Gastronomique, Epicée ..." label="Cuisine" name="cook" value={moreInfo && moreInfo.cook}/>
+                                                        <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
+                                                    </div>
+                                            :
+                                                    <div className="w-full flex flex-col gap-3">
+                                                        <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
+                                                        <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
+                                                        <HotelCategorieSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
+                                                        <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
+                                                    </div>
+                                            }
+                                            <Button size="xs" type="submit">Valider</Button>
+                                        </form>
+                                    </Modal>
+                                </div>
+                            }
                             <h2 className="text-2xl font-bold">Infos pratiques</h2>
                             {
                                 dataOnePlace.getCategorie() ==="hotel" ? 

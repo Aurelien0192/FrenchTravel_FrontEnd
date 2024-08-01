@@ -5,14 +5,25 @@ Lorsque qu'une étoile est sélectionnée, selected du custom hook useCategorieS
 
 import { StarHotel } from "../../Components/Place/StarsHotel"
 import { useCategorieSelector } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
+import { hotelCategorieService } from "../../../Module/HotelCategorieSelector/HotelCategorieSelector.services"
+import { useEffect } from "react"
 
 type hotelCategorieSelectorProps = {
     labelHidden?: boolean
+    selected?: boolean
+    categorie?:number
 }
 
 export const HotelCategorieSelector: React.FC<hotelCategorieSelectorProps> = (props) => {
     const categorieHotel = [1,2,3,4,5]
     const {hotelCategorieSelected,categorieSelected} = useCategorieSelector()
+
+    useEffect(() => {
+        if(props.selected && props.categorie){
+            categorieSelected()
+            hotelCategorieService.changehotelCategorie(props.categorie)
+        }
+    },[])
 
     return(
         <div className="flex gap-2 justify-between items-center">

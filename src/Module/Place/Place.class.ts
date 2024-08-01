@@ -97,6 +97,7 @@ export class PlaceToSubmit{
 
 export class Place{
     private readonly id: string
+    private owner: string
     private name : string
     private categorie: "activity"|"restaurant"|"hotel"
     private typeOfPlace: Array<string>
@@ -116,6 +117,7 @@ export class Place{
 
     constructor(placeFromApi : place){
         this.id = placeFromApi._id
+        this.owner = placeFromApi.owner
         this.name = placeFromApi.name
         this.categorie = placeFromApi.categorie
         this.typeOfPlace = placeFromApi.typeOfPlace
@@ -143,6 +145,10 @@ export class Place{
 
     getId(){
         return this.id
+    }
+
+    getOwner(){
+        return this.owner
     }
 
     getName(){

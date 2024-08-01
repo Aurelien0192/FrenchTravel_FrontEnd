@@ -2,7 +2,12 @@ import { useState } from "react"
 import { Place } from "../../../Module/Place/Place.class"
 import { Button } from "../General/Button"
 import { TypePlaceLabel } from "./TypePlaceLabel"
-import { useClickOutside } from "@mantine/hooks"
+import { useClickOutside, useDisclosure } from "@mantine/hooks"
+import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
+import { Modal } from "@mantine/core"
+import { Input } from "../General/Input"
+import { DoubleInput } from "../General/DoubleInput"
+import { SelectInput } from "../General/SelectInput"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -11,14 +16,63 @@ type headerPlacePage = {
 
 export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
 
+    const { authentifiateUser } = useAuthentification()
     const [hiddenContact, setHiddenContact] = useState<boolean>(true)
+    const [nameUpdate, nameUpdateManager] = useDisclosure()
+    const [contactUpdate, contactUpdateManager] = useDisclosure()
     const ref = useClickOutside(() => setHiddenContact(true))
+    console.log(authentifiateUser)
+
     return(
         <div className="flex relative justify-between">
-            <div className="flex flex-col">
-                <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
-                <p>{`${props.dataOnePlace.getCountry()} > ${props.dataOnePlace.getCounty()} > ${props.dataOnePlace.getCity()}`}</p>
-                <Button onClick={() => setHiddenContact(false)} size="xs">contact</Button>
+            <div className="flex gap-14 items-start">
+                <div className="flex flex-col">
+                    <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
+                    <p>{`${props.dataOnePlace.getCountry()} > ${props.dataOnePlace.getCounty()} > ${props.dataOnePlace.getCity()}`}</p>
+                    <Button onClick={() => setHiddenContact(false)} size="xs">contact</Button>
+                </div>
+                {Object.keys(authentifiateUser).length>0 && props.dataOnePlace.getOwner() === authentifiateUser.getId() && 
+                    <div>
+                        <Button onClick={nameUpdateManager.open} size="xs">Modifier</Button>
+                        <Modal
+                        opened={nameUpdate}
+                        onClose={nameUpdateManager.close}
+                        size="lg"
+                        centered
+                        overlayProps={{
+                            backgroundOpacity:0.30,
+                            color:'#D98D30',
+                            blur:3,
+                        }}>
+                            <form className="flex flex-col gap-3 items-end">
+                                <div className="w-full flex flex-col gap-3">
+                                    <Input label="nom" placeholder="Obligatoire" name="name" value={props.dataOnePlace.getName()} />
+                                    <DoubleInput placeholder={["facultatif","facultatif"]} label="Sous Categories" name={["underCategorie1","underCategorie2"]} value1={props.dataOnePlace.getTypeOfPlace()[0]} value2={props.dataOnePlace.getTypeOfPlace()[1]} />
+                                    <SelectInput
+                                        label="Catégorie" 
+                                        name="categorie"
+                                        options={
+                                            [{
+                                                name: "Restaurant",
+                                                value: "restaurant",
+                                                selected: "restaurant" === props.dataOnePlace.getCategorie()
+                                            },
+                                            {
+                                                name: "Hôtel",
+                                                value: "hotel",
+                                                selected: "hotel" === props.dataOnePlace.getCategorie()
+                                            },{
+                                                name: "Activité",
+                                                value: "activity",
+                                                selected: "activity" === props.dataOnePlace.getCategorie()
+                                            }]
+                                        } 
+                                    />
+                                </div>
+                                <Button size="xs" type="submit">Valider</Button>
+                            </form>
+                        </Modal>
+                    </div>}
             </div>
             <div className="flex gap-3">
                 <TypePlaceLabel labelName={props.dataOnePlace.getCategorie()} />
@@ -53,6 +107,33 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                             </div>
                         </li>
                     </ul>
+                    {Object.keys(authentifiateUser).length>0 && props.dataOnePlace.getOwner() === authentifiateUser.getId() &&
+                        <div>
+                            <Button onClick={contactUpdateManager.open} size="xs">Modifier</Button>
+                            <Modal
+                                opened={contactUpdate}
+                                onClose={contactUpdateManager.close}
+                                size="lg"
+                                centered
+                                overlayProps={{
+                                    backgroundOpacity:0.30,
+                                    color:'#D98D30',
+                                    blur:3,
+                                }}>
+                                <form className="flex flex-col gap-3 items-end">
+                                    <div className="w-full flex flex-col gap-3">
+                                        <Input label="Adresse" placeholder="Obligatoire" name="street" value={props.dataOnePlace.getStreet()} />
+                                        <Input label="Code Postale" placeholder="Obligatoire" name="codePostal" value={props.dataOnePlace.getCodePostal()} />
+                                        <Input label="Ville" placeholder="Obligatoire" name="city" value={props.dataOnePlace.getCity()} />
+                                        <Input label="Département" placeholder="Obligatoire" name="county" value={props.dataOnePlace.getCounty()} />
+                                        <Input label="Adresse mail" placeholder="Facultatif" name="email" value={props.dataOnePlace.getEmail()} />
+                                        <Input label="Numéro" placeholder="Facultatif" name="phone" value={props.dataOnePlace.getPhone()} />
+                                    </div>
+                                    <Button size="xs" type="submit">Valider</Button>
+                                </form>
+                            </Modal>
+                        </div>
+                    }
                 </div>
             }
         </div>
