@@ -9,11 +9,11 @@ import { MouseEventHandler } from "react"
 import { NavLink } from "react-router-dom"
 
 type navLinkButtonProps={
-    size: "xs"|"md"
+    size?: "xs"|"md"
     children:React.ReactNode
     disabled?: boolean
     to:string
-    variant?:"light"|undefined
+    variant?:"light"|"transparent"|undefined
 }
 
 export const NavLinkButton:React.FC<navLinkButtonProps> = (props) => {
@@ -21,8 +21,14 @@ export const NavLinkButton:React.FC<navLinkButtonProps> = (props) => {
 
     return(
         <NavLink 
-            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} ${props.size === "xs" ? "h-7 py-[2px]": "py-4"} 
-                ${props.disabled && " hidden"} rounded-lg w-fit px-4`} 
+            className={`${props.variant === "light"?
+                    "bg-sand text-brown rounded-lg w-fit px-4": props.variant==="transparent"?
+                        "m-auto uppercase font-bold rounded-xl px-1 py-3 border-2 border-yellow-600 text-yellow-600" :
+                        "bg-brown text-sand rounded-lg w-fit px-4"} 
+                 whitespace-nowrap
+                ${props.size === "xs" ? "h-7": props.variant==="transparent"?"" : "h-fit py-4"}
+                ${props.disabled && "opacity-75"}`
+            } 
             onClick={action}
             to={props.to}
         >{props.children}</NavLink>

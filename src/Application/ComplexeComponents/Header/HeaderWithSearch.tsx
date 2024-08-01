@@ -2,7 +2,7 @@ import { Button } from "../../Components/General/Button"
 import logoTravel from "../../../../public/Logo/logoTravel 1.svg"
 import { Modal } from "@mantine/core"
 import { useClickOutside, useDisclosure } from "@mantine/hooks"
-import { SubscriptionFormular } from "../Places/SubscriptionFormular"
+import { SubscriptionFormular } from "../User/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
 import { IoChevronDown, IoPerson } from "react-icons/io5";
