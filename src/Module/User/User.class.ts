@@ -1,4 +1,4 @@
-import { userToSubmit } from "./User.type"
+import { userToSubmit, userToUpdate } from "./User.type"
 
 export class UserToSubmit{
     public firstName: string
@@ -20,5 +20,26 @@ export class UserToSubmit{
     static createNewUserToSUbmit(user : userToSubmit):UserToSubmit{
         const userToSubmit = new UserToSubmit(user)
         return(userToSubmit)
+    }
+}
+
+export class UserToUpdate{
+    public firstName: string
+    public lastName: string
+    public username: string
+    public email:string
+    public about:string
+
+    constructor(userFromFormular:userToUpdate){
+        this.firstName = userFromFormular.firstName
+        this.lastName = userFromFormular.lastName
+        this.username = userFromFormular.username
+        this.email = userFromFormular.email
+        this.about = userFromFormular.about
+    }
+
+    static createNewUserToUpdate(userFromFormular:userToUpdate):UserToUpdate{
+        const userToUpdate = new UserToUpdate(userFromFormular)
+        return(userToUpdate)
     }
 }

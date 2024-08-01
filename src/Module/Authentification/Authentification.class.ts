@@ -28,6 +28,7 @@ export class AuthentifiateUser{
     private readonly _id:string
     private readonly firstName: string
     private readonly lastName: string
+    private readonly email:string
     private readonly token:string
     private readonly username:string
     private readonly userType:string
@@ -35,12 +36,12 @@ export class AuthentifiateUser{
     private readonly profilePhoto:string
 
     constructor(responseServer: AxiosResponse){
-        console.log(responseServer)
         this._id = responseServer.data._id
         this.token = responseServer.data.token
         this.firstName = responseServer.data.firstName
         this.lastName = responseServer.data.lastName
         this.username = responseServer.data.username
+        this.email = responseServer.data.email
         this.userType = responseServer.data.userType
         this.about = responseServer.data.about
         this.profilePhoto = "http://localhost:3001/"+responseServer.data.profilePhoto.path
@@ -64,6 +65,10 @@ export class AuthentifiateUser{
 
     getUsername(){
         return this.username
+    }
+
+    getEmail(){
+        return this.email
     }
 
     getAbout(){

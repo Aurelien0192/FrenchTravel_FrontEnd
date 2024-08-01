@@ -26,6 +26,19 @@ export class AxiosResponseServices{
         }
     }
 
+    static async responseServerUpdateUser(status:number):Promise<string>{
+        switch(status){
+            case 405 :
+                return "Des champs obligatoires n'ont pas été renseignées ou sont incorrectes"
+            case 200 : 
+                return "La mise à jour de votre compte c'est bien déroulée"
+            case 500 :
+                return "une erreur interne au serveur c'est produite, réessayer ultérieurement"
+            default :
+                return ""
+        }
+    }
+
     static responseServerPostPlace(status:number):string{
         switch(status){
             case 405 :

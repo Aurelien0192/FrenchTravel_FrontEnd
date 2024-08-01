@@ -64,4 +64,14 @@ export class AxiosServices{
             console.log(e)
         }
     }
+
+    /* fonction permettant de mettre à jour des informations sur le server*/
+    static async updateElementOnServer<T>(path:string, data:T){
+        try{
+            const response = await http.put(path, data, {validateStatus:() => true})
+            return response
+        }catch(e){
+            console.log(e)
+        }
+    }
 }
