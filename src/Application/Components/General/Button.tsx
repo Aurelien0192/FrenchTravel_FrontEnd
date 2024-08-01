@@ -9,12 +9,12 @@
 import { MouseEventHandler } from "react"
 
 type buttonProps={
-    size: "xs"|"md"
+    size?: "xs"|"md"
     onClick?: MouseEventHandler<HTMLButtonElement>
     children:React.ReactNode
     type?: "submit" | "reset" | "button" | undefined
     disabled?: boolean
-    variant?:"light"|undefined
+    variant?:"light"|"transparent"|undefined
 }
 
 export const Button:React.FC<buttonProps> = (props) => {
@@ -25,10 +25,20 @@ export const Button:React.FC<buttonProps> = (props) => {
     }
     return(
         <button 
-            className={`${props.variant === "light"?" bg-sand text-brown": "bg-brown text-sand"} 
-                rounded-lg w-fit px-4 whitespace-nowrap ${props.size === "xs" ? "h-7": "h-fit py-4"} ${props.disabled && "opacity-75"}`} 
+            className={`${props.variant === "light"?
+                    "bg-sand text-brown rounded-lg w-fit px-4": props.variant==="transparent"?
+                        "m-auto uppercase font-bold rounded-xl px-1 py-3 border-2 border-yellow-600 text-yellow-600" :
+                        "bg-brown text-sand rounded-lg w-fit px-4"} 
+                 whitespace-nowrap
+                ${props.size === "xs" ? "h-7": props.variant==="transparent"?"" : "h-fit py-4"}
+                ${props.disabled && "opacity-75"}`
+            } 
             onClick={action}
             type={props.type? props.type: "button"}
         >{props.children}</button>
     )
 }
+
+// <button className=" m-auto uppercase font-bold rounded-xl px-1 py-3 border-2 border-yellow-600 text-yellow-600"
+//                     onClick={(e) => {e.preventDefault();imageManagementService.deleteImage(filesTab as Array<File>, filesUrl,props.index)}} //3
+//                   >supprimer</button>

@@ -32,11 +32,12 @@ export class AuthentifiateUser{
     private readonly profilePhoto:string
 
     constructor(responseServer: AxiosResponse){
-        this._id = responseServer.data._doc._id
+        console.log(responseServer)
+        this._id = responseServer.data._id
         this.token = responseServer.data.token
-        this.username = responseServer.data._doc.username
-        this.userType = responseServer.data._doc.userType
-        this.profilePhoto = "http://localhost:3001/"+responseServer.data._doc.profilePhoto
+        this.username = responseServer.data.username
+        this.userType = responseServer.data.userType
+        this.profilePhoto = "http://localhost:3001/"+responseServer.data.profilePhoto.path
     }
 
     getId(){

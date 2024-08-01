@@ -9,8 +9,7 @@ import { useClickOutside, useDisclosure } from "@mantine/hooks"
 import { SubscriptionFormular } from "../Places/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
-import { IoChevronDown } from "react-icons/io5";
-import { FaUser } from "react-icons/fa"
+import { IoChevronDown, IoPerson } from "react-icons/io5";
 import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
 import { MdAddBusiness } from "react-icons/md"
@@ -35,7 +34,7 @@ export const Header:React.FC = () => {
                 <img src={logoTravel} />
                 <div className="relative">
                     <div className="cursor-pointer" onClick={() => setHidden(false)}>
-                    <img className="size-10 rounded-full" src={authentifiateUser.getProfilePhoto()} />
+                    <img className="size-10 rounded-full object-cover" src={authentifiateUser.getProfilePhoto()} />
                         <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
                             <IoChevronDown color={"#8C3616"} />
                         </div>
@@ -45,8 +44,10 @@ export const Header:React.FC = () => {
                             <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                        <FaUser size={"25px"}  />
-                                        <p className="text-2xl font-bold">Profil </p>
+                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to={`/index/user`}>
+                                            <IoPerson size={'25px'} />
+                                            <p className="text-2xl text-nowrap font-bold">Profil</p>
+                                        </NavLink>
                                     </li>
                                     <li >
                                         <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/index/AddPlace">

@@ -15,8 +15,6 @@ export const useSearchFilter = () => {
     const [page, setPage] = useState<number>(1)
     const {hotelCategorie} = useCategorieSelector()
 
-    console.log(hotelCategorie)
-
     useEffect(()=>{
         async function getDataFromSearch(){
             const places = await placeService.getManyPlaceSearch("/places/?"+pathNewSearch.toString())
@@ -60,14 +58,7 @@ export const useSearchFilter = () => {
         setPathNewSearch(pathNewSearch)
     }
 
-    // function changeHotelCategorieFilter(){
-    //     if(hotelCategorie > 1){
-    //         pathNewSearch.get("hotelCategorie")? pathNewSearch.set("hotelCategorie",hotelCategorie.toString()) : pathNewSearch.append("hotelCategorie",hotelCategorie.toString())
-    //     }else{
-    //         pathNewSearch.delete("hotelCategorie")
-    //     }
-    //     setPathNewSearch(pathNewSearch)
-    // }
+    
 
     return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, totalOfPlace, page, changePage, changeCategorieIndex, changeSearchInput}
 }

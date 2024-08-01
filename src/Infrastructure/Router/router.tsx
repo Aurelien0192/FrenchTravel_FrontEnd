@@ -5,6 +5,7 @@ import { Index } from "../../Application/Page/Index";
 import { IndexWithSearch } from "../../Application/Page/IndexWithSearch";
 import { PlacePage } from "../../Application/Page/Place";
 import { SearchPage } from "../../Application/Page/SearchPage";
+import { UserPage } from "../../Application/Page/User";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,9 @@ export const router = createBrowserRouter([
         },{
             path:"/index/search/",
             element: <SearchPage />,
+        },{
+            path:"/index/user/",
+            element: <UserPage />,
         }]
     },
 ])
