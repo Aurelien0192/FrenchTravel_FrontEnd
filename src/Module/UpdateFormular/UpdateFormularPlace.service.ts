@@ -11,14 +11,14 @@ export class UpdateFormularPlaceService{
     const formData = new FormData(form)
     let data = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
     data.categorie = categorie
-    if(categorie === "restaurant" && data.cook){
+    if(categorie === "restaurant" && (data.cook||data.services||data.price)){
       data.moreInfo = {
         cook: data.cook,
         services: data.services,
         price: [data.price1, data.price2]
       } 
     }
-    if(categorie === "hotel" && data.equipment){
+    if(categorie === "hotel" && (data.equipment || data.services || data.accessibility || hotelCategorie)){
       data.moreInfo = {
         equipment: data.equipment,
         services: data.services,
@@ -27,7 +27,7 @@ export class UpdateFormularPlaceService{
       } 
     }
 
-    if(categorie === "activity" && data.categorie){
+    if(categorie === "activity" && (data.duration || data.schedules) ){
       data.moreInfo = {
         schedules:[{
             day:"monday",
