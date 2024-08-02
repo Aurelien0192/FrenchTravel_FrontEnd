@@ -6,7 +6,7 @@ export const Index:React.FC =() => {
 
     return(
         <div>
-            <div className="w-full px-2 pt-10 md:pt-0 md:px-14 flex flex-col gap-7">
+            <div className="w-full px-2 pt-10 md:pt-0 lg:px-14 flex flex-col gap-7">
                 <Header />
                 <Outlet />
             </div>

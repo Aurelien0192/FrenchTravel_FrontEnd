@@ -9,8 +9,8 @@ type MoreInfoHotelProps = {
 
 export const MoreInfoHotel:React.FC<MoreInfoHotelProps> = (props) => {
     return (
-        <div className="flex justify-between">
-            <div className="flex flex-col items-center gap-3 w-1/3">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-0 md:justify-between">
+            <div className="flex  w-full flex-col items-center gap-3 md:w-1/3">
                 <div className="flex gap-2">
                     <IoTvSharp size={"30px"} />
                     <p className="font-bold">Equipements</p>
@@ -24,7 +24,7 @@ export const MoreInfoHotel:React.FC<MoreInfoHotelProps> = (props) => {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col items-center gap-3 w-1/3">
+            <div className="flex flex-col items-center gap-3 w-full md:w-1/3">
                 <div className="flex gap-2">
                     <FaAccessibleIcon size={"30px"} />
                     <p className="font-bold">Accessibilités</p>
@@ -38,7 +38,7 @@ export const MoreInfoHotel:React.FC<MoreInfoHotelProps> = (props) => {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-col items-center gap-3 w-1/3">
+            <div className="flex flex-col items-center gap-3 w-full md:w-1/3">
                 <div className="flex gap-2">
                     <img src={service}/>
                     <p className="font-bold">Accessibilités</p>

@@ -51,7 +51,7 @@ export const HeaderWithSearch:React.FC = () => {
                     </div>
                     {!hidden &&(
                         <div ref={ref}>
-                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
+                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 z-50 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to={"/index/user/places"}>

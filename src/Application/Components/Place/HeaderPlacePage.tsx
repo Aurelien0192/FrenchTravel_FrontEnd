@@ -32,9 +32,9 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
     }
 
     return(
-        <div className="flex relative justify-between">
-            <div className="flex gap-14 items-center">
-                <div className="flex flex-col">
+        <div className="flex flex-col-reverse items-end md:flex-row md:items-start relative justify-between">
+            <div className="flex gap-14 items-center w-full">
+                <div className="flex flex-col w-full">
                     {props.dataOnePlace.getCategorie() === "hotel" && <HotelCategorieShow categorie={props.dataOnePlace.getMoreInfo().hotelCategorie} />}
                     <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
                     <p>{`${props.dataOnePlace.getCountry()} > ${props.dataOnePlace.getCounty()} > ${props.dataOnePlace.getCity()}`}</p>

@@ -57,37 +57,37 @@ export const PlacePage:React.FC = () => {
             <div className="flex flex-col gap-14">
                 <div className="flex flex-col gap-11">
                         <HeaderPlacePage dataOnePlace={dataOnePlace} />
-                    <div className="flex justify-between">
+                    <div className="flex flex-col-reverse lg:flex-row gap-9">
                         <div className="flex flex-col gap-4">
-                            <p className="w-[700px] mr-5">{dataOnePlace.getDescribe()}</p>
+                            <p className="mr-5">{dataOnePlace.getDescribe()}</p>
                             {Object.keys(authentifiateUser).length>0 && dataOnePlace.getOwner() === authentifiateUser.getId() &&
-                        <div>
-                            <Button onClick={describeUpdateManager.open} size="xs">Modifier</Button>
-                            <Modal
-                                opened={describeUpdate}
-                                onClose={describeUpdateManager.close}
-                                size="lg"
-                                centered
-                                overlayProps={{
-                                    backgroundOpacity:0.30,
-                                    color:'#D98D30',
-                                    blur:3,
-                                }}>
-                                <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
-                                    <div className="w-full flex flex-col gap-3">
-                                        <TextArea placeholder="Obligatoire" value={dataOnePlace.getDescribe()} size="md" name="describe" label="Description" flexDirection="flex-col"/>
-                                    </div>
-                                    <Button size="xs" type="submit">Valider</Button>
-                                    <p className="text-red-500">{msg}</p>
-                                </form>
-                            </Modal>
-                        </div>
-                    }
+                                <div>
+                                    <Button onClick={describeUpdateManager.open} size="xs">Modifier</Button>
+                                    <Modal
+                                        opened={describeUpdate}
+                                        onClose={describeUpdateManager.close}
+                                        size="lg"
+                                        centered
+                                        overlayProps={{
+                                            backgroundOpacity:0.30,
+                                            color:'#D98D30',
+                                            blur:3,
+                                        }}>
+                                        <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
+                                            <div className="w-full flex flex-col gap-3">
+                                                <TextArea placeholder="Obligatoire" value={dataOnePlace.getDescribe()} size="md" name="describe" label="Description" flexDirection="flex-col"/>
+                                            </div>
+                                            <Button size="xs" type="submit">Valider</Button>
+                                            <p className="text-red-500">{msg}</p>
+                                        </form>
+                                    </Modal>
+                                </div>
+                            }
                             {dataOnePlace.getCategorie()==="activity" && 
                                 <MoreInfoActivity dataOnePlace={dataOnePlace} /> 
                             }
                         </div>
-                        <div className="flex flex-col gap-4 items-end">
+                        <div className="flex flex-col gap-4 items-center lg:items-end">
                             <Carroussel imagesTab={dataOnePlace.getImage()}/>
                             {sessionStorage.getItem("UserAuthentifiate") && <Button onClick={photoOpenController.open} size="md">Ajouter des Photos</Button>}
                         </div>

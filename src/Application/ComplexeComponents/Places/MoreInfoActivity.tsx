@@ -30,7 +30,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
 
     const moreInfo: moreInfo|undefined = props.dataOnePlace.getMoreInfo()
     return(
-        <div className="flex gap-5 items-center">
+        <div className="flex flex-col md:flex-row gap-5 items-start md:items-center">
             <div className="flex flex-col gap-2">
                 <p className="font-bold"> Horaire d'ouverture</p>
                 <ul>
