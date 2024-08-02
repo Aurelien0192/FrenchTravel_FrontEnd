@@ -6,7 +6,7 @@ export const IndexWithSearch:React.FC =() => {
 
     return(
         <div>
-            <div className="px-14 flex flex-col gap-7">
+            <div className="px-2 lg:px-14 flex flex-col gap-7">
                 <HeaderWithSearch />
                 <Outlet />
             </div>

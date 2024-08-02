@@ -16,8 +16,8 @@ export const SearchPlacesManagement: React.FC = () => {
     
    
     return(
-        <div className=" w-9/12 flex flex-col gap-[6px]">
-            <div>
+        <div className=" w-full md:w-9/12 flex flex-col gap-[6px]">
+            <div className="flex">
                 {Categories.map((category, index) => {return(
                     <SelectorButton value={category} key={index} onClick={() => {changeCategorieIndex(index)}} selected={index === selectedIndex ? true: false}>{category}</SelectorButton>
                 )})}

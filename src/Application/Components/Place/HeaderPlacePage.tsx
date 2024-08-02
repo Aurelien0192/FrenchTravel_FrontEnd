@@ -10,6 +10,7 @@ import { DoubleInput } from "../General/DoubleInput"
 import { SelectInput } from "../General/SelectInput"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
+import { HotelCategorieShow } from "../../ComplexeComponents/Places/HotelCategorieShow"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -32,8 +33,9 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
 
     return(
         <div className="flex relative justify-between">
-            <div className="flex gap-14 items-start">
+            <div className="flex gap-14 items-center">
                 <div className="flex flex-col">
+                    {props.dataOnePlace.getCategorie() === "hotel" && <HotelCategorieShow categorie={props.dataOnePlace.getMoreInfo().hotelCategorie} />}
                     <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
                     <p>{`${props.dataOnePlace.getCountry()} > ${props.dataOnePlace.getCounty()} > ${props.dataOnePlace.getCity()}`}</p>
                     <Button onClick={() => setHiddenContact(false)} size="xs">contact</Button>

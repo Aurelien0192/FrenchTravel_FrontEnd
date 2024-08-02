@@ -8,7 +8,7 @@ type propsPlaceDisplayLittleCard = {
 
 export const PlaceDisplayLittleCard:React.FC<propsPlaceDisplayLittleCard> = (props) =>{
     return(
-        <NavLink to={`/index/Place/${props.place.getId()}`} className= {`flex flex-col gap-2 shadow-md hover:shadow-lg rounded-xl ${props.type!=="little" ?"w-full h-[396px]":"w-[281px] h-[186px]"} p-[10px]`}>
+        <NavLink to={`/index/Place/${props.place.getId()}`} className= {`flex flex-col gap-2 shadow-md hover:shadow-lg rounded-xl ${props.type!=="little" ?"w-[377px] md:w-full h-[396px]":"w-[281px] h-[186px]"} p-[10px]`}>
             <div className={`relative ${props.type !=="little"?"h-64" : "h-full"}`}>
                 <img className="rounded-xl object-cover size-full" src={props.place.getImage()[0].path} />
                 <p 
