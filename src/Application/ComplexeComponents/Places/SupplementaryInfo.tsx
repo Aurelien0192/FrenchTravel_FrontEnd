@@ -64,13 +64,13 @@ export const SupplementaryInfo:React.FC<supplementaryInfo> = (props) => {
                         value: 360
                     },{
                         name: "7 heures",
-                        value: 480
+                        value: 420
                     },{
                         name: "la journée",
-                        value: 540
+                        value: 480
                     },{
                         name: "1 jour et demi",
-                        value: 540 + 240
+                        value: 480 + 240
                     },{
                         name: "2 jours",
                         value: 60 * 16

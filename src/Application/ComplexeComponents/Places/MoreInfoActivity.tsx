@@ -24,7 +24,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
     const [msg, setMsg] = useState<string>("")
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId()),"updatePlace")
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId(),props.dataOnePlace.getCategorie()),"updatePlace")
       setMsg(newMsg)
     }
 
@@ -111,16 +111,16 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                                                     selected: moreInfo.duration == 360
                                                 },{
                                                     name: "7 heures",
+                                                    value: 420,
+                                                    selected: moreInfo.duration == 420
+                                                },{
+                                                    name: "la journée",
                                                     value: 480,
                                                     selected: moreInfo.duration == 480
                                                 },{
-                                                    name: "la journée",
-                                                    value: 540,
-                                                    selected: moreInfo.duration == 540
-                                                },{
                                                     name: "1 jour et demi",
-                                                    value: 540 + 240,
-                                                    selected: moreInfo.duration == 540+240
+                                                    value: 480 + 240,
+                                                    selected: moreInfo.duration == 480+240
                                                 },{
                                                     name: "2 jours",
                                                     value: 60 * 16,

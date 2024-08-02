@@ -4,23 +4,24 @@ import { AxiosResponseError } from "../HTTP/axiosResponseError.dto"
 import { PlaceServices } from "../Place/Place.services"
 
 export class UpdateFormularPlaceService{
-    static async handleSubmit(e: FormEvent<HTMLFormElement>, hotelCategorie: number|undefined, place_id: string){
-    
+    static async handleSubmit(e: FormEvent<HTMLFormElement>, hotelCategorie: number|undefined, place_id: string,categorie?:string){
+    console.log(categorie)
     e.preventDefault()
 
     const form : HTMLFormElement = e.currentTarget
     const formData = new FormData(form)
     let data = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
 
-    if(data.cook && data.services && data.price1 && data.price2){
+    if(categorie === "restaurant"){
+      data.categorie = categorie
       data.moreInfo = {
         cook: data.cook,
         services: data.services,
         price: [data.price1, data.price2]
       } 
     }
-    if(data.equipment && data.services && data.accessibility){
-      console.log("ok")
+    if(categorie === "hotel"){
+      data.categorie = categorie
       data.moreInfo = {
         equipment: data.equipment,
         services: data.services,
@@ -30,7 +31,8 @@ export class UpdateFormularPlaceService{
     }
     console.log(data)
 
-    if(data.duration){
+    if(categorie === "activity"){
+      data.categorie = categorie
       data.moreInfo = {
         schedules:[{
             day:"monday",

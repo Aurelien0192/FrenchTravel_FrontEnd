@@ -48,7 +48,7 @@ export const PlacePage:React.FC = () => {
     },[id])
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, hotelCategorie, dataOnePlace!.getId()),"updatePlace")
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, hotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
       setMsg(newMsg)
     }
 

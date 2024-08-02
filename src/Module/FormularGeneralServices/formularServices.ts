@@ -14,9 +14,9 @@ export class FormularServices{
     const responseAxios: AxiosResponseError = await responseServer
     axiosResponseServices.updateAxiosResponse(responseAxios)
     if(responseAxios.getStatus()=== 201 || responseAxios.getStatus()=== 200){
-            // setTimeout(()=>{
-            //     window.location.reload()
-            // },responseAxios.getStatus() === 201 ?2000 : 0)
+            setTimeout(()=>{
+                window.location.reload()
+            },responseAxios.getStatus() === 201 ?2000 : 0)
         }else{
             responseAxios!.getFieldsWithError()?.forEach((e) =>{
                 FormularServices.showError(e)
