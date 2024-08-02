@@ -31,8 +31,10 @@ export const HeaderWithSearch:React.FC = () => {
     if(Object.keys(authentifiateUser).length>0){
         return(
             <div className="flex items-center gap-14">
-                <img src={logoTravel} />
-                <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
+                <img className="hidden md:inline" src={logoTravel} />
+                <div className="hidden md:inline">
+                    <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
+                </div>
                 <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e);
                 navigate({
                     pathname:`/index/search/`,
@@ -76,9 +78,12 @@ export const HeaderWithSearch:React.FC = () => {
         )
     }
     return(
-        <div className="flex items-center gap-14">
-            <img src={logoTravel} />
-            <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
+        <div className="flex justify-end md:justify-between flex-col-reverse md:flex-row items-center gap-14">
+            <img className="hidden md:inline" src={logoTravel} />
+            <div className="hidden md:inline">
+                <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
+            </div>
+            <div className="hidden w-full md:inline">
                 <SearchBar onSubmit={(e) => {SearchFilterServices.searchPlaces(e);
                 navigate({
                     pathname:`/index/search/`,
@@ -86,7 +91,8 @@ export const HeaderWithSearch:React.FC = () => {
                         search:`${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`,
                     })}`    
                 })}} />
-            <div className="flex gap-3 mr-8">
+            </div>
+            <div className="flex w-full md:w-fit justify-between md:gap-3 md:mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
                 <Modal

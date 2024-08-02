@@ -5,18 +5,26 @@ import { Categories } from "../ComplexeComponents/Places/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector"
+import { Button } from "../Components/General/Button"
+import { useState } from "react"
+import { IoCloseSharp } from "react-icons/io5"
 
 export const SearchPage:React.FC = () => {
     
     const { placesSearch,pathNewSearch,selectedIndex, totalOfPlace, page, changePage, changeSearchInput, changeCategorieIndex } = useSearchFilter()
+    const [filterHidden, setFilterHidden] = useState<boolean>(true)
+
     if(placesSearch){
         return(
-            <div className="flex flex-row-reverse gap-4">
-                <div className="flex flex-col gap-5 w-5/6">
+            <div className="flex flex-row-reverse gap-4 relative">
+                <div className="flex flex-col gap-5 w-full md:w-5/6">
                     <SearchBar value={pathNewSearch.get('search') && pathNewSearch.get('search')} 
                     onSubmit={(e) => {
                         e.preventDefault()
                         changeSearchInput(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}}/>
+                    <div className="md:hidden">
+                        <Button onClick={()=>{setFilterHidden(false)}} size="xs">filtre</Button>
+                    </div>
                     <div className="flex flex-col gap-4">
                         {placesSearch.map((e,index) => {
                             return(
@@ -32,9 +40,14 @@ export const SearchPage:React.FC = () => {
                         onNextPage={() => changePage(page+1)}
                         onPreviousPage={() => changePage(page-1)} />
                 </div>
-                <aside className="w-1/6">
+                <aside className={`${filterHidden && "hidden"} fixed bg-white top-0 left-0 bottom-0 w-full md:w-1/6 md:relative md:block`}>
                     <div className="flex flex-col gap-2">
-                        <h2 className="text-2xl font-bold">Filtre</h2>
+                        <div className="flex justify-between">
+                            <h2 className="text-2xl font-bold">Filtres</h2>
+                            <button className=" md:hidden" onClick={()=>{setFilterHidden(true)}}>
+                                <IoCloseSharp size="40px" />
+                            </button>
+                        </div>
                         <div className="flex flex-col">
                             {Categories.map((category, index) => {return(
                                 <SelectorButton 

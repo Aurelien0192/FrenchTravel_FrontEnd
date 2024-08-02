@@ -30,7 +30,9 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
                 onChange={((e) => {e.preventDefault(),setValueOfInput(e.currentTarget.value)})}
                 icon={logoSearch} 
             />
-            <Button type="submit" onClick={props.onClick} size="xs">Rechercher</Button>
+            <div className="hidden md:inline">
+                <Button type="submit" onClick={props.onClick} size="xs">Rechercher</Button>
+            </div>
         </form>
     )
 }
