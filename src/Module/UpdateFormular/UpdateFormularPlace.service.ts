@@ -5,23 +5,20 @@ import { PlaceServices } from "../Place/Place.services"
 
 export class UpdateFormularPlaceService{
     static async handleSubmit(e: FormEvent<HTMLFormElement>, hotelCategorie: number|undefined, place_id: string,categorie?:string){
-    console.log(categorie)
     e.preventDefault()
 
     const form : HTMLFormElement = e.currentTarget
     const formData = new FormData(form)
     let data = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
-
-    if(categorie === "restaurant"){
-      data.categorie = categorie
+    data.categorie = categorie
+    if(categorie === "restaurant" && data.cook){
       data.moreInfo = {
         cook: data.cook,
         services: data.services,
         price: [data.price1, data.price2]
       } 
     }
-    if(categorie === "hotel"){
-      data.categorie = categorie
+    if(categorie === "hotel" && data.equipment){
       data.moreInfo = {
         equipment: data.equipment,
         services: data.services,
@@ -29,10 +26,8 @@ export class UpdateFormularPlaceService{
         hotelCategorie: hotelCategorie
       } 
     }
-    console.log(data)
 
-    if(categorie === "activity"){
-      data.categorie = categorie
+    if(categorie === "activity" && data.categorie){
       data.moreInfo = {
         schedules:[{
             day:"monday",

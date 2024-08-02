@@ -78,6 +78,7 @@ export const PlacePage:React.FC = () => {
                                         <TextArea placeholder="Obligatoire" value={dataOnePlace.getDescribe()} size="md" name="describe" label="Description" flexDirection="flex-col"/>
                                     </div>
                                     <Button size="xs" type="submit">Valider</Button>
+                                    <p className="text-red-500">{msg}</p>
                                 </form>
                             </Modal>
                         </div>

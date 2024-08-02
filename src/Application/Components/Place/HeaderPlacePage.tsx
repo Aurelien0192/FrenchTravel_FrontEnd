@@ -22,11 +22,11 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
     const [hiddenContact, setHiddenContact] = useState<boolean>(true)
     const [nameUpdate, nameUpdateManager] = useDisclosure()
     const [contactUpdate, contactUpdateManager] = useDisclosure()
-    const ref = useClickOutside(() => setHiddenContact(true))
+    const ref = useClickOutside(() => {!contactUpdate && setHiddenContact(true)})
     const [msg, setMsg] = useState<string>("")
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId()),"updatePlace")
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, undefined, props.dataOnePlace!.getId(),props.dataOnePlace.getCategorie()),"updatePlace")
       setMsg(newMsg)
     }
 
@@ -128,7 +128,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                                     color:'#D98D30',
                                     blur:3,
                                 }}>
-                                <form className="flex flex-col gap-3 items-end">
+                                <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                     <div className="w-full flex flex-col gap-3">
                                         <Input label="Adresse" placeholder="Obligatoire" name="street" value={props.dataOnePlace.getStreet()} />
                                         <Input label="Code Postale" placeholder="Obligatoire" name="codePostal" value={props.dataOnePlace.getCodePostal()} />
@@ -138,6 +138,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                                         <Input label="Numéro" placeholder="Facultatif" name="phone" value={props.dataOnePlace.getPhone()} />
                                     </div>
                                     <Button size="xs" type="submit">Valider</Button>
+                                    <p className="text-red-500">{msg}</p>
                                 </form>
                             </Modal>
                         </div>
