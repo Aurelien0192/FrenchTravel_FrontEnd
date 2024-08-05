@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios"
 import { AxiosServices } from "../HTTP/axios.services"
 import { authentificationService } from "../Authentification/Authentification.service"
 import { AuthentifiateUser } from "../Authentification/Authentification.class"
+import { AxiosResponseError } from "../HTTP/axiosResponseError.dto"
 
 export class ProfilService{
     
@@ -14,5 +15,11 @@ export class ProfilService{
             authentificationService.updateAuthentifiateUser(newUser)
         }
         return response
+    }
+
+    static async deleteUser(path:string){
+        const response: AxiosResponse = await AxiosServices.deleteElementOnServer(path) as AxiosResponse
+        const responseToReturn:AxiosResponseError = AxiosResponseError.createNewResponseError(response.data, response.status)
+        return responseToReturn
     }
 }

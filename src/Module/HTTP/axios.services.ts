@@ -74,4 +74,14 @@ export class AxiosServices{
             console.log(e)
         }
     }
+
+    /* fonction permettant la suppression d'un élement sur le server */
+    static async deleteElementOnServer(path:string){
+        try{
+            const response = await http.delete(path)
+            return response
+        }catch(e){
+            console.log(e)
+        }
+    }
 }
