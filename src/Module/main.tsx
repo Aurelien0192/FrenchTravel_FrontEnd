@@ -14,6 +14,12 @@ if(sessionStorage.getItem("UserAuthentifiate") !== null){
   authentifiateUser &&  authentificationService.updateAuthentifiateUser(AuthentifiateUser.createAuthentifiateUser(JSON.parse(authentifiateUser)))
 }
 
+if(localStorage.getItem("UserAuthentifiate") !== null){
+  const authentifiateUser:string = localStorage.getItem("UserAuthentifiate") as string
+  sessionStorage.setItem("UserAuthentifiate",authentifiateUser)
+  authentificationService.updateAuthentifiateUser(AuthentifiateUser.createAuthentifiateUser(JSON.parse(authentifiateUser)))
+}
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider>

@@ -31,6 +31,7 @@ export const Header:React.FC = () => {
             window.alert(msg)
         }else{
             sessionStorage.removeItem("UserAuthentifiate")
+            localStorage.getItem("UserAuthentifiate") && localStorage.removeItem("UserAuthentifiate")
         }
     }
 

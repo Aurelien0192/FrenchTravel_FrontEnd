@@ -28,6 +28,9 @@ export class AuthentificationServices{
             const user : AuthentifiateUser= AuthentifiateUser.createAuthentifiateUser(responseServer)
             authentificationService.updateAuthentifiateUser(user)
             sessionStorage.setItem("UserAuthentifiate",JSON.stringify(responseServer))
+            if(data.save){
+                localStorage.setItem("UserAuthentifiate",JSON.stringify(responseServer))
+            }
         }
         return  AxiosResponseError.createNewResponseError(responseServer.data, responseServer.status)
     }

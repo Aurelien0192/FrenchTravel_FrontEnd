@@ -13,6 +13,8 @@ import { MdAddBusiness } from "react-icons/md"
 import { NavLink, useNavigate, createSearchParams } from "react-router-dom"
 import { SearchBar } from "../../Components/General/SearchBar"
 import { SearchFilterServices } from "../../../Module/SearchFilter/SearchFilter.service"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
 
 
 export const HeaderWithSearch:React.FC = () => {
@@ -23,9 +25,14 @@ export const HeaderWithSearch:React.FC = () => {
     const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
-    const disconnect = () => {
-        sessionStorage.removeItem("UserAuthentifiate")
-        window.location.reload()
+     const disconnect = async () => {
+        const msg = await FormularServices.addResponseOfServer(AuthentificationServices.submitLogout(),"logout")
+        if(msg){
+            window.alert(msg)
+        }else{
+            sessionStorage.removeItem("UserAuthentifiate")
+            localStorage.getItem("UserAuthentifiate") && localStorage.removeItem("UserAuthentifiate")
+        }
     }
 
     if(Object.keys(authentifiateUser).length>0){

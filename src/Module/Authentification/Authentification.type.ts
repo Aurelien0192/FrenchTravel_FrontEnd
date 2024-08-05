@@ -1,6 +1,7 @@
 export type authentificationRequestData = {
     username: string,
-    password: string
+    password: string,
+    save:string
 }
 
 export type authentificationLocal = {
