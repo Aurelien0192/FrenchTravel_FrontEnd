@@ -85,6 +85,14 @@ export class AxiosResponseServices{
                 return ""
         }
     }
+
+    static responseServerLogout(status:number):string{
+        if(status !== 200){
+            return "une erreur c'est produite pendant la déconnexion"
+        }else{
+            return ""
+        }
+    }
 }
 
 export const axiosResponseServices = new AxiosResponseServices(axiosResponseStore)

@@ -35,8 +35,13 @@ export class AuthentificationServices{
     static async submitAuthentification(data: authentificationRequestData){
         const authentification = AuthentificationToSubmit.createAuthentificationToSubmit(data)
         let response = await AxiosServices.postInDataBase("/login",authentification)
-
         return response
+    }
+
+    static async submitLogout(){
+        const response:AxiosResponse = await AxiosServices.postInDataBase("/logout",null) as AxiosResponse
+        const responseToReturn = AxiosResponseError.createNewResponseError(response.data, response.status)
+        return responseToReturn
     }
 }
 

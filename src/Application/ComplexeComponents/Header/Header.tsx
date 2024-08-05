@@ -14,6 +14,8 @@ import { BiLogOutCircle } from "react-icons/bi"
 import { useState } from "react"
 import { MdAddBusiness } from "react-icons/md"
 import { NavLink } from "react-router-dom"
+import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
 
 
 export const Header:React.FC = () => {
@@ -23,9 +25,13 @@ export const Header:React.FC = () => {
     const ref = useClickOutside(() => setHidden(true))
 
     const { authentifiateUser} = useAuthentification()
-    const disconnect = () => {
-        sessionStorage.removeItem("UserAuthentifiate")
-        window.location.reload()
+    const disconnect = async () => {
+        const msg = await FormularServices.addResponseOfServer(AuthentificationServices.submitLogout(),"logout")
+        if(msg){
+            window.alert(msg)
+        }else{
+            sessionStorage.removeItem("UserAuthentifiate")
+        }
     }
 
     if(Object.keys(authentifiateUser).length>0){
