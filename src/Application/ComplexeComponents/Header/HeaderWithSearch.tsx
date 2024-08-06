@@ -1,39 +1,27 @@
 import { Button } from "../../Components/General/Button"
 import logoTravel from "../../../../public/Logo/logoTravel 1.svg"
 import { Modal } from "@mantine/core"
-import { useClickOutside, useDisclosure } from "@mantine/hooks"
 import { SubscriptionFormular } from "../User/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
 import { IoChevronDown, IoPerson } from "react-icons/io5";
 import { BiLogOutCircle } from "react-icons/bi"
-import { useState } from "react"
 import { NavLinkButton } from "../../Components/General/NavLinkButton"
 import { MdAddBusiness } from "react-icons/md"
 import { NavLink, useNavigate, createSearchParams } from "react-router-dom"
 import { SearchBar } from "../../Components/General/SearchBar"
 import { SearchFilterServices } from "../../../Module/SearchFilter/SearchFilter.service"
-import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
-import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
+import { useHeader } from "../../../Module/Header/Header.hook"
+import { HeaderService } from "../../../Module/Header/Header.services"
 
 
 export const HeaderWithSearch:React.FC = () => {
-    const [openedSubscription, manageSubscription] = useDisclosure(false)
-    const [openedConnection, manageConnection] = useDisclosure(false)
-    const [hidden, setHidden] = useState(true)
+
+    const {openedSubscription, manageSubscription, openedConnection, manageConnection, hidden, ref, hiddenNavOption} = useHeader()
     const navigate = useNavigate()
-    const ref = useClickOutside(() => setHidden(true))
+
 
     const { authentifiateUser} = useAuthentification()
-     const disconnect = async () => {
-        const msg = await FormularServices.addResponseOfServer(AuthentificationServices.submitLogout(),"logout")
-        if(msg){
-            window.alert(msg)
-        }else{
-            sessionStorage.removeItem("UserAuthentifiate")
-            localStorage.getItem("UserAuthentifiate") && localStorage.removeItem("UserAuthentifiate")
-        }
-    }
 
     if(Object.keys(authentifiateUser).length>0){
         return(
@@ -50,7 +38,7 @@ export const HeaderWithSearch:React.FC = () => {
                     })}`    
                 })}} />
                 <div className="relative ">
-                    <div className="cursor-pointer size-10" onClick={() => setHidden(false)}>
+                    <div className="cursor-pointer size-10" onClick={hiddenNavOption}>
                         <img className="size-10 object-cover rounded-full" src={authentifiateUser.getProfilePhoto()} />
                         <div className="bg-sand w-fit rounded-full absolute top-7 left-7">
                             <IoChevronDown color={"#8C3616"} />
@@ -72,7 +60,7 @@ export const HeaderWithSearch:React.FC = () => {
                                             <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
                                         </NavLink>
                                     </li>
-                                    <li onClick={disconnect} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                    <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <BiLogOutCircle size={"25px"}  />
                                         <p className="text-2xl font-bold">Déconnexion </p>
                                     </li>
