@@ -37,7 +37,7 @@ export const HeaderWithSearch:React.FC = () => {
 
     if(Object.keys(authentifiateUser).length>0){
         return(
-            <div className="flex items-center gap-14">
+            <div className="flex w-full items-center gap-14">
                 <img className="hidden md:inline" src={logoTravel} />
                 <div className="hidden md:inline">
                     <Button onClick={() => navigate(-1)} size="xs">Retour</Button>
@@ -85,7 +85,7 @@ export const HeaderWithSearch:React.FC = () => {
         )
     }
     return(
-        <div className="flex justify-end md:justify-between flex-col-reverse md:flex-row items-center gap-14">
+        <div className="flex justify-end w-full md:justify-between flex-col-reverse md:flex-row items-center gap-14">
             <img className="hidden md:inline" src={logoTravel} />
             <div className="hidden md:inline">
                 <NavLinkButton to={'/'} size="xs">Retour</NavLinkButton>
