@@ -50,6 +50,11 @@ export class PlaceServices{
         return response
     }
 
+    static async deleteOnePlace(id:string){
+        let response:AxiosResponse = await AxiosServices.deleteElementOnServer(`/place/${id}`) as AxiosResponse
+        return response
+    }
+
 }
 
 export const placeService = new PlaceServices(placeStore)

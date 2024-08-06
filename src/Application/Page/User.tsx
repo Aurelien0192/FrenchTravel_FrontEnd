@@ -15,7 +15,7 @@ export const UserPage:React.FC = () => {
 
   
     return(
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col w-full gap-4">
             <div className="flex justify-between items-center">
                 <div className="flex gap-5 items-end">
                     <PhotoProfileDisplay />
