@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { placeService } from "../Place/Place.services"
 import { Place } from "../Place/Place.class"
-import { Categories } from "../../Application/ComplexeComponents/Places/Categories.variable"
+import { Categories } from "../Place/Categories.variable"
 import { useSearchParams } from "react-router-dom"
 import { useCategorieSelector } from "../HotelCategorieSelector/HotelCategorieSelector.hook"
 

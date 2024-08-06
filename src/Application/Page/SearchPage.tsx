@@ -1,7 +1,7 @@
 import { Loader, Pagination } from "@mantine/core"
 import { useSearchFilter } from "../../Module/SearchFilter/SearchFilter.hook"
 import { SearchBar } from "../Components/General/SearchBar"
-import { Categories } from "../ComplexeComponents/Places/Categories.variable"
+import { Categories } from "../../Module/Place/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector"

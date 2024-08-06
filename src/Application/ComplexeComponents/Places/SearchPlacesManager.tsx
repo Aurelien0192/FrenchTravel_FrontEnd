@@ -2,7 +2,7 @@ import { SearchBar } from "../../Components/General/SearchBar"
 import { SelectorButton } from "../../Components/General/SelectorButton"
 import { SearchFilterServices } from "../../../Module/SearchFilter/SearchFilter.service"
 import { useNavigate, createSearchParams } from "react-router-dom"
-import { Categories } from "./Categories.variable"
+import { Categories } from "../../../Module/Place/Categories.variable"
 import { useSearchFilter } from "../../../Module/SearchFilter/SearchFilter.hook"
 
 
