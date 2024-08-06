@@ -1,3 +1,4 @@
+import { image } from "../Image/Image.type"
 import { place } from "../Place/Place.type"
 
 
@@ -11,4 +12,9 @@ export type axiosResponseError ={
 export type responseGetManyPlaces = {
     count : number
     results : Array<place>
+}
+
+export type responseGetManyImages = {
+    count: number
+    results: Array<image>
 }
