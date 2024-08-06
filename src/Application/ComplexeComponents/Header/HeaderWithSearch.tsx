@@ -49,18 +49,18 @@ export const HeaderWithSearch:React.FC = () => {
                             <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 z-50 bg-white`}>
                                 <ul className="w-fill">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to={"/index/user/places"}>
+                                        <NavLink className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand" to={"/index/user/profile"}>
                                             <IoPerson size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Profil</p>
                                         </NavLink>
                                     </li>
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                        <NavLink className="flex gap-[10px] items-center cursor-pointer hover:bg-sand" to="/index/AddPlace">
+                                        <NavLink className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand" to="/index/AddPlace">
                                             <MdAddBusiness size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
                                         </NavLink>
                                     </li>
-                                    <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
+                                    <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand">
                                         <BiLogOutCircle size={"25px"}  />
                                         <p className="text-2xl font-bold">Déconnexion </p>
                                     </li>
