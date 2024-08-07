@@ -7,8 +7,6 @@ type imageProfileManagementProps = {
     image: Image
 }
 
-
-
 export const ImageProfileManagement: React.FC<imageProfileManagementProps> = (props) => {
 
     const {hidden, handleHoverImgEnter, handleHoverImgExit} = useImage()
