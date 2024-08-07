@@ -1,5 +1,6 @@
-import { MouseEventHandler, useState } from "react";
+import { MouseEventHandler } from "react";
 import { Image } from "../../../Module/Image/Image.class";
+import { useImage } from "../../../Module/Image/Image.hook";
 
 type imageProfileManagementProps = {
     onClick: MouseEventHandler<HTMLButtonElement>
@@ -10,15 +11,7 @@ type imageProfileManagementProps = {
 
 export const ImageProfileManagement: React.FC<imageProfileManagementProps> = (props) => {
 
-    const[hidden, setHidden] = useState<boolean>(false)
-
-    const handleHoverImgEnter = () => {
-        setHidden(true)
-    }
-
-    const handleHoverImgExit= () => {
-        setHidden(false)
-    }
+    const {hidden, handleHoverImgEnter, handleHoverImgExit} = useImage()
 
     return(
         <div className="relative">

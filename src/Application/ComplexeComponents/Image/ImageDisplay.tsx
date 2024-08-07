@@ -16,9 +16,9 @@ prends deux propriétés :
     ceci à pour conséquence la suppression de la photo dans les deux observables et donc le retrait de la photo dans l'affichage.
   A*/
 
-import { useState } from "react"
 import { imageManagementService } from "../../../Module/ImageManagement.ts/ImageManagement.services"
 import { useImageManagement } from "../../../Module/ImageManagement.ts/ImageManagement.hook"
+import { useImage } from "../../../Module/Image/Image.hook"
 
 type imageDisplayProps = {
     fileUrl : string
@@ -26,15 +26,11 @@ type imageDisplayProps = {
 }
 
 export const ImageDisplay:React.FC<imageDisplayProps> = (props) => {
-    const[hidden, setHidden] = useState<boolean>(false)
-    const{filesUrl, filesTab} = useImageManagement()
-    const handleHoverImgEnter = () => {
-        setHidden(true)
-    }
+    
+    const {hidden, handleHoverImgEnter, handleHoverImgExit} = useImage()
 
-  const handleHoverImgExit= () => {
-        setHidden(false)
-    }
+    const{filesUrl, filesTab} = useImageManagement()
+  
     return(
 
             <div className="relative size-fit">
