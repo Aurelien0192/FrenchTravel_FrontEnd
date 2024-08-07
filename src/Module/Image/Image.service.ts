@@ -1,6 +1,7 @@
 import { AxiosServices } from "../HTTP/axios.services";
 import { Image } from "./Image.class";
 import { responseGetManyImages } from "../HTTP/axiosResponseError.type";
+import { AxiosResponse } from "axios";
 
 export class ImageService{
     static async getImagesOfUser(page:number){
@@ -11,5 +12,10 @@ export class ImageService{
             images.push(Image.createNewImage(image))
         })
         return {images, total}
+    }
+
+    static async deleteImage(id:string){
+        const response:AxiosResponse = await AxiosServices.deleteElementOnServer(`/image/${id}`) as AxiosResponse
+        return response
     }
 }

@@ -8,7 +8,7 @@ export class Image{
     constructor(image: image){
         this._id = image._id
         this.name = image.name
-        this.path = image.path
+        this.path = "http://localhost:3001/"+image.path
     }
 
     getId(){
