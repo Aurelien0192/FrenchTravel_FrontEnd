@@ -23,7 +23,6 @@ type starHotelAndNoteProps = {
 
 export const StarHotelAndNote:React.FC<starHotelAndNoteProps> =(props) => {
     const {selectedNoteOrHotelCategorie} = useSelector()
-    console.log(props.changeSelected)
     return(
         <svg className={`${!props.forcedCategory && 'hover:cursor-pointer'} ${!props.forcedCategory? selectedNoteOrHotelCategorie >= props.hisCategorie? 'fill-orange':'fill-white' : props.forcedCategory >= props.hisCategorie? 'fill-orange':'fill-white'}`} //4
         onMouseEnter={() => {!props.selected && hotelCategorieOrNotationService.changehotelCategorieOrNotation(props.hisCategorie)}} //1

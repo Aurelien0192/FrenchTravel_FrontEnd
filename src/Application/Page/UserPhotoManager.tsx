@@ -29,7 +29,6 @@ export const UserPhotoManager:React.FC = () => {
 
     async function deleteOneImage(id:string){
         const responseOfServer:AxiosResponse = await ImageService.deleteImage(id)
-        console.log(responseOfServer)
         if(responseOfServer.status ===200 && tabImages){
             getImagesFromServer()
         }

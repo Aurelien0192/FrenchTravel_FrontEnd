@@ -23,7 +23,7 @@ import { moreInfo } from "../../Module/Place/Place.type.ts"
 import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook.ts"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
-import { Calendar, DatePicker } from "@mantine/dates"
+import { DatePicker } from "@mantine/dates"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -55,6 +55,7 @@ export const PlacePage:React.FC = () => {
       setMsg(newMsg)
     }
 
+    console.log(dateVisit?.toLocaleDateString().split('/').reverse().join('-'))
     if(dataOnePlace){
         return(
             <div className="flex flex-col gap-14">
@@ -176,6 +177,7 @@ export const PlacePage:React.FC = () => {
                             <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
                             <HotelCategorieOrNotationSelector type="circle" labelHidden={true} />
                             <div>
+                                <Input type="date" name="dateOfVisite" value={dateVisit && dateVisit?.toLocaleDateString().split('/').reverse().join('-')} placeholder=""/>
                                 <DatePicker value={dateVisit} onChange={setDateVisite} />
                             </div>
                         </div>

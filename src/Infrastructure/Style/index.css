@@ -66,3 +66,11 @@
 .mantine-DatePicker-monthsList{
     font-family:'Nunito Sans';
 }
+
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}

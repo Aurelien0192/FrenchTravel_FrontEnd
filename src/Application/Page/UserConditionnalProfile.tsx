@@ -13,7 +13,6 @@ export const UserConditionalProfile: React.FC = () =>{
             setisProfessional(true)
         }
     },[authentifiateUser])
-    console.log(isProfessional)
     if(Object.keys(authentifiateUser).length===0){
         return <Loader />
     }else{

@@ -8,9 +8,9 @@ import { ChangeEventHandler, useEffect, useState } from "react"
 type inputProps = {
     placeholder: string
     name: string 
-    label: string
+    label?: string
     value?:string
-    type?: "password"|undefined
+    type?: "password"|"date"|undefined
     flexDirection? : "flex-col"|undefined
     onChange?:ChangeEventHandler<HTMLInputElement>
     icon?:string
@@ -20,10 +20,11 @@ type inputProps = {
 export const Input:React.FC<inputProps> = (props) => {
 
     const [valueInput, setValueInput] = useState<string>()
+    console.log(props.value)
 
     useEffect(()=>{
         setValueInput(props.value)
-    },[])
+    },[props.value])
 
     return(
         <label className={`flex ${props.flexDirection === "flex-col"? "flex-col gap-[5px] items-start":"justify-between items-center"} w-full`}>
