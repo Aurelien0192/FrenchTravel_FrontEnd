@@ -23,6 +23,7 @@ import { moreInfo } from "../../Module/Place/Place.type.ts"
 import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook.ts"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
+import { Calendar, DatePicker } from "@mantine/dates"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -33,6 +34,7 @@ export const PlacePage:React.FC = () => {
     const [describeUpdate, describeUpdateManager] = useDisclosure()
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
     const [addCommentModal, addCommentModalManager] = useDisclosure()
+    const [dateVisit, setDateVisite] = useState<Date | null>(null)
     const {filesTab} = useImageManagement()
     const {selectedNoteOrHotelCategorie} = useSelector()
     const [msg, setMsg] = useState<string>("")
@@ -173,6 +175,9 @@ export const PlacePage:React.FC = () => {
                         <div>
                             <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
                             <HotelCategorieOrNotationSelector type="circle" labelHidden={true} />
+                            <div>
+                                <DatePicker value={dateVisit} onChange={setDateVisite} />
+                            </div>
                         </div>
                     </Modal>
                 </div>
