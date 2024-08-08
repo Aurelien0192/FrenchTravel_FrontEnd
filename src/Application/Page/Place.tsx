@@ -2,11 +2,11 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Place } from "../../Module/Place/Place.class"
 import { PlaceServices } from "../../Module/Place/Place.services"
-import { Checkbox, Loader, Modal } from "@mantine/core"
+import { Loader, Modal } from "@mantine/core"
 import { Button } from "../Components/General/Button.tsx"
 import { Carroussel } from "../ComplexeComponents/Image/Carroussel"
 import { PhotosManagement } from "../ComplexeComponents/Image/PhotosManagement.tsx"
-import { useClickOutside, useDisclosure } from "@mantine/hooks"
+import { useDisclosure } from "@mantine/hooks"
 import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
 import { AxiosServices } from "../../Module/HTTP/axios.services"
 import { MoreInfoActivity } from "../ComplexeComponents/Places/MoreInfoActivity.tsx"
@@ -23,25 +23,18 @@ import { moreInfo } from "../../Module/Place/Place.type.ts"
 import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook.ts"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
-import { DatePicker } from "@mantine/dates"
-import calendarLogo from '../../../public/Logo/calendar.svg'
-import { comment } from "../../Module/Comment/comment.type.ts"
-import { CommentService } from "../../Module/Comment/comment.service.ts"
+import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
     const {authentifiateUser} = useAuthentification()
 
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
-    const [hidden, setHidden] = useState<boolean>(true)
-    const ref = useClickOutside(() => setHidden(true))
-    const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
 
     const [photoOpen, photoOpenController] = useDisclosure()
     const [describeUpdate, describeUpdateManager] = useDisclosure()
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
     const [addCommentModal, addCommentModalManager] = useDisclosure()
-    const [dateVisit, setDateVisite] = useState<Date | null>(null)
     const {filesTab} = useImageManagement()
     const {selectedNoteOrHotelCategorie} = useSelector()
     const [msg, setMsg] = useState<string>("")
@@ -59,22 +52,6 @@ export const PlacePage:React.FC = () => {
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
       const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, selectedNoteOrHotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
       setMsg(newMsg)
-    }
-
-    const changeMsgComment = async (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const form = e.currentTarget
-        const formData = new FormData(form)
-        const comment:comment = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
-
-      const newMsgComment = await FormularServices.addResponseOfServer(CommentService.postNewComment(comment, dataOnePlace!.getId(), dataOnePlace!.getCategorie(), selectedNoteOrHotelCategorie), "comment")
-      setMsg(newMsgComment)
-    }
-
-    function changeDisabled(checkboxAccept:  React.ChangeEvent<HTMLInputElement>){
-        console.log(checkboxAccept.currentTarget.checked)
-        setSubmitDisabled(!checkboxAccept.currentTarget.checked)
-
     }
 
     if(dataOnePlace){
@@ -194,38 +171,7 @@ export const PlacePage:React.FC = () => {
                             color:'#D98D30',
                             blur:3,
                         }}>
-                        <form onSubmit={(e) => changeMsgComment(e)} className="w-full flex flex-col gap-8 items-end">
-                            <div className="w-full flex flex-col gap-3">
-                                <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
-                                <HotelCategorieOrNotationSelector type="circle" labelHidden={true} />
-                            </div>
-                            <div className="relative w-full flex flex-col gap-3">
-                                <h2 className="text-2xl font-bold">Quand y êtes-vous allé?</h2>
-                                <Input 
-                                    icon={calendarLogo} 
-                                    onClickIcon={()=>{setHidden(false)}}
-                                    flexDirection="flex-col"
-                                    type="date" 
-                                    name="dateVisited" 
-                                    value={dateVisit && dateVisit?.toLocaleDateString().split('/').reverse().join('-')} 
-                                    placeholder=""
-                                    positionIcon="end"
-                                />
-                                <div ref={ref} className={`${hidden && "hidden"} absolute top-16 bg-white rounded-xl shadow`}>
-                                    <DatePicker value={dateVisit} onChange={setDateVisite} />
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-3 w-full">
-                                <h2 className="text-2xl font-bold">Ajouter un commentaire</h2>
-                                <TextArea flexDirection="flex-col" size="md" placeholder="J'ai adoré ce lieu. Tout était parfait. Je recommande fortement..." name="comment"/>
-                            </div>
-                            <div className="flex gap-4">
-                                <Checkbox onChange={(e)=>{changeDisabled(e)}} name="accept" color="#D98D30" variant="outline" size="md"/>
-                                <p>Je certifie que cet avis reflète ma propre expérience et mon opinion authentique. Je certifie également que je n’ai aucun lien professionnel ou personnel avec cet organisme et que je n’ai reçu aucune compensation financière ou autre de sa part pour rédiger cet avis. </p>
-                            </div>
-                            <p className="text-red-500">{msg}</p>
-                            <Button disabled={submitDisabled} type="submit">Envoyer l'avis</Button>
-                        </form>
+                            <CommentFormular dataOnePlace={dataOnePlace} />
                     </Modal>
                 </div>
             </div>

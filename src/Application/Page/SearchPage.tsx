@@ -64,7 +64,7 @@ export const SearchPage:React.FC = () => {
                         {pathNewSearch.get('categorie')==="hotel" && 
                         <div className="flex flex-col gap-1">
                             <h2 className="text-2xl font-bold">Categorie d'hotel :</h2>
-                            <HotelCategorieOrNotationSelector categorie={1} selected={true} labelHidden={true} /> 
+                            <HotelCategorieOrNotationSelector type="star" categorie={1} selected={true} labelHidden={true} /> 
                         </div>}
                     </div>
                 </aside>

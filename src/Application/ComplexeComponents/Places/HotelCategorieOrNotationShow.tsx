@@ -8,7 +8,7 @@ type hotelCategorieOrNoteShowProps = {
 export const HotelCategorieOrNoteShow: React.FC<hotelCategorieOrNoteShowProps> = (props) => {
     const categoriesHotelOrNotation:Array<number> = [1,2,3,4,5]
     return(
-        <div className="flex items-center">
+        <div className="flex gap-1">
             {categoriesHotelOrNotation.map((categoryHotelOrNotation, index) => {
                 return(
                     <StarHotelAndNote 
