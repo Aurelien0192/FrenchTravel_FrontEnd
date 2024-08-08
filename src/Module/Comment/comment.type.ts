@@ -1,3 +1,4 @@
+import { place } from "../Place/Place.type"
 import { userFromServer } from "../User/User.type"
 
 export type comment={
@@ -13,5 +14,6 @@ export type commentFromServer={
     note:number
     dateVisited: Date
     create_at: Date
-    user_id: userFromServer
+    user_id: userFromServer|string
+    place_id: place|string
 }

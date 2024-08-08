@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
 import { CommentService } from "../../../Module/Comment/comment.service"
 import { Loader, Pagination } from "@mantine/core"
-import { responseGetManyComments } from "../../../Module/HTTP/axiosResponseError.type"
-import { commentFromServer } from "../../../Module/Comment/comment.type"
 import { HotelCategorieOrNoteShow } from "./HotelCategorieOrNotationShow"
+import { Comment } from "../../../Module/Comment/comment.class"
 
 type commentsViewerProps={
     idOfPlaceOrUser: string
@@ -11,7 +10,7 @@ type commentsViewerProps={
 
 export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
-    const [commentsTab, setCommentsTab] = useState<Array<commentFromServer>>([])
+    const [commentsTab, setCommentsTab] = useState<Array<Comment>>([])
     const [page, setPage] = useState<number>(1)
     const [numberOfElement, setNumberOfElement] = useState<number>(0)
 
@@ -21,10 +20,10 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
     useEffect(()=>{
         async function getComments(){
-            const responseServerComments:responseGetManyComments = await CommentService.findManyComments(page, 5, props.idOfPlaceOrUser, "populate")
+            const responseServerComments = await CommentService.findManyComments(page, 5, props.idOfPlaceOrUser, "populateuser_id")
             console.log(responseServerComments)
-            setCommentsTab(responseServerComments.results)
-            setNumberOfElement(responseServerComments.count)
+            setCommentsTab(responseServerComments.comments)
+            setNumberOfElement(responseServerComments.nbOfCommments)
         }
         getComments()
     },[page])
@@ -37,14 +36,14 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                     return(
                         <div className="flex w-full p-2.5" key={index}>
                             <div className="flex flex-col gap-4 border-r-2 border-black w-52">
-                                <img className="size-10 rounded-full object-cover" src={`http://localhost:3001/${comment.user_id.profilePhoto.path}`} />
-                                <p>{comment.user_id.username}</p>
-                                <p className="text-sm">{`publié le : ${new Date(comment.create_at).toLocaleDateString()}`}</p>
-                                <p className="text-sm">{`visité le : ${new Date(comment.dateVisited).toLocaleDateString()}`}</p>
+                                <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                <p>{comment.getUsernamePoster()}</p>
+                                <p className="text-sm">{`publié le : ${comment.getCreateAt()}`}</p>
+                                <p className="text-sm">{`visité le : ${comment.getDateVisited()}`}</p>
                             </div>
                             <div className="pl-6 flex flex-col gap-4">
-                                <HotelCategorieOrNoteShow type="circle" categorie={comment.note} />
-                                <p>{comment.comment}</p>
+                                <HotelCategorieOrNoteShow type="circle" categorie={comment.getNote()} />
+                                <p>{comment.getComment()}</p>
                             </div>
                         </div>
                     )
