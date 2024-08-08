@@ -25,6 +25,8 @@ import { FormularServices } from "../../Module/FormularGeneralServices/formularS
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 import { DatePicker } from "@mantine/dates"
 import calendarLogo from '../../../public/Logo/calendar.svg'
+import { comment } from "../../Module/Comment/comment.type.ts"
+import { CommentService } from "../../Module/Comment/comment.service.ts"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -33,6 +35,7 @@ export const PlacePage:React.FC = () => {
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
     const [hidden, setHidden] = useState<boolean>(true)
     const ref = useClickOutside(() => setHidden(true))
+    const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
 
     const [photoOpen, photoOpenController] = useDisclosure()
     const [describeUpdate, describeUpdateManager] = useDisclosure()
@@ -58,7 +61,22 @@ export const PlacePage:React.FC = () => {
       setMsg(newMsg)
     }
 
-    console.log(dateVisit?.toLocaleDateString().split('/').reverse().join('-'))
+    const changeMsgComment = async (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const form = e.currentTarget
+        const formData = new FormData(form)
+        const comment:comment = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
+
+      const newMsgComment = await FormularServices.addResponseOfServer(CommentService.postNewComment(comment, dataOnePlace!.getId(), dataOnePlace!.getCategorie(), selectedNoteOrHotelCategorie), "comment")
+      setMsg(newMsgComment)
+    }
+
+    function changeDisabled(checkboxAccept:  React.ChangeEvent<HTMLInputElement>){
+        console.log(checkboxAccept.currentTarget.checked)
+        setSubmitDisabled(!checkboxAccept.currentTarget.checked)
+
+    }
+
     if(dataOnePlace){
         return(
             <div className="flex flex-col gap-14">
@@ -176,7 +194,7 @@ export const PlacePage:React.FC = () => {
                             color:'#D98D30',
                             blur:3,
                         }}>
-                        <form className="w-full flex flex-col gap-8 items-end">
+                        <form onSubmit={(e) => changeMsgComment(e)} className="w-full flex flex-col gap-8 items-end">
                             <div className="w-full flex flex-col gap-3">
                                 <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
                                 <HotelCategorieOrNotationSelector type="circle" labelHidden={true} />
@@ -188,7 +206,7 @@ export const PlacePage:React.FC = () => {
                                     onClickIcon={()=>{setHidden(false)}}
                                     flexDirection="flex-col"
                                     type="date" 
-                                    name="dateOfVisite" 
+                                    name="dateVisited" 
                                     value={dateVisit && dateVisit?.toLocaleDateString().split('/').reverse().join('-')} 
                                     placeholder=""
                                     positionIcon="end"
@@ -202,10 +220,11 @@ export const PlacePage:React.FC = () => {
                                 <TextArea flexDirection="flex-col" size="md" placeholder="J'ai adoré ce lieu. Tout était parfait. Je recommande fortement..." name="comment"/>
                             </div>
                             <div className="flex gap-4">
-                                <Checkbox name="accept" color="#D98D30" variant="outline" size="md"/>
+                                <Checkbox onChange={(e)=>{changeDisabled(e)}} name="accept" color="#D98D30" variant="outline" size="md"/>
                                 <p>Je certifie que cet avis reflète ma propre expérience et mon opinion authentique. Je certifie également que je n’ai aucun lien professionnel ou personnel avec cet organisme et que je n’ai reçu aucune compensation financière ou autre de sa part pour rédiger cet avis. </p>
                             </div>
-                            <Button type="submit">Envoyer l'avis</Button>
+                            <p className="text-red-500">{msg}</p>
+                            <Button disabled={submitDisabled} type="submit">Envoyer l'avis</Button>
                         </form>
                     </Modal>
                 </div>

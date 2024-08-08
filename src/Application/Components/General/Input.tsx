@@ -4,7 +4,7 @@
     - label(obligatoire) : fourni le label à afficher
     - type(facultatif) : si password, l'input devient de type password
     - flexDirection(facultatif) : si flex-col, le label se trouve au dessus de l'input, par défaut l'input se trouve à droite du label*/
-import { ChangeEventHandler, MouseEventHandler, useEffect, useState } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
 type inputProps = {
     placeholder: string
     name: string 
@@ -14,7 +14,7 @@ type inputProps = {
     value?:string|null
     type?: "password"|"date"|undefined
     flexDirection? : "flex-col"|undefined
-    onChange?:ChangeEventHandler<HTMLInputElement>
+
     icon?:string
     forcefull?:boolean //only if flexDirection
 }
@@ -35,7 +35,7 @@ export const Input:React.FC<inputProps> = (props) => {
                 <input className="w-full" value={valueInput? valueInput: ""} type={props.type? props.type:"text"}
                     name={props.name} 
                     placeholder={props.placeholder}
-                    onChange={(e)=>{props.onChange && props.onChange;setValueInput(e.currentTarget.value)}}></input>
+                    onChange={(e)=>{setValueInput(e.currentTarget.value)}}></input>
             </div>
           </label>
     )

@@ -31,7 +31,7 @@ export const Button:React.FC<buttonProps> = (props) => {
                         "bg-brown text-sand rounded-lg w-fit px-4"} 
                  whitespace-nowrap
                 ${props.size === "xs" ? "h-7": props.variant==="transparent"?"" : "h-fit py-4"}
-                ${props.disabled && "opacity-75"}`
+                ${props.disabled && "opacity-75 cursor-not-allowed"}`
             } 
             onClick={action}
             type={props.type? props.type: "button"}
