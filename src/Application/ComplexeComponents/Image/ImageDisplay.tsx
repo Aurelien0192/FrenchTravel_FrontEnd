@@ -16,8 +16,8 @@ prends deux propriétés :
     ceci à pour conséquence la suppression de la photo dans les deux observables et donc le retrait de la photo dans l'affichage.
   A*/
 
-import { imageManagementService } from "../../../Module/ImageManagement.ts/ImageManagement.services"
-import { useImageManagement } from "../../../Module/ImageManagement.ts/ImageManagement.hook"
+import { imageManagementService } from "../../../Module/ImageManagement/ImageManagement.services"
+import { useImageManagement } from "../../../Module/ImageManagement/ImageManagement.hook"
 import { useImage } from "../../../Module/Image/Image.hook"
 
 type imageDisplayProps = {
