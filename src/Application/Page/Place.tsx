@@ -24,6 +24,7 @@ import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/Hotel
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.tsx"
+import { CommentsViewer } from "../ComplexeComponents/Places/CommentsViewer.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -160,19 +161,22 @@ export const PlacePage:React.FC = () => {
                     <SuggestionsPanel dataOnePlace={dataOnePlace} />
                 <div>
                     <h2 className="text-2xl font-bold">Avis</h2>
-                    {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
-                    <Modal
-                        opened={addCommentModal}
-                        onClose={addCommentModalManager.close}
-                        size="xl"
-                        centered
-                        overlayProps={{
-                            backgroundOpacity:0.30,
-                            color:'#D98D30',
-                            blur:3,
-                        }}>
-                            <CommentFormular dataOnePlace={dataOnePlace} />
-                    </Modal>
+                    <div className="flex gap-24">
+                        {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
+                        <Modal
+                            opened={addCommentModal}
+                            onClose={addCommentModalManager.close}
+                            size="xl"
+                            centered
+                            overlayProps={{
+                                backgroundOpacity:0.30,
+                                color:'#D98D30',
+                                blur:3,
+                            }}>
+                                <CommentFormular dataOnePlace={dataOnePlace} />
+                        </Modal>
+                        <CommentsViewer idOfPlaceOrUser={dataOnePlace.getId()} />
+                    </div>
                 </div>
             </div>
         )

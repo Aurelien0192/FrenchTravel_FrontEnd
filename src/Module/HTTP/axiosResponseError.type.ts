@@ -1,3 +1,4 @@
+import { commentFromServer } from "../Comment/comment.type"
 import { image } from "../Image/Image.type"
 import { place } from "../Place/Place.type"
 
@@ -17,4 +18,9 @@ export type responseGetManyPlaces = {
 export type responseGetManyImages = {
     count: number
     results: Array<image>
+}
+
+export type responseGetManyComments = {
+    count: number
+    results: Array<commentFromServer>
 }
