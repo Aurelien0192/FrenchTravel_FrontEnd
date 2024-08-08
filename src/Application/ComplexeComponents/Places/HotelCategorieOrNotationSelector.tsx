@@ -12,6 +12,7 @@ type hotelCategorieSelectorProps = {
     labelHidden?: boolean
     selected?: boolean
     categorie?:number
+    type:"star"|"circle"
 }
 
 export const HotelCategorieOrNotationSelector: React.FC<hotelCategorieSelectorProps> = (props) => {
@@ -28,10 +29,10 @@ export const HotelCategorieOrNotationSelector: React.FC<hotelCategorieSelectorPr
     return(
         <div className="flex gap-2 justify-between items-center">
             {!props.labelHidden && <p>Categorie d'hôtel</p>}
-            <div className="flex gap-2 w-9/12">
+            <div className="flex gap-2 h-fit w-9/12">
                 {categorieHotelOrNotation.map((e,index) => {
                     return(<StarHotelAndNote 
-                        type="star"
+                        type={props.type}
                         key={index} 
                         selected={hotelCategorieOrNoteSelected}
                         hisCategorie={e}

@@ -137,7 +137,7 @@ export const PlacePage:React.FC = () => {
                                                 <div className="w-full flex flex-col gap-3">
                                                     <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
                                                     <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
-                                                    <HotelCategorieOrNotationSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
+                                                    <HotelCategorieOrNotationSelector type="star" selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
                                                     <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
                                                 </div>
                                             }
@@ -172,6 +172,7 @@ export const PlacePage:React.FC = () => {
                         }}>
                         <div>
                             <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
+                            <HotelCategorieOrNotationSelector type="circle" labelHidden={true} />
                         </div>
                     </Modal>
                 </div>

@@ -30,7 +30,7 @@ export const StarHotelAndNote:React.FC<starHotelAndNoteProps> =(props) => {
         onMouseLeave={() => {!props.selected && hotelCategorieOrNotationService.changehotelCategorieOrNotation(1)}} //2
         onClick={()=> {props.changeSelected && props.changeSelected(); props.changeSelected && hotelCategorieOrNotationService.changehotelCategorieOrNotation(props.hisCategorie)}} //3
 
-        width={props.changeSelected ? "40" : "20"} height={props.changeSelected ? "40" : "20"} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        width={props.changeSelected ? "40" : "20"} height={props.changeSelected ? "40" : "20"} viewBox={props.type==="circle"?"0 0 40 40" : "0 0 20 20"} fill="none" xmlns="http://www.w3.org/2000/svg">
             {
                 props.type === "star"?
                 <g>
