@@ -1,5 +1,5 @@
 import { Place } from "../../../Module/Place/Place.class"
-import { HotelCategorieShow } from "../Places/HotelCategorieOrNotationShow"
+import { HotelCategorieOrNoteShow } from "../Places/HotelCategorieOrNotationShow"
 import { TypePlaceLabel } from "../../Components/Place/TypePlaceLabel"
 import { NavLink } from "react-router-dom"
 
@@ -42,7 +42,7 @@ export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
                         props.place.getCategorie()==="hotel"?
                         <div className="flex gap-3">
                                 <p>Categorie d'hôtel : </p>
-                                <HotelCategorieShow categorie={props.place.getMoreInfo().hotelCategorie} />
+                                <HotelCategorieOrNoteShow type="star" categorie={props.place.getMoreInfo().hotelCategorie} />
                             </div>
                         : props.place.getCategorie() ==="restaurant" ?
                         <div className="flex gap-3">

@@ -96,7 +96,7 @@ export type placeUpdate = {
 export type place = {
     _id : string
     name : string
-    categorie: "activity"|"restaurant"
+    categorie: "activity"|"restaurant"|"hotel"
     typeOfPlace: Array<string>
     email: string
     phone:string
@@ -112,6 +112,7 @@ export type place = {
     create_at: Date,
     owner: string,
     notation:number,
+    numberOfNote:number,
     images : Array<image>
 
 

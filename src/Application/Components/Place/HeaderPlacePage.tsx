@@ -10,7 +10,7 @@ import { DoubleInput } from "../General/DoubleInput"
 import { SelectInput } from "../General/SelectInput"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
-import { HotelCategorieShow } from "../../ComplexeComponents/Places/HotelCategorieOrNotationShow"
+import { HotelCategorieOrNoteShow } from "../../ComplexeComponents/Places/HotelCategorieOrNotationShow"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -35,8 +35,14 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
         <div className="flex flex-col-reverse items-end md:flex-row md:items-start relative justify-between">
             <div className="flex gap-14 items-center w-full">
                 <div className="flex flex-col w-full">
-                    {props.dataOnePlace.getCategorie() === "hotel" && <HotelCategorieShow categorie={props.dataOnePlace.getMoreInfo().hotelCategorie} />}
-                    <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
+                    {props.dataOnePlace.getCategorie() === "hotel" && <HotelCategorieOrNoteShow type="star" categorie={props.dataOnePlace.getMoreInfo().hotelCategorie} />}
+                    <div className="flex gap-9 items-center">
+                        <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
+                        <div className="flex gap-2.5 items-center">
+                            <HotelCategorieOrNoteShow type="circle" categorie={props.dataOnePlace.getNotation()} />
+                            <p>{props.dataOnePlace.getNumberOfNote()}</p>
+                        </div>
+                    </div>
                     <p>{`${props.dataOnePlace.getCountry()} > ${props.dataOnePlace.getCounty()} > ${props.dataOnePlace.getCity()}`}</p>
                     <Button onClick={() => setHiddenContact(false)} size="xs">contact</Button>
                 </div>
