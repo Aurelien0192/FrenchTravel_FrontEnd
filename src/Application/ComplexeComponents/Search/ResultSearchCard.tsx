@@ -1,5 +1,5 @@
 import { Place } from "../../../Module/Place/Place.class"
-import { HotelCategorieShow } from "../Places/HotelCategorieShow"
+import { HotelCategorieShow } from "../Places/HotelCategorieOrNotationShow"
 import { TypePlaceLabel } from "../../Components/Place/TypePlaceLabel"
 import { NavLink } from "react-router-dom"
 

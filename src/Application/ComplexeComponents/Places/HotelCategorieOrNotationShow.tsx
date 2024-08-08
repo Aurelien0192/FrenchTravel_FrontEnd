@@ -1,20 +1,21 @@
-import { StarHotel } from "../../Components/Place/StarsHotel"
+import { StarHotelAndNote } from "../../Components/Place/StarsHotelOrCircleNotation"
 
 type hotelCategorieShowProps = {
     categorie:number|undefined
 }
 
 export const HotelCategorieShow: React.FC<hotelCategorieShowProps> = (props) => {
-    const categoriesHotel:Array<number> = [1,2,3,4,5]
+    const categoriesHotelOrNotation:Array<number> = [1,2,3,4,5]
     return(
         <div className="flex">
-            {categoriesHotel.map((categoryHotel, index) => {
+            {categoriesHotelOrNotation.map((categoryHotelOrNotation, index) => {
                 return(
-                    <StarHotel 
+                    <StarHotelAndNote 
                         key={index}
-                        hisCategorie={categoryHotel}
+                        hisCategorie={categoryHotelOrNotation}
                         selected={true}
                         forcedCategory={props.categorie ? props.categorie : 1}
+                        type="star"
                     />
                 )
             })}

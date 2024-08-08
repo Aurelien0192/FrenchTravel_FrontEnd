@@ -10,7 +10,7 @@ import { DoubleInput } from "../General/DoubleInput"
 import { SelectInput } from "../General/SelectInput"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
-import { HotelCategorieShow } from "../../ComplexeComponents/Places/HotelCategorieShow"
+import { HotelCategorieShow } from "../../ComplexeComponents/Places/HotelCategorieOrNotationShow"
 
 type headerPlacePage = {
     dataOnePlace: Place

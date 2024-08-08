@@ -18,9 +18,9 @@ import { useAuthentification } from "../../Module/Authentification/authentificat
 import { Input } from "../Components/General/Input.tsx"
 import { TextArea } from "../Components/General/TextArea.tsx"
 import { DoubleInput } from "../Components/General/DoubleInput.tsx"
-import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector.tsx"
+import { HotelCategorieOrNotationSelector } from "../ComplexeComponents/Places/HotelCategorieOrNotationSelector.tsx"
 import { moreInfo } from "../../Module/Place/Place.type.ts"
-import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook.ts"
+import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook.ts"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 
@@ -34,7 +34,7 @@ export const PlacePage:React.FC = () => {
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
     const [addCommentModal, addCommentModalManager] = useDisclosure()
     const {filesTab} = useImageManagement()
-    const {hotelCategorie} = useCategorieSelector()
+    const {selectedNoteOrHotelCategorie} = useSelector()
     const [msg, setMsg] = useState<string>("")
 
     const moreInfo: moreInfo|undefined = dataOnePlace?.getMoreInfo()
@@ -49,7 +49,7 @@ export const PlacePage:React.FC = () => {
     },[id])
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, hotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, selectedNoteOrHotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
       setMsg(newMsg)
     }
 
@@ -137,7 +137,7 @@ export const PlacePage:React.FC = () => {
                                                 <div className="w-full flex flex-col gap-3">
                                                     <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
                                                     <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
-                                                    <HotelCategorieSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
+                                                    <HotelCategorieOrNotationSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
                                                     <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
                                                 </div>
                                             }

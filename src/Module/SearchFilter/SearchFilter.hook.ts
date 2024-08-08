@@ -3,7 +3,7 @@ import { placeService } from "../Place/Place.services"
 import { Place } from "../Place/Place.class"
 import { Categories } from "../Place/Categories.variable"
 import { useSearchParams } from "react-router-dom"
-import { useCategorieSelector } from "../HotelCategorieSelector/HotelCategorieSelector.hook"
+import { useSelector } from "../HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook"
 
 export const useSearchFilter = () => {
 
@@ -13,7 +13,7 @@ export const useSearchFilter = () => {
     const [pathNewSearch, setPathNewSearch] = useSearchParams()
     const [totalOfPlace, setTotalOfPlace] = useState<number>(0)
     const [page, setPage] = useState<number>(1)
-    const {hotelCategorie} = useCategorieSelector()
+    const {selectedNoteOrHotelCategorie} = useSelector()
 
     useEffect(()=>{
         async function getDataFromSearch(){
@@ -26,13 +26,13 @@ export const useSearchFilter = () => {
     },[pathNewSearch])
     
     useEffect(() => {
-        if(hotelCategorie > 1){
-            pathNewSearch.get("hotelCategorie")? pathNewSearch.set("hotelCategorie",hotelCategorie.toString()) : pathNewSearch.append("hotelCategorie",hotelCategorie.toString())
+        if(selectedNoteOrHotelCategorie > 1){
+            pathNewSearch.get("hotelCategorie")? pathNewSearch.set("hotelCategorie",selectedNoteOrHotelCategorie.toString()) : pathNewSearch.append("hotelCategorie",selectedNoteOrHotelCategorie.toString())
         }else{
             pathNewSearch.get("hotelCategorie") && pathNewSearch.delete("hotelCategorie")
         }
         setPathNewSearch(pathNewSearch)
-    },[hotelCategorie])
+    },[selectedNoteOrHotelCategorie])
 
     function changeCategorieIndex(newSelect: number){
         setPage(1)

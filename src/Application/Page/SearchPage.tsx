@@ -4,7 +4,7 @@ import { SearchBar } from "../Components/General/SearchBar"
 import { Categories } from "../../Module/Place/Categories.variable"
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
-import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector"
+import { HotelCategorieOrNotationSelector } from "../ComplexeComponents/Places/HotelCategorieOrNotationSelector"
 import { Button } from "../Components/General/Button"
 import { useState } from "react"
 import { IoCloseSharp } from "react-icons/io5"
@@ -16,7 +16,7 @@ export const SearchPage:React.FC = () => {
 
     if(placesSearch){
         return(
-            <div className="flex flex-row-reverse gap-4 relative">
+            <div className="flex flex-row-reverse w-full gap-4 relative">
                 <div className="flex flex-col gap-5 w-full md:w-5/6">
                     <SearchBar value={pathNewSearch.get('search') && pathNewSearch.get('search')} 
                     onSubmit={(e) => {
@@ -64,7 +64,7 @@ export const SearchPage:React.FC = () => {
                         {pathNewSearch.get('categorie')==="hotel" && 
                         <div className="flex flex-col gap-1">
                             <h2 className="text-2xl font-bold">Categorie d'hotel :</h2>
-                            <HotelCategorieSelector labelHidden={true} /> 
+                            <HotelCategorieOrNotationSelector categorie={1} selected={true} labelHidden={true} /> 
                         </div>}
                     </div>
                 </aside>
