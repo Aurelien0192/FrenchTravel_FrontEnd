@@ -32,6 +32,7 @@ export const PlacePage:React.FC = () => {
     const [photoOpen, photoOpenController] = useDisclosure()
     const [describeUpdate, describeUpdateManager] = useDisclosure()
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
+    const [addCommentModal, addCommentModalManager] = useDisclosure()
     const {filesTab} = useImageManagement()
     const {hotelCategorie} = useCategorieSelector()
     const [msg, setMsg] = useState<string>("")
@@ -104,7 +105,7 @@ export const PlacePage:React.FC = () => {
                         }}>
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
-                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId())}}>Valider</Button>
+                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId());window.location.reload()}}>Valider</Button>
                             {msg && <p className="text-red-500">{msg}</p>}
                         </div>
                     </Modal>
@@ -155,7 +156,25 @@ export const PlacePage:React.FC = () => {
                         </div>
                         }
                 </div>
-                <SuggestionsPanel dataOnePlace={dataOnePlace} />
+                    <SuggestionsPanel dataOnePlace={dataOnePlace} />
+                <div>
+                    <h2 className="text-2xl font-bold">Avis</h2>
+                    {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
+                    <Modal
+                        opened={addCommentModal}
+                        onClose={addCommentModalManager.close}
+                        size="lg"
+                        centered
+                        overlayProps={{
+                            backgroundOpacity:0.30,
+                            color:'#D98D30',
+                            blur:3,
+                        }}>
+                        <div>
+                            <h2 className="text-2xl font-bold">Comment qualifiez-vous votre expérience?</h2>
+                        </div>
+                    </Modal>
+                </div>
             </div>
         )
     }else{
