@@ -14,8 +14,8 @@ export const OwnerPlacesBrowser:React.FC = () => {
         <div className="flex flex-col gap-4 items-center">
             <div className="flex gap-3 w-full">
                 <div className="flex">
-                    <SelectorNavLink to="/index/user/places" selected={true}>Mes établissements</SelectorNavLink>
-                    <SelectorNavLink to="" selected={false}>Mes commentaires</SelectorNavLink>
+                    <SelectorNavLink to="/index/user/profile" selected={true}>Mes établissements</SelectorNavLink>
+                    <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                 </div>
                 <SearchBar/>
             </div>

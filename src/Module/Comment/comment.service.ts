@@ -15,8 +15,8 @@ export class CommentService{
         return ResponseError
     }
 
-    static async findManyComments(page:number,limit:number, place_id:string, options:string){
-        const response:responseGetManyComments = await AxiosServices.getDataFromDatabase(`/comments?page=${page}&limit=${limit}&place_id=${place_id}&options=${options}`) as responseGetManyComments
+    static async findManyComments(page:number,limit:number, place_id:string, findBy:string, options:string){
+        const response:responseGetManyComments = await AxiosServices.getDataFromDatabase(`/comments?page=${page}&limit=${limit}&${findBy}=${place_id}&options=${options}`) as responseGetManyComments
         const comments : Array<Comment> = response.results.map((comment) =>{ return Comment.createNewComment(comment)})
         const nbOfCommments: number  = response.count
         return {comments, nbOfCommments}

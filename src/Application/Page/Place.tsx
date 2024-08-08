@@ -24,7 +24,7 @@ import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/Hotel
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.tsx"
-import { CommentsViewer } from "../ComplexeComponents/Places/CommentsViewer.tsx"
+import { CommentsViewer } from "../ComplexeComponents/Comment/CommentsViewer.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -175,7 +175,7 @@ export const PlacePage:React.FC = () => {
                             }}>
                                 <CommentFormular dataOnePlace={dataOnePlace} />
                         </Modal>
-                        <CommentsViewer idOfPlaceOrUser={dataOnePlace.getId()} />
+                        <CommentsViewer variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
                     </div>
                 </div>
             </div>
