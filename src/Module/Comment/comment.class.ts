@@ -18,6 +18,7 @@ export class CommentToSend{
 }
 
 export class Comment{
+    private id: string
     private comment: string
     private note:number
     private dateVisited: string
@@ -25,8 +26,10 @@ export class Comment{
     private usernamePoster?: string
     private profilePhotoUser?:string
     private placeName?:string
+    private liked:boolean
 
     constructor(comment:commentFromServer){
+        this.id = comment._id
         this.comment = comment.comment
         this.note = comment.note
         this.dateVisited = new Date(comment.dateVisited).toLocaleDateString()
@@ -34,6 +37,11 @@ export class Comment{
         this.usernamePoster = typeof comment.user_id !== "string" ? comment.user_id.username : undefined
         this.profilePhotoUser = typeof comment.user_id !== "string" ?"http://localhost:3001/"+comment.user_id.profilePhoto.path :undefined
         this.placeName = typeof comment.place_id !== "string" ? comment.place_id.name : undefined
+        this.liked = comment.liked
+    }
+
+    getId(){
+        return this.id
     }
 
     getComment(){
@@ -62,6 +70,14 @@ export class Comment{
 
     getPlaceName(){
         return this.placeName
+    }
+
+    getLiked(){
+        return this.liked
+    }
+
+    setLiked(){
+        this.liked = !this.liked
     }
 
     static createNewComment(comment: commentFromServer):Comment{

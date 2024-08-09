@@ -175,7 +175,7 @@ export const PlacePage:React.FC = () => {
                             }}>
                                 <CommentFormular dataOnePlace={dataOnePlace} />
                         </Modal>
-                        <CommentsViewer variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
+                        <CommentsViewer visitor_id={Object.keys(authentifiateUser).length>0?authentifiateUser.getId():null} variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
                     </div>
                 </div>
             </div>

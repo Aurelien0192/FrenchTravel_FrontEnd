@@ -15,10 +15,14 @@ export class CommentService{
         return ResponseError
     }
 
-    static async findManyComments(page:number,limit:number, place_id:string, findBy:string, options:string){
-        const response:responseGetManyComments = await AxiosServices.getDataFromDatabase(`/comments?page=${page}&limit=${limit}&${findBy}=${place_id}&options=${options}`) as responseGetManyComments
+    static async findManyComments(page:number,limit:number, place_id:string, findBy:string, options:string, visitor_id:string|null){
+        const response:responseGetManyComments = await AxiosServices.getDataFromDatabase(`/comments?page=${page}&limit=${limit}&${findBy}=${place_id}${visitor_id?`&visitor_id=${visitor_id}`:""}&options=${options}`) as responseGetManyComments
         const comments : Array<Comment> = response.results.map((comment) =>{ return Comment.createNewComment(comment)})
         const nbOfCommments: number  = response.count
         return {comments, nbOfCommments}
+    }
+
+    static async likeAComment(comment_id:string){
+        await AxiosServices.postInDataBase(`/like?comment_id=${comment_id}`,null)
     }
 }

@@ -19,7 +19,7 @@ export const UserCommentManager:React.FC = () => {
             </div>
             {Object.keys(authentifiateUser).length>0 ? 
                 <div className="w-full">
-                    <CommentsViewer variant={2} findBy="user_id" idOfPlaceOrUser={authentifiateUser.getId()} /> 
+                    <CommentsViewer visitor_id={Object.keys(authentifiateUser).length>0?authentifiateUser.getId():null} variant={2} findBy="user_id" idOfPlaceOrUser={authentifiateUser.getId()} /> 
                 </div>
                     : <Loader />
             }

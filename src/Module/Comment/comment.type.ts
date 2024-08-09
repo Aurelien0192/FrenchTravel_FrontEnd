@@ -10,10 +10,12 @@ export type comment={
 }
 
 export type commentFromServer={
+    _id: string
     comment: string,
     note:number
     dateVisited: Date
     create_at: Date
     user_id: userFromServer|string
     place_id: place|string
+    liked:boolean
 }
