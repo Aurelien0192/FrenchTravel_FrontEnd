@@ -53,6 +53,11 @@ export class Comment{
     getLike(){
         return this.like
     }
+
+    setLike(newNumber: number){
+        this.like = this.like + newNumber
+
+    }
     
     getNote(){
         return this.note

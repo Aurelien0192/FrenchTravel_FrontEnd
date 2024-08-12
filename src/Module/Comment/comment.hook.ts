@@ -21,9 +21,11 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
     },[page, idOfPlaceOrUser,visitor_id])
 
     async function LikeAComment(comment_id:string){
-        await CommentService.likeAComment(comment_id)
         const commentLiked = [...commentsTab]
         const index = commentLiked.findIndex((comment)=>comment.getId() === comment_id)
+        commentLiked[index].getLiked() ? await CommentService.unLikeAComment(comment_id) : await CommentService.likeAComment(comment_id) 
+        console.log(commentLiked[index].getLiked())
+        commentLiked[index].getLiked()? commentLiked[index].setLike(-1): commentLiked[index].setLike(+1)
         commentLiked[index].setLiked()
         setCommentsTab(commentLiked)
     }
