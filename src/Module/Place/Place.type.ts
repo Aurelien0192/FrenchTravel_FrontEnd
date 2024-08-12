@@ -1,3 +1,4 @@
+import { commentFromServer } from "../Comment/comment.type"
 import { image } from "../Image/Image.type"
 
 export type moreInfo = {
@@ -113,6 +114,7 @@ export type place = {
     owner: string,
     notation:number,
     numberOfNote:number,
+    comments: Array<commentFromServer>
     images : Array<image>
 
 

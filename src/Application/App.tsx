@@ -18,7 +18,7 @@ export function App() {
         <div className="flex flex-col gap-3 w-full">
           <h1 className=" font-bold text-2xl text-start gap-3" >Activité à découvrir</h1>
           <div className="w-full overflow-auto md:overflow-hidden">
-            <div className="flex gap-5 pb-3 w-fit">
+            <div className="flex gap-5 pb-3 w-fit md:w-full">
               {placeToDisplay['activity'] ? placeToDisplay['activity'].map((e, index) => {
                 return (<PlaceDisplayLittleCard key={index} place={e} />)
               }) : <Loader color="#D98D30" />}
@@ -27,8 +27,8 @@ export function App() {
         </div>
         <div className="flex flex-col gap-3 w-full">
           <h1 className=" font-bold text-2xl text-start gap-3" >Hotel à découvrir</h1>
-          <div className="w-full overflow-x-scroll md:overflow-hidden">
-            <div className="flex gap-5 pb-3 w-fit">
+          <div className="w-full overflow-auto md:overflow-hidden">
+            <div className="flex gap-5 pb-3 w-fit md:w-full">
               {placeToDisplay['hotel'] ? placeToDisplay['hotel'].map((e, index) => {
                 return (<PlaceDisplayLittleCard key={index} place={e} />)
               }) : <Loader color="#D98D30" />}
@@ -37,8 +37,8 @@ export function App() {
         </div>
         <div className="flex flex-col gap-3 w-full">
           <h1 className=" font-bold text-2xl text-start gap-3" >Restaurant à découvrir</h1>
-          <div className="w-full overflow-x-scroll md:overflow-hidden">
-            <div className="flex gap-5 pb-3 w-fit">
+          <div className="w-full overflow-auto md:overflow-hidden">
+            <div className="flex gap-5 pb-3 w-fit md:w-full">
               {placeToDisplay['restaurant'] ? placeToDisplay['restaurant'].map((e, index) => {
                 return (<PlaceDisplayLittleCard key={index} place={e} />)
               }) : <Loader color="#D98D30" />}

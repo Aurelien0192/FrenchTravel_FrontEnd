@@ -1,5 +1,6 @@
 import { moreInfo, place, placeSubmit } from "./Place.type"
 import { image } from "../Image/Image.type"
+import { Comment } from "../Comment/comment.class"
 export class PlaceToSubmit{
     public name: string
     public categorie: string
@@ -115,8 +116,10 @@ export class Place{
     private notation:number
     private numberOfNote:number
     private images : Array<image>
+    private comment : Comment|null
 
     constructor(placeFromApi : place){
+        console.log(placeFromApi.comments)
         this.id = placeFromApi._id
         this.owner = placeFromApi.owner
         this.name = placeFromApi.name
@@ -137,6 +140,7 @@ export class Place{
         this.numberOfNote = placeFromApi.numberOfNote ? placeFromApi.numberOfNote : 0
         this.images = placeFromApi.images
         this.setImagesPath()
+        this.comment = placeFromApi.comments.length===1 ? Comment.createNewComment(placeFromApi.comments[0]) : null
     }
 
     setImagesPath(){
@@ -219,6 +223,10 @@ export class Place{
 
     getImage(){
         return this.images
+    }
+
+    getComment(){
+        return this.comment
     }
 
     static createNewPlace(placeApi : place):Place{
