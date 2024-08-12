@@ -26,12 +26,14 @@ export class Comment{
     private usernamePoster?: string
     private profilePhotoUser?:string
     private placeName?:string
+    private like:number
     private liked:boolean
 
     constructor(comment:commentFromServer){
         this.id = comment._id
         this.comment = comment.comment
         this.note = comment.note
+        this.like = comment.like
         this.dateVisited = new Date(comment.dateVisited).toLocaleDateString()
         this.create_at = new Date(comment.create_at).toLocaleDateString()
         this.usernamePoster = typeof comment.user_id !== "string" ? comment.user_id.username : undefined
@@ -46,6 +48,10 @@ export class Comment{
 
     getComment(){
         return this.comment
+    }
+    
+    getLike(){
+        return this.like
     }
     
     getNote(){

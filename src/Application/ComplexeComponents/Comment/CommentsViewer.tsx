@@ -33,7 +33,8 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                 <div className="pl-6 flex flex-col justify-between">
                                     <HotelCategorieOrNoteShow type="circle" categorie={comment.getNote()} />
                                     <p>{comment.getComment()}</p>
-                                <div>
+                                <div className="flex gap-2 items-center">
+                                    <p>{comment.getLike()}</p>
                                     <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
                                         <Like liked={comment.getLiked()} />
                                     </button>

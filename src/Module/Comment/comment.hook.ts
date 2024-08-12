@@ -14,7 +14,6 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
     useEffect(()=>{
         async function getComments(){
             const responseServerComments = await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id)
-            console.log(responseServerComments)
             setCommentsTab(responseServerComments.comments)
             setNumberOfElement(responseServerComments.nbOfCommments)
         }

@@ -25,6 +25,8 @@ import { FormularServices } from "../../Module/FormularGeneralServices/formularS
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
 import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.tsx"
 import { CommentsViewer } from "../ComplexeComponents/Comment/CommentsViewer.tsx"
+import { Comment } from "../../Module/Comment/comment.class.ts"
+import { Like } from "../Components/svg/Like.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -55,6 +57,8 @@ export const PlacePage:React.FC = () => {
       setMsg(newMsg)
     }
 
+    const comment: Comment|null = dataOnePlace ? dataOnePlace.getComment() ? dataOnePlace.getComment() : null : null
+
     if(dataOnePlace){
         return(
             <div className="flex flex-col gap-14">
@@ -62,6 +66,19 @@ export const PlacePage:React.FC = () => {
                         <HeaderPlacePage dataOnePlace={dataOnePlace} />
                     <div className="flex flex-col-reverse lg:flex-row gap-9">
                         <div className="flex flex-col gap-4">
+                            {comment &&
+                                <div className="flex flex-col mb-4">
+                                    <div className="flex gap-2.5 items-center">
+                                        <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                        <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
+                                    </div>
+                                    <p className="text-sm h- italic text-wrap h-10 overflow-hidden">{comment.getComment()}</p>
+                                    <div className="flex gap-2 items-center">
+                                        <p>{comment.getLike()}</p>
+                                        <Like liked={comment.getLiked()} />
+                                    </div>
+                                </div>
+                            }
                             <p className="mr-5">{dataOnePlace.getDescribe()}</p>
                             {Object.keys(authentifiateUser).length>0 && dataOnePlace.getOwner() === authentifiateUser.getId() &&
                                 <div>

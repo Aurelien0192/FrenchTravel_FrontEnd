@@ -11,7 +11,8 @@ export type comment={
 
 export type commentFromServer={
     _id: string
-    comment: string,
+    comment: string
+    like: number
     note:number
     dateVisited: Date
     create_at: Date

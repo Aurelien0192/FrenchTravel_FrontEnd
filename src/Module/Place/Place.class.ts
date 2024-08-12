@@ -140,7 +140,7 @@ export class Place{
         this.numberOfNote = placeFromApi.numberOfNote ? placeFromApi.numberOfNote : 0
         this.images = placeFromApi.images
         this.setImagesPath()
-        this.comment = placeFromApi.comments.length===1 ? Comment.createNewComment(placeFromApi.comments[0]) : null
+        this.comment = (placeFromApi.comments && placeFromApi.comments.length===1) ? Comment.createNewComment(placeFromApi.comments[0]) : null
     }
 
     setImagesPath(){
