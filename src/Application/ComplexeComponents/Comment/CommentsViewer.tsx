@@ -24,21 +24,23 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                     if(props.variant === 1){
                         return(
                             <div key={index} className="flex w-full p-2.5" >
-                                <div className="flex flex-col gap-4 border-r-2 border-black w-52">
-                                    <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
-                                    <p>{comment.getUsernamePoster()}</p>
+                                <div className="flex flex-col gap-4 border-r-2 border-black w-72">
+                                    <div>
+                                        <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                        <p>{comment.getUsernamePoster()}</p>
+                                    </div>
                                     <p className="text-sm">{`publié le : ${comment.getCreateAt()}`}</p>
                                     <p className="text-sm">{`visité le : ${comment.getDateVisited()}`}</p>
                                 </div>
-                                <div className="pl-6 flex flex-col justify-between">
+                                <div className="pl-6 flex flex-col w-full justify-between">
                                     <HotelCategorieOrNoteShow type="circle" categorie={comment.getNote()} />
                                     <p>{comment.getComment()}</p>
-                                <div className="flex gap-2 items-center">
-                                    <p>{comment.getLike()}</p>
-                                    <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
-                                        <Like liked={comment.getLiked()} />
-                                    </button>
-                                </div>
+                                    <div className="flex gap-2 items-center">
+                                        <p>{comment.getLike()}</p>
+                                        <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
+                                            <Like liked={comment.getLiked()} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         )

@@ -69,14 +69,14 @@ export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
                         :<p>Aucune données</p>
                     }
                     {comment?
-                    <div className="flex flex-col">
-                        <div className="flex gap-2 items-start">
+                    <div className="flex flex-col w-full">
+                        <div className="flex gap-5 items-start">
                             <div className="flex gap-2.5 items-center">
                                 <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
                                 <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
                             </div>
-                            <div className="flex flex-col gap-2">
-                                <p className="text-sm h- italic truncate ... overflow-hidden">{comment.getComment()}</p>
+                            <div className="flex flex-col gap-2 w-full ">
+                                <p className="text-sm h- italic text-wrap truncate overflow-hidden">{comment.getComment()}</p>
                                 <div className="flex gap-2 items-end">
                                     <p>{comment.getLike()}</p>
                                     <Like liked={comment.getLiked()} />

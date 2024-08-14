@@ -31,7 +31,7 @@ export const SupplementaryInfo:React.FC<supplementaryInfo> = (props) => {
                 <p className="text-end">Infos supplémentaires</p>
                 <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" />
                 <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility"/>
-                <HotelCategorieOrNotationSelector/>
+                <HotelCategorieOrNotationSelector type="star" />
                 <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" />
             </div>
         )

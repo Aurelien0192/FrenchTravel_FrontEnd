@@ -73,7 +73,7 @@ export const PlacePage:React.FC = () => {
                                         <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
                                     </div>
                                     <p className="text-sm h- italic text-wrap h-10 overflow-hidden">{comment.getComment()}</p>
-                                    <div className="flex gap-2 items-center">
+                                    <div className="flex gap-2 items-end">
                                         <p>{comment.getLike()}</p>
                                         <Like liked={comment.getLiked()} />
                                     </div>
@@ -124,7 +124,7 @@ export const PlacePage:React.FC = () => {
                         }}>
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
-                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId());window.location.reload()}}>Valider</Button>
+                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId())}}>Valider</Button>
                             {msg && <p className="text-red-500">{msg}</p>}
                         </div>
                     </Modal>

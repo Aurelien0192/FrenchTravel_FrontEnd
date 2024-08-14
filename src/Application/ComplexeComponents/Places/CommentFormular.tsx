@@ -1,6 +1,6 @@
 import { HotelCategorieOrNotationSelector } from "./HotelCategorieOrNotationSelector"
 import { TextArea } from "../../Components/General/TextArea"
-import { Button, Checkbox } from "@mantine/core"
+import { Checkbox } from "@mantine/core"
 import { useState } from "react"
 import { comment } from "../../../Module/Comment/comment.type"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
@@ -8,6 +8,7 @@ import { CommentService } from "../../../Module/Comment/comment.service"
 import { Place } from "../../../Module/Place/Place.class"
 import { useSelector } from "../../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook"
 import { DatePickerCalendar } from "../../Components/General/DatePickerCalendar"
+import { Button } from "../../Components/General/Button"
 
 type CommentFormularProps = {
     dataOnePlace: Place

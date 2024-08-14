@@ -45,7 +45,7 @@ export function AddPlace() {
   return (
   
     <form onSubmit={(e) => {changeMsg(e)}} 
-      className="flex flex-col mb-5 md:grid lg:grid-cols-2 gap-6 lg:gap-60 justify-between">
+      className="flex flex-col mb-5 md:grid lg:grid-cols-2 gap-6 lg:gap-60 justify-between w-full">
       
       <div className="flex flex-col gap-6">
         <Input placeholder="Les capucines" name="name" label="Nom du lieu*"/>
