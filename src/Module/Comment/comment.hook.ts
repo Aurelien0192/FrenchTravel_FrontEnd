@@ -13,7 +13,9 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
 
     useEffect(()=>{
         async function getComments(){
-            const responseServerComments = await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id)
+            const responseServerComments = findBy==="owner"? 
+                await CommentService.findManyCommentsByOwner(page, 5, visitor_id)
+                :await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id)
             setCommentsTab(responseServerComments.comments)
             setNumberOfElement(responseServerComments.nbOfCommments)
         }

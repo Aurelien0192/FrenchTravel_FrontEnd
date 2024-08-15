@@ -22,6 +22,13 @@ export class CommentService{
         return {comments, nbOfCommments}
     }
 
+    static async findManyCommentsByOwner(page:number, limit:number, visitor_id:string|null){
+        const response: responseGetManyComments = await AxiosServices.getDataFromDatabase(`/commentsByOwner?page=${page}&limit=${limit}&${visitor_id? `visitor_id=${visitor_id}`:""}`) as responseGetManyComments
+        const comments : Array<Comment> = response.results.map((comment) =>{ return Comment.createNewComment(comment)})
+        const nbOfCommments: number = response.count
+        return {comments, nbOfCommments}
+    }
+
     static async likeAComment(comment_id:string){
         await AxiosServices.postInDataBase(`/like?comment_id=${comment_id}`,null)
     }
