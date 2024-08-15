@@ -2,7 +2,7 @@ import { place } from "../Place/Place.type"
 import { userFromServer } from "../User/User.type"
 
 export type comment={
-    categorie: string
+    categorie?: string
     comment: string
     note: number
     dateVisited: string

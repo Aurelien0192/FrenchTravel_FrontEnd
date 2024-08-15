@@ -15,6 +15,14 @@ export class CommentService{
         return ResponseError
     }
 
+    static async respondToComment(newComment:comment, comment_id:string){
+        newComment.note = 1
+        const comment: CommentToSend = CommentToSend.createNewComment(newComment)
+        const response:AxiosResponse = await AxiosServices.postInDataBase(`/responseComment/${comment_id}`,comment) as AxiosResponse
+        const ResponseError = AxiosResponseError.createNewResponseError(response.data, response.status) 
+        return ResponseError
+    }
+
     static async findManyComments(page:number,limit:number, place_id:string, findBy:string, options:string, visitor_id:string|null){
         const response:responseGetManyComments = await AxiosServices.getDataFromDatabase(`/comments?page=${page}&limit=${limit}&${findBy}=${place_id}${visitor_id?`&visitor_id=${visitor_id}`:""}&options=${options}`) as responseGetManyComments
         const comments : Array<Comment> = response.results.map((comment) =>{ return Comment.createNewComment(comment)})

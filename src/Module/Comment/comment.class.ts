@@ -4,11 +4,13 @@ export class CommentToSend{
     public comment: string
     public note: number
     public dateVisited: Date
+    public categorie? : string
 
     constructor(newComment: comment){
         this.comment = newComment.comment
         this.note = newComment.note
         this.dateVisited = new Date(newComment.dateVisited)
+        this.categorie = newComment.categorie? newComment.categorie: undefined
     }
 
     static createNewComment = (comment:comment):CommentToSend => {
