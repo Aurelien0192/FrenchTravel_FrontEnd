@@ -12,19 +12,35 @@ import { CommentService } from "../../../Module/Comment/comment.service"
 import { CommentResponseCard } from "./CommentResponseCard"
 import { Comment } from "../../../Module/Comment/comment.class"
 import { IoCheckmarkCircleOutline } from "react-icons/io5"
+import { CommentFilter } from "./CommentFilter"
 
 type commentsViewerProps={
     visitor_id:string|null
     idOfPlaceOrUser: string
     findBy: string
     variant: 1|2|3
+    filter?:boolean
 }
 
 export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
     const {page, commentsTab, numberOfElement, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null)
     const [RespondCommentModal, RespondCommentModalManager] = useDisclosure()
+    const [notationChoice, setNotationChoice] = useState<Array<number>>([])
     const [msg, setMsg] = useState<string>("")
+
+    function changeNotationChoice(notation: number, checked:boolean){
+        const notationFilterTab:Array<number> = [... notationChoice]
+        if(checked){
+            notationFilterTab.push(notation)
+        }else{
+            const index:number = notationFilterTab.indexOf(notation)
+            notationFilterTab.splice(index, 1)
+        }
+        setNotationChoice(notationFilterTab)
+    }
+
+    console.log(notationChoice)
 
     const changeMsgComment = async (e:React.FormEvent<HTMLFormElement>, comment_id:string) => {
         e.preventDefault()
@@ -39,102 +55,105 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
     if (commentsTab){
 
         return(
-            <div className="flex flex-col gap-3 items-center">
-                {commentsTab.map((comment, index)=>{
-                    if(props.variant === 1 || props.variant === 3){
-                        return(
-                            <div className="flex flex-col gap-3 items-end w-full">
-                                {!comment.getIsResponse() && 
-                                    <div key={index} className={props.variant===3?"w-full flex px-2.5 py-1.5 gap-2.5 rounded-xl shadow":"flex w-full p-2.5"} >
-                                        <div className="flex flex-col gap-4 border-r-2 border-black w-72">
-                                            <div>
-                                                <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
-                                                <p>{comment.getUsernamePoster()}</p>
-                                            </div>
-                                            <p className="text-sm">{`publié le : ${comment.getCreateAt()}`}</p>
-                                            <p className="text-sm">{`visité le : ${comment.getDateVisited()}`}</p>
-                                        </div>
-                                        <div className="pl-6 flex flex-col w-full justify-between">
-                                            <div className="flex justify-between items-start">
-                                                <HotelCategorieOrNoteShow type="circle" categorie={comment.getNote()} />
-                                                {props.variant===3 && <p>{comment.getPlaceName()}</p>}
-                                            </div>
-                                            <p>{comment.getComment()}</p>
-                                            <div className="flex justify-between">
-                                                <div className="flex gap-2 items-center">
-                                                    <p>{comment.getLike()}</p>
-                                                    <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
-                                                        <Like liked={comment.getLiked()} />
-                                                    </button>
+            <div className="flex flex-row-reverse gap-32">
+                <div className="flex flex-col gap-3 items-center">
+                    {commentsTab.map((comment, index)=>{
+                        if(props.variant === 1 || props.variant === 3){
+                            return(
+                                <div key={index} className="flex flex-col gap-3 items-end w-full">
+                                    {!comment.getIsResponse() && 
+                                        <div  className={props.variant===3?"w-full flex px-2.5 py-1.5 gap-2.5 rounded-xl shadow":"flex w-full p-2.5"} >
+                                            <div className="flex flex-col gap-4 border-r-2 border-black w-72">
+                                                <div>
+                                                    <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                                    <p>{comment.getUsernamePoster()}</p>
                                                 </div>
-                                                {props.variant === 3 &&
-                                                    comment.getResponse()?
-                                                    <div className="flex gap-2 items-center">
-                                                        <IoCheckmarkCircleOutline size="30px" color="#22c55e" />
-                                                        <p className="text-green-500" >Commentaire répondu</p>
-                                                    </div>
-                                                    : props.variant === 3 && <Button size="xs" onClick={RespondCommentModalManager.open}>Répondre</Button>}
+                                                <p className="text-sm">{`publié le : ${comment.getCreateAt()}`}</p>
+                                                <p className="text-sm">{`visité le : ${comment.getDateVisited()}`}</p>
                                             </div>
-                                            <Modal
-                                                opened={RespondCommentModal}
-                                                    onClose={RespondCommentModalManager.close}
-                                                size="lg"
-                                                centered
-                                                overlayProps={{
-                                                    backgroundOpacity:0.30,
-                                                    color:'#D98D30',
-                                                    blur:3,
-                                                }}>
-                                                <form onSubmit={(e)=>{changeMsgComment(e, comment.getId())}} className="flex flex-col gap-3 items-end">
-                                                    <p className="w-full">Commentaires:</p>
-                                                    <p className="rounded shadow p-2.5">{comment.getComment()}</p>
-                                                    <TextArea label="Réponse :" flexDirection="flex-col" placeholder="Merci pour ce commentaire" name="comment" size="md" />
-                                                    <Button type ="submit" size="xs">Envoyer</Button>
-                                                    <p>{msg}</p>
-                                                </form>
-                                            </Modal>
+                                            <div className="pl-6 flex flex-col w-full justify-between">
+                                                <div className="flex justify-between items-start">
+                                                    <HotelCategorieOrNoteShow type="circle" categorie={comment.getNote()} />
+                                                    {props.variant===3 && <p>{comment.getPlaceName()}</p>}
+                                                </div>
+                                                <p>{comment.getComment()}</p>
+                                                <div className="flex justify-between">
+                                                    <div className="flex gap-2 items-center">
+                                                        <p>{comment.getLike()}</p>
+                                                        <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
+                                                            <Like liked={comment.getLiked()} />
+                                                        </button>
+                                                    </div>
+                                                    {props.variant === 3 &&
+                                                        comment.getResponse()?
+                                                        <div className="flex gap-2 items-center">
+                                                            <IoCheckmarkCircleOutline size="30px" color="#22c55e" />
+                                                            <p className="text-green-500" >Commentaire répondu</p>
+                                                        </div>
+                                                        : props.variant === 3 && <Button size="xs" onClick={RespondCommentModalManager.open}>Répondre</Button>}
+                                                </div>
+                                                <Modal
+                                                    opened={RespondCommentModal}
+                                                        onClose={RespondCommentModalManager.close}
+                                                    size="lg"
+                                                    centered
+                                                    overlayProps={{
+                                                        backgroundOpacity:0.30,
+                                                        color:'#D98D30',
+                                                        blur:3,
+                                                    }}>
+                                                    <form onSubmit={(e)=>{changeMsgComment(e, comment.getId())}} className="flex flex-col gap-3 items-end">
+                                                        <p className="w-full">Commentaires:</p>
+                                                        <p className="rounded shadow p-2.5">{comment.getComment()}</p>
+                                                        <TextArea label="Réponse :" flexDirection="flex-col" placeholder="Merci pour ce commentaire" name="comment" size="md" />
+                                                        <Button type ="submit" size="xs">Envoyer</Button>
+                                                        <p>{msg}</p>
+                                                    </form>
+                                                </Modal>
+                                            </div>
+                                        </div>
+                                    }
+                                    {comment.getResponse() &&
+                                        <div className="w-10/12">
+                                            <CommentResponseCard response={comment.getResponse() as Comment}/>
+                                        </div>    
+                                    }
+                                </div>
+                            )
+                        }else{
+                            return(
+                                <div className="flex flex-col gap-3 items-end w-full">
+                                    <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
+                                        <div className="flex justify-between items-center w-full">
+                                            <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
+                                            <p>{`publié le : ${comment.getCreateAt()}`}</p>
+                                            <p>{`visité le : ${comment.getDateVisited()}`}</p>
+                                        </div>
+                                        <p>{comment.getComment()}</p>
+                                        <div>
+                                            <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
+                                                <Like liked={comment.getLiked()}/>
+                                            </button>
                                         </div>
                                     </div>
-                                }
-                                {comment.getResponse() &&
-                                    <div className="w-10/12">
-                                        <CommentResponseCard response={comment.getResponse() as Comment}/>
-                                    </div>    
-                                }
-                            </div>
-                        )
-                    }else{
-                        return(
-                            <div className="flex flex-col gap-3 items-end w-full">
-                                <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
-                                    <div className="flex justify-between items-center w-full">
-                                        <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
-                                        <p>{`publié le : ${comment.getCreateAt()}`}</p>
-                                        <p>{`visité le : ${comment.getDateVisited()}`}</p>
-                                    </div>
-                                    <p>{comment.getComment()}</p>
-                                    <div>
-                                        <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
-                                            <Like liked={comment.getLiked()}/>
-                                        </button>
-                                    </div>
+                                    {comment.getResponse() &&
+                                        <div className="w-10/12">
+                                            <CommentResponseCard response={comment.getResponse() as Comment}/>
+                                        </div>    
+                                    }
                                 </div>
-                                {comment.getResponse() &&
-                                    <div className="w-10/12">
-                                        <CommentResponseCard response={comment.getResponse() as Comment}/>
-                                    </div>    
-                                }
-                            </div>
-                        )
-                    }
-                })}
-                <Pagination 
-                    total={numberOfElement ? Math.ceil(numberOfElement/5) : 1}
-                    color={"#8C3616"}
-                    value={page}
-                    onChange={(value:number) => changePage(value)}
-                    onNextPage={() => changePage(page+1)}
-                    onPreviousPage={() => changePage(page-1)} />
+                            )
+                        }
+                    })}
+                    <Pagination 
+                        total={numberOfElement ? Math.ceil(numberOfElement/5) : 1}
+                        color={"#8C3616"}
+                        value={page}
+                        onChange={(value:number) => changePage(value)}
+                        onNextPage={() => changePage(page+1)}
+                        onPreviousPage={() => changePage(page-1)} />
+                </div>
+                {props.filter && <CommentFilter onChange={changeNotationChoice}/>}
             </div>
     )
     }else{

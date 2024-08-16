@@ -188,7 +188,7 @@ export const PlacePage:React.FC = () => {
                     <SuggestionsPanel dataOnePlace={dataOnePlace} />
                 <div>
                     <h2 className="text-2xl font-bold">Avis</h2>
-                    <div className="flex gap-24">
+                    <div className="flex flex-col gap-4">
                         {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
                         <Modal
                             opened={addCommentModal}
@@ -202,7 +202,7 @@ export const PlacePage:React.FC = () => {
                             }}>
                                 <CommentFormular dataOnePlace={dataOnePlace} />
                         </Modal>
-                        <CommentsViewer visitor_id={Object.keys(authentifiateUser).length>0?authentifiateUser.getId():null} variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
+                        <CommentsViewer filter={true} visitor_id={Object.keys(authentifiateUser).length>0?authentifiateUser.getId():null} variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
                     </div>
                 </div>
             </div>
