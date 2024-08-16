@@ -105,17 +105,19 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                         )
                     }else{
                         return(
-                            <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
-                                <div className="flex justify-between items-center w-full">
-                                    <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
-                                    <p>{`publié le : ${comment.getCreateAt()}`}</p>
-                                    <p>{`visité le : ${comment.getDateVisited()}`}</p>
-                                </div>
-                                <p>{comment.getComment()}</p>
-                                <div>
-                                    <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
-                                        <Like liked={comment.getLiked()}/>
-                                    </button>
+                            <div className="flex flex-col gap-3 items-end w-full">
+                                <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
+                                    <div className="flex justify-between items-center w-full">
+                                        <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
+                                        <p>{`publié le : ${comment.getCreateAt()}`}</p>
+                                        <p>{`visité le : ${comment.getDateVisited()}`}</p>
+                                    </div>
+                                    <p>{comment.getComment()}</p>
+                                    <div>
+                                        <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
+                                            <Like liked={comment.getLiked()}/>
+                                        </button>
+                                    </div>
                                 </div>
                                 {comment.getResponse() &&
                                     <div className="w-10/12">
