@@ -24,23 +24,9 @@ type commentsViewerProps={
 
 export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
-    const {page, commentsTab, numberOfElement, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null)
+    const {page, commentsTab, numberOfElement, changeNotationChoice, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null)
     const [RespondCommentModal, RespondCommentModalManager] = useDisclosure()
-    const [notationChoice, setNotationChoice] = useState<Array<number>>([])
     const [msg, setMsg] = useState<string>("")
-
-    function changeNotationChoice(notation: number, checked:boolean){
-        const notationFilterTab:Array<number> = [... notationChoice]
-        if(checked){
-            notationFilterTab.push(notation)
-        }else{
-            const index:number = notationFilterTab.indexOf(notation)
-            notationFilterTab.splice(index, 1)
-        }
-        setNotationChoice(notationFilterTab)
-    }
-
-    console.log(notationChoice)
 
     const changeMsgComment = async (e:React.FormEvent<HTMLFormElement>, comment_id:string) => {
         e.preventDefault()

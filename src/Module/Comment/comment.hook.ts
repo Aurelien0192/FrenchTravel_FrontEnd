@@ -6,6 +6,7 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
     const [commentsTab, setCommentsTab] = useState<Array<Comment>>([])
     const [page, setPage] = useState<number>(1)
     const [numberOfElement, setNumberOfElement] = useState<number>(0)
+    const [notationChoice, setNotationChoice] = useState<Array<number>>([])
 
     function changePage(newPage:number){
         setPage(newPage)
@@ -15,12 +16,12 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
         async function getComments(){
             const responseServerComments = findBy==="owner"? 
                 await CommentService.findManyCommentsByOwner(page, 5, visitor_id)
-                :await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id)
+                :await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id,notationChoice)
             setCommentsTab(responseServerComments.comments)
             setNumberOfElement(responseServerComments.nbOfCommments)
         }
         getComments()
-    },[page, idOfPlaceOrUser,visitor_id])
+    },[page, idOfPlaceOrUser,visitor_id,notationChoice])
 
     async function LikeAComment(comment_id:string){
         const commentLiked = [...commentsTab]
@@ -32,5 +33,16 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
         setCommentsTab(commentLiked)
     }
 
-    return {page, commentsTab, numberOfElement, changePage, LikeAComment}
+    function changeNotationChoice(notation: number, checked:boolean){
+        const notationFilterTab:Array<number> = [... notationChoice]
+        if(checked){
+            notationFilterTab.push(notation)
+        }else{
+            const index:number = notationFilterTab.indexOf(notation)
+            notationFilterTab.splice(index, 1)
+        }
+        setNotationChoice(notationFilterTab)
+    }
+
+    return {page, commentsTab, numberOfElement, changeNotationChoice, changePage, LikeAComment}
 }
