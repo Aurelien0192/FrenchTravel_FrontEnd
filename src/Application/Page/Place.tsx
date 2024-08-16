@@ -27,6 +27,7 @@ import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.ts
 import { CommentsViewer } from "../ComplexeComponents/Comment/CommentsViewer.tsx"
 import { Comment } from "../../Module/Comment/comment.class.ts"
 import { Like } from "../Components/svg/Like.tsx"
+import { AxiosResponse } from "axios"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -55,6 +56,15 @@ export const PlacePage:React.FC = () => {
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
       const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, selectedNoteOrHotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
       setMsg(newMsg)
+    }
+
+    const postImages = async() => {
+        const response: AxiosResponse = await AxiosServices.postImages(filesTab as Array<File>, dataOnePlace!.getId()) as AxiosResponse
+        if(response.status === 201){
+            window.location.reload()
+        }else{
+            setMsg(response.data)
+        }
     }
 
     const comment: Comment|null = dataOnePlace ? dataOnePlace.getComment() ? dataOnePlace.getComment() : null : null
@@ -124,7 +134,7 @@ export const PlacePage:React.FC = () => {
                         }}>
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
-                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId())}}>Valider</Button>
+                            <Button size="md" onClick={postImages}>Valider</Button>
                             {msg && <p className="text-red-500">{msg}</p>}
                         </div>
                     </Modal>
