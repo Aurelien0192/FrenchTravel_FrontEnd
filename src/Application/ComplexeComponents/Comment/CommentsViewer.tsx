@@ -20,11 +20,12 @@ type commentsViewerProps={
     findBy: string
     variant: 1|2|3
     filter?:boolean
+    search?:string
 }
 
 export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
-    const {page, commentsTab, numberOfElement, changeNotationChoice, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null)
+    const {page, commentsTab, numberOfElement, changeNotationChoice, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null, props.search?props.search:null)
     const [RespondCommentModal, RespondCommentModalManager] = useDisclosure()
     const [msg, setMsg] = useState<string>("")
 

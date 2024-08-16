@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { CommentService } from "./comment.service"
 import { Comment } from "./comment.class"
 
-export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:string|null) => {
+export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:string|null,search:string|null) => {
     const [commentsTab, setCommentsTab] = useState<Array<Comment>>([])
     const [page, setPage] = useState<number>(1)
     const [numberOfElement, setNumberOfElement] = useState<number>(0)
@@ -14,14 +14,15 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
 
     useEffect(()=>{
         async function getComments(){
+            console.log("ok")
             const responseServerComments = findBy==="owner"? 
-                await CommentService.findManyCommentsByOwner(page, 5, visitor_id)
+                await CommentService.findManyCommentsByOwner(page, 5, visitor_id, search)
                 :await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id,notationChoice)
             setCommentsTab(responseServerComments.comments)
             setNumberOfElement(responseServerComments.nbOfCommments)
         }
         getComments()
-    },[page, idOfPlaceOrUser,visitor_id,notationChoice])
+    },[page, idOfPlaceOrUser,visitor_id,notationChoice, search])
 
     async function LikeAComment(comment_id:string){
         const commentLiked = [...commentsTab]
