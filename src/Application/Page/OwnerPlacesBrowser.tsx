@@ -8,7 +8,7 @@ import { OwnerPlacesBrowserServices } from "../../Module/OwnerPlacesBrowser/Owne
 
 export const OwnerPlacesBrowser:React.FC = () => {
 
-    const {placesTab, totalOfPlace, nameForDeletion, idForDeletion, openedConfirmationDeletionPlace, manageConfirmationDeletionPlace, page, changePage, openConfirmationPlace } = useOwnerPlacesBrowser()
+    const {placesTab, totalOfPlace, nameForDeletion, idForDeletion, openedConfirmationDeletionPlace, manageConfirmationDeletionPlace, page, changePage, openConfirmationPlace, changeValueOfSearch } = useOwnerPlacesBrowser()
 
     return(
         <div className="flex flex-col gap-4 items-center">
@@ -17,7 +17,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
                     <SelectorNavLink to="/index/user/profile" selected={true}>Mes établissements</SelectorNavLink>
                     <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                 </div>
-                <SearchBar/>
+                <SearchBar onSubmit={(e)=>{e.preventDefault();changeValueOfSearch(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}} placeholder="Rechercher un établissement"/>
             </div>
             <div className="flex flex-col gap-5 w-full">
                 {placesTab ? placesTab.map((place,index) => {
