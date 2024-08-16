@@ -30,8 +30,11 @@ export class Comment{
     private placeName?:string
     private like:number
     private liked:boolean
+    private response?: Comment
+    private isResponse: boolean
 
     constructor(comment:commentFromServer){
+        console.log(comment)
         this.id = comment._id
         this.comment = comment.comment
         this.note = comment.note
@@ -42,6 +45,8 @@ export class Comment{
         this.profilePhotoUser = typeof comment.user_id !== "string" ?"http://localhost:3001/"+comment.user_id.profilePhoto.path :undefined
         this.placeName = typeof comment.place_id !== "string" ? comment.place_id.name : undefined
         this.liked = comment.liked
+        this.isResponse = comment.isResponse
+        this.response = (comment.response && typeof comment.response === "object")? new Comment(comment.response) : undefined
     }
 
     getId(){
@@ -91,6 +96,14 @@ export class Comment{
 
     setLiked(){
         this.liked = !this.liked
+    }
+
+    getIsResponse(){
+        return this.isResponse
+    }
+
+    getResponse(){
+        return this.response
     }
 
     static createNewComment(comment: commentFromServer):Comment{

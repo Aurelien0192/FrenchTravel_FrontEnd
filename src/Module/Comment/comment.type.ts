@@ -19,4 +19,6 @@ export type commentFromServer={
     user_id: userFromServer|string
     place_id: place|string
     liked:boolean
+    response : commentFromServer
+    isResponse: boolean
 }
