@@ -188,7 +188,7 @@ export const PlacePage:React.FC = () => {
                     <SuggestionsPanel dataOnePlace={dataOnePlace} />
                 <div>
                     <h2 className="text-2xl font-bold">Avis</h2>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 items-start">
                         {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
                         <Modal
                             opened={addCommentModal}

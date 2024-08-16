@@ -41,9 +41,9 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
     if (commentsTab){
 
         return(
-            <div className="flex flex-row-reverse gap-32">
-                <div className="flex flex-col gap-3 items-center">
-                    {commentsTab.map((comment, index)=>{
+            <div className="flex flex-row-reverse gap-32 w-full">
+                <div className="flex flex-col gap-3 items-center w-full">
+                    {commentsTab.length!==0 ? commentsTab.map((comment, index)=>{
                         if(props.variant === 1 || props.variant === 3){
                             return(
                                 <div key={index} className="flex flex-col gap-3 items-end w-full">
@@ -108,9 +108,9 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                             )
                         }else{
                             return(
-                                <div className="flex flex-col gap-3 items-end w-full">
+                                <div className="flex flex-col gap-3 items-start w-full">
                                     <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
-                                        <div className="flex justify-between items-center w-full">
+                                        <div className="flex justify-between items-start w-full">
                                             <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
                                             <p>{`publié le : ${comment.getCreateAt()}`}</p>
                                             <p>{`visité le : ${comment.getDateVisited()}`}</p>
@@ -130,7 +130,8 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                 </div>
                             )
                         }
-                    })}
+                    
+                    }):<p>Aucun commentaire</p>}
                     <Pagination 
                         total={numberOfElement ? Math.ceil(numberOfElement/5) : 1}
                         color={"#8C3616"}
