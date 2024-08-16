@@ -1,39 +1,11 @@
-import { useEffect, useState } from "react"
-import { Image } from "../../Module/Image/Image.class"
-import { ImageService } from "../../Module/Image/Image.service"
 import { Loader, Pagination } from "@mantine/core"
 import { SelectorNavLink } from "../Components/General/SelectorNavLink"
-import { SearchBar } from "../Components/General/SearchBar"
-import { AxiosResponse } from "axios"
 import { ImageProfileManagement } from "../ComplexeComponents/Image/ImageProfileManagement"
+import { useUserPhotoManager } from "../../Module/UserPhotoManager/UserPhotoManager.hook"
 
 export const UserPhotoManager:React.FC = () => {
 
-    const [tabImages, setTabImages] = useState<Array<Image>>()
-    const [page, setPage] = useState<number>(1)
-    const [numberOfPage, setNumberOfPage] = useState<number>(0)
-
-    async function getImagesFromServer(){
-            const responseOfServer = await ImageService.getImagesOfUser(page)
-            setTabImages(responseOfServer.images)
-            setNumberOfPage(Math.ceil(responseOfServer.total /16))
-        }
-
-    useEffect(()=> {
-        getImagesFromServer()
-    },[page])
-
-    function changePage(newPage:number){
-        setPage(newPage)
-    }
-
-    async function deleteOneImage(id:string){
-        const responseOfServer:AxiosResponse = await ImageService.deleteImage(id)
-        if(responseOfServer.status ===200 && tabImages){
-            getImagesFromServer()
-        }
-    }
-
+    const {tabImages, page, numberOfPage, changePage, deleteOneImage} = useUserPhotoManager()
 
     if(tabImages){
 
@@ -44,7 +16,6 @@ export const UserPhotoManager:React.FC = () => {
                         <SelectorNavLink to="/index/user/profile" selected={true}>Mes photos</SelectorNavLink>
                         <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                     </div>
-                    <SearchBar/>
                 </div>
                 <div className="grid grid-cols-4 w-full gap-4">
                     {tabImages.map((image,index) => {

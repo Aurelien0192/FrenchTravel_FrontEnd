@@ -17,7 +17,7 @@ export const UserCommentManager:React.FC = () => {
                     <SelectorNavLink to="/index/user/profile" selected={false}>{Object.keys(authentifiateUser).length>0 && authentifiateUser.getUserType() ==="professional" ?"Mes établissements": "Mes photos"}</SelectorNavLink>
                     <SelectorNavLink to="/index/user/comment" selected={true}>Mes commentaires</SelectorNavLink>
                 </div>
-                <SearchBar onSubmit={(e)=>{e.preventDefault();setValueOfSearch(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}}/>
+                {(Object.keys(authentifiateUser).length>0 && authentifiateUser.getUserType() === "professional" )&&<SearchBar placeholder="rechercher un commentaire" onSubmit={(e)=>{e.preventDefault();setValueOfSearch(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}}/>}
             </div>
             {Object.keys(authentifiateUser).length>0 ? 
                 <div className="w-full">
