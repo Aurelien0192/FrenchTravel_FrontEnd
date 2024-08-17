@@ -4,13 +4,14 @@ import { Place } from "../Place/Place.class"
 import { Categories } from "../Place/Categories.variable"
 import { useSearchParams } from "react-router-dom"
 import { useSelector } from "../HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook"
+import { SearchFilterServices } from "./SearchFilter.service"
 
 export const useSearchFilter = () => {
 
     const[placesSearch, setPlaceSearch] = useState<Array<Place>>()
-    const [selectedIndex, setSelectedIndex] = useState<number>(0)
-    const [categorieChoice, setCategoryChoice] = useState<string>(Categories[0])
     const [pathNewSearch, setPathNewSearch] = useSearchParams()
+    const [selectedIndex, setSelectedIndex] = useState<number>(Number(pathNewSearch.get("index")))
+    const [categorieChoice, setCategoryChoice] = useState<string>(pathNewSearch.get("categorie") as string)
     const [totalOfPlace, setTotalOfPlace] = useState<number>(0)
     const [page, setPage] = useState<number>(1)
     const {selectedNoteOrHotelCategorie} = useSelector()
@@ -39,7 +40,7 @@ export const useSearchFilter = () => {
         if(newSelect!==1){
             pathNewSearch.get('hotelCategorie') && pathNewSearch.delete('hotelCategorie')
         }
-        pathNewSearch.set("categorie",catergoriesMap(newSelect))
+        pathNewSearch.set("categorie",SearchFilterServices.catergoriesMap(newSelect))
         pathNewSearch.set('page',"1")
         setPathNewSearch(pathNewSearch)
         setCategoryChoice(Categories[newSelect])
@@ -63,22 +64,5 @@ export const useSearchFilter = () => {
     return { pathNewSearch, placesSearch, selectedIndex, categorieChoice, totalOfPlace, page, changePage, changeCategorieIndex, changeSearchInput}
 }
 
-function catergoriesMap(index:number){
-    let category = ""
-    switch(index){
-        case 1 :
-            category = "hotel"
-            break;
-        case 2:
-            category = "restaurant"
-            break;
-        case 3:
-            category = "activity"
-            break;
-        default:
-            category=""
-            break;
-    }
-    return category
-}
+
 

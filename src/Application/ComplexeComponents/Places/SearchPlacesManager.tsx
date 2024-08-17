@@ -27,7 +27,8 @@ export const SearchPlacesManagement: React.FC = () => {
                     pathname:`/index/search/`,
                     search:`?${createSearchParams({
                         search:`${JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search}`,
-                        category:`${selectedIndex}`
+                        categorie:`${SearchFilterServices.catergoriesMap(selectedIndex)}`,
+                        index: JSON.stringify(selectedIndex)
                     })}`    
                 })}} />
         </div>
