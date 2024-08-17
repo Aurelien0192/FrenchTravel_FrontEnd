@@ -34,7 +34,6 @@ export class Comment{
     private isResponse: boolean
 
     constructor(comment:commentFromServer){
-        console.log(comment)
         this.id = comment._id
         this.comment = comment.comment
         this.note = comment.note

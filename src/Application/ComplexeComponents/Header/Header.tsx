@@ -8,7 +8,7 @@ import { Modal } from "@mantine/core"
 import { SubscriptionFormular } from "../User/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
-import { IoChevronDown, IoPerson } from "react-icons/io5";
+import { IoChatboxSharp, IoChevronDown, IoPerson } from "react-icons/io5";
 import { BiLogOutCircle } from "react-icons/bi"
 import { MdAddBusiness } from "react-icons/md"
 import { NavLink } from "react-router-dom"
@@ -36,21 +36,27 @@ export const Header:React.FC = () => {
                     {!hidden &&(
                         <div ref={ref}>
                             <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
-                                <ul className="w-fill">
+                                <ul className="w-full">
                                     <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
                                         <NavLink className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand" to={"/index/user/profile"}>
-                                            <IoPerson size={'25px'} />
+                                            <IoPerson fill="#D98D30" size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Profil</p>
                                         </NavLink>
                                     </li>
-                                    <li >
+                                    {(authentifiateUser && authentifiateUser.getUserType()==="professional") && <li >
                                         <NavLink className="flex gap-[10px] items-center w-full cursor-pointer hover:bg-sand" to="/index/AddPlace">
-                                            <MdAddBusiness size={'25px'} />
+                                            <MdAddBusiness fill="#D98D30" size={'25px'} />
                                             <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
+                                        </NavLink>
+                                    </li>}
+                                    <li>
+                                        <NavLink className="flex gap-[10px] items-end w-full cursor-pointer hover:bg-sand" to="/index/user/comment">
+                                            <IoChatboxSharp fill="#D98D30" size={"25px"} />
+                                            <p className="text-2xl text-nowrap font-bold">Mes commentaires</p>
                                         </NavLink>
                                     </li>
                                     <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand">
-                                        <BiLogOutCircle size={"25px"}  />
+                                        <BiLogOutCircle fill="#D98D30" size={"25px"}  />
                                         <p className="text-2xl font-bold">Déconnexion </p>
                                     </li>
                                 </ul>
