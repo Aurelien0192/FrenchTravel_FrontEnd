@@ -25,7 +25,9 @@ export const Header:React.FC = () => {
     if(Object.keys(authentifiateUser).length>0){
         return(
             <div className="flex justify-end w-full md:justify-between items-center">
-                <img className="hidden md:inline" src={logoTravel} />
+                <NavLink to="/">
+                    <img className="hidden md:inline" src={logoTravel} />
+                </NavLink>
                 <div className="relative">
                     <div className="cursor-pointer" onClick={hiddenNavOption}>
                     <img className="size-10 rounded-full object-cover" src={authentifiateUser.getProfilePhoto()} />
@@ -68,7 +70,9 @@ export const Header:React.FC = () => {
     }
     return(
         <div className="flex justify-between w-full items-center">
-            <img className="hidden md:inline" src={logoTravel} />
+            <NavLink to="/">
+                    <img className="hidden md:inline" src={logoTravel} />
+                </NavLink>
             <div className="flex w-full md:w-fit justify-between md:gap-3 md:mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>

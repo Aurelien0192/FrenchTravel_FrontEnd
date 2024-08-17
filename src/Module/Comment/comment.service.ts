@@ -41,7 +41,6 @@ export class CommentService{
         await AxiosServices.postInDataBase(`/like?comment_id=${comment_id}`,null)
     }
     static async unLikeAComment(comment_id:string){
-        console.log("ok")
         await AxiosServices.deleteElementOnServer(`/like/${comment_id}`)
     }
 }

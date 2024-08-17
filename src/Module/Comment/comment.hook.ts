@@ -14,7 +14,6 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
 
     useEffect(()=>{
         async function getComments(){
-            console.log("ok")
             const responseServerComments = findBy==="owner"? 
                 await CommentService.findManyCommentsByOwner(page, 5, visitor_id, search)
                 :await CommentService.findManyComments(page, 5, idOfPlaceOrUser, findBy, findBy ==="place_id" ?"populateuser_id": "populateplace_id",visitor_id,notationChoice)
@@ -28,7 +27,6 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
         const commentLiked = [...commentsTab]
         const index = commentLiked.findIndex((comment)=>comment.getId() === comment_id)
         commentLiked[index].getLiked() ? await CommentService.unLikeAComment(comment_id) : await CommentService.likeAComment(comment_id) 
-        console.log(commentLiked[index].getLiked())
         commentLiked[index].getLiked()? commentLiked[index].setLike(-1): commentLiked[index].setLike(+1)
         commentLiked[index].setLiked()
         setCommentsTab(commentLiked)

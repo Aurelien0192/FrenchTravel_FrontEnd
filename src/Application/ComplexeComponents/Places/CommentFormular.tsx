@@ -31,7 +31,6 @@ export const CommentFormular:React.FC<CommentFormularProps> = (props) =>{
     }
 
     function changeDisabled(checkboxAccept:  React.ChangeEvent<HTMLInputElement>){
-        console.log(checkboxAccept.currentTarget.checked)
         setSubmitDisabled(!checkboxAccept.currentTarget.checked)
 
     }
