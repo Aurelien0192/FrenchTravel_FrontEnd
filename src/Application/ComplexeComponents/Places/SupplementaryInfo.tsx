@@ -9,7 +9,7 @@ import { Input } from "../../Components/General/Input"
 import { TextArea } from "../../Components/General/TextArea"
 import { SelectInput } from "../../Components/General/SelectInput"
 import { Schedules } from "./Schedules"
-import { HotelCategorieSelector } from "./HotelCategorieSelector"
+import { HotelCategorieOrNotationSelector } from "./HotelCategorieOrNotationSelector"
 
 type supplementaryInfo = {
     categorie:string
@@ -31,7 +31,7 @@ export const SupplementaryInfo:React.FC<supplementaryInfo> = (props) => {
                 <p className="text-end">Infos supplémentaires</p>
                 <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" />
                 <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility"/>
-                <HotelCategorieSelector/>
+                <HotelCategorieOrNotationSelector type="star" />
                 <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" />
             </div>
         )

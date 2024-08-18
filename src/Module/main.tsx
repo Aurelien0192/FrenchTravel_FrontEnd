@@ -5,9 +5,13 @@ import '../Infrastructure/Style/index.css'
 
 import { MantineProvider } from '@mantine/core'
 import { RouterProvider } from 'react-router-dom'
+import { DatesProvider } from '@mantine/dates'
 import { router } from '../Infrastructure/Router/router.tsx'
 import { authentificationService } from './Authentification/Authentification.service.ts'
 import { AuthentifiateUser } from './Authentification/Authentification.class.ts'
+import 'dayjs/locale/fr'
+
+import'dayjs/locale/index.d.ts'
 
 if(sessionStorage.getItem("UserAuthentifiate") !== null){
   const authentifiateUser = sessionStorage.getItem("UserAuthentifiate")
@@ -23,7 +27,9 @@ if(localStorage.getItem("UserAuthentifiate") !== null){
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <MantineProvider>
-      <RouterProvider router={router} />
+      <DatesProvider settings={{locale: 'fr'}}>
+        <RouterProvider router={router} />
+      </DatesProvider>
     </MantineProvider>
   </React.StrictMode>,
 )

@@ -8,20 +8,20 @@ import { OwnerPlacesBrowserServices } from "../../Module/OwnerPlacesBrowser/Owne
 
 export const OwnerPlacesBrowser:React.FC = () => {
 
-    const {placesTab, totalOfPlace, nameForDeletion, idForDeletion, openedConfirmationDeletionPlace, manageConfirmationDeletionPlace, page, changePage, openConfirmationPlace } = useOwnerPlacesBrowser()
+    const {placesTab, totalOfPlace, nameForDeletion, idForDeletion, openedConfirmationDeletionPlace, manageConfirmationDeletionPlace, page, changePage, openConfirmationPlace, changeValueOfSearch } = useOwnerPlacesBrowser()
 
     return(
         <div className="flex flex-col gap-4 items-center">
-            <div className="flex gap-3 w-full">
-                <div className="flex">
-                    <SelectorNavLink to="/index/user/places" selected={true}>Mes établissements</SelectorNavLink>
-                    <SelectorNavLink to="" selected={false}>Mes commentaires</SelectorNavLink>
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+                <div className="flex flex-col md:flex-row">
+                    <SelectorNavLink to="/index/user/profile" selected={true}>Mes établissements</SelectorNavLink>
+                    <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                 </div>
-                <SearchBar/>
+                <SearchBar onSubmit={(e)=>{e.preventDefault();changeValueOfSearch(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}} placeholder="Rechercher un établissement"/>
             </div>
             <div className="flex flex-col gap-5 w-full">
                 {placesTab ? placesTab.map((place,index) => {
-                    return <div className="flex items-center gap-3">
+                    return <div className="flex flex-col md:flex-row items-center gap-3">
                         <ResultSearchCard key={index} place={place}/>
                         <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
                         </div>

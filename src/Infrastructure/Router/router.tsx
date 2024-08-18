@@ -6,7 +6,8 @@ import { IndexWithSearch } from "../../Application/Page/IndexWithSearch";
 import { PlacePage } from "../../Application/Page/Place";
 import { SearchPage } from "../../Application/Page/SearchPage";
 import { UserPage } from "../../Application/Page/User";
-import { OwnerPlacesBrowser } from "../../Application/Page/OwnerPlacesBrowser";
+import { UserConditionalProfile } from "../../Application/Page/UserConditionnalProfile";
+import { UserCommentManager } from "../../Application/Page/UserCommentManager";
 
 export const router = createBrowserRouter([
     {
@@ -33,9 +34,12 @@ export const router = createBrowserRouter([
             path:"/index/user/",
             element: <UserPage />,
             children:[{
-                path:"/index/user/places",
-                element:<OwnerPlacesBrowser />,
-                index: true
+                path:"/index/user/profile",
+                element:<UserConditionalProfile />,
+                index:true
+            },{
+                path:"/index/user/comment",
+                element:<UserCommentManager />
             }]
         }]
     },

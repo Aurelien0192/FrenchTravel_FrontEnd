@@ -23,5 +23,24 @@ export class SearchFilterServices{
         }
         placeService.razPlacesInObservable()
     }
+
+    static catergoriesMap(index:number){
+    let category = ""
+    switch(index){
+        case 1 :
+            category = "hotel"
+            break;
+        case 2:
+            category = "restaurant"
+            break;
+        case 3:
+            category = "activity"
+            break;
+        default:
+            category=""
+            break;
+    }
+    return category
+}
    
 }

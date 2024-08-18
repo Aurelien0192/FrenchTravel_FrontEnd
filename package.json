@@ -10,9 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^7.11.1",
-    "@mantine/hooks": "^7.11.1",
+    "@mantine/core": "^7.12.0",
+    "@mantine/dates": "^7.12.0",
+    "@mantine/hooks": "^7.12.0",
     "axios": "^1.7.2",
+    "dayjs": "^1.11.12",
     "embla-carousel-react": "^7.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

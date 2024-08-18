@@ -7,7 +7,7 @@ import { Button } from "../Components/General/Button.tsx"
 import { Carroussel } from "../ComplexeComponents/Image/Carroussel"
 import { PhotosManagement } from "../ComplexeComponents/Image/PhotosManagement.tsx"
 import { useDisclosure } from "@mantine/hooks"
-import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
+import { useImageManagement } from "../../Module/ImageManagement/ImageManagement.hook.ts"
 import { AxiosServices } from "../../Module/HTTP/axios.services"
 import { MoreInfoActivity } from "../ComplexeComponents/Places/MoreInfoActivity.tsx"
 import { MoreInfoHotel } from "../ComplexeComponents/Places/MoreInfoHotel.tsx"
@@ -18,26 +18,32 @@ import { useAuthentification } from "../../Module/Authentification/authentificat
 import { Input } from "../Components/General/Input.tsx"
 import { TextArea } from "../Components/General/TextArea.tsx"
 import { DoubleInput } from "../Components/General/DoubleInput.tsx"
-import { HotelCategorieSelector } from "../ComplexeComponents/Places/HotelCategorieSelector.tsx"
+import { HotelCategorieOrNotationSelector } from "../ComplexeComponents/Places/HotelCategorieOrNotationSelector.tsx"
 import { moreInfo } from "../../Module/Place/Place.type.ts"
-import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook.ts"
+import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook.ts"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices.ts"
 import { UpdateFormularPlaceService } from "../../Module/UpdateFormular/UpdateFormularPlace.service.ts"
+import { CommentFormular } from "../ComplexeComponents/Places/CommentFormular.tsx"
+import { CommentsViewer } from "../ComplexeComponents/Comment/CommentsViewer.tsx"
+import { Comment } from "../../Module/Comment/comment.class.ts"
+import { Like } from "../Components/svg/Like.tsx"
+import { AxiosResponse } from "axios"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
     const {authentifiateUser} = useAuthentification()
 
     const [dataOnePlace, setDataOnePlace] = useState<Place>()
+
     const [photoOpen, photoOpenController] = useDisclosure()
     const [describeUpdate, describeUpdateManager] = useDisclosure()
     const [moreInfoUpdate, moreInfoUpdateManager] = useDisclosure()
+    const [addCommentModal, addCommentModalManager] = useDisclosure()
     const {filesTab} = useImageManagement()
-    const {hotelCategorie} = useCategorieSelector()
+    const {selectedNoteOrHotelCategorie} = useSelector()
     const [msg, setMsg] = useState<string>("")
 
     const moreInfo: moreInfo|undefined = dataOnePlace?.getMoreInfo()
-
     
     useEffect(() => {
         const getPlace = async () => {
@@ -48,9 +54,20 @@ export const PlacePage:React.FC = () => {
     },[id])
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, hotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
+      const newMsg = await FormularServices.addResponseOfServer(UpdateFormularPlaceService.handleSubmit(e, selectedNoteOrHotelCategorie, dataOnePlace!.getId(),dataOnePlace!.getCategorie()),"updatePlace")
       setMsg(newMsg)
     }
+
+    const postImages = async() => {
+        const response: AxiosResponse = await AxiosServices.postImages(filesTab as Array<File>, dataOnePlace!.getId()) as AxiosResponse
+        if(response.status === 201){
+            window.location.reload()
+        }else{
+            setMsg(response.data)
+        }
+    }
+
+    const comment: Comment|null = dataOnePlace ? dataOnePlace.getComment() ? dataOnePlace.getComment() : null : null
 
     if(dataOnePlace){
         return(
@@ -59,6 +76,19 @@ export const PlacePage:React.FC = () => {
                         <HeaderPlacePage dataOnePlace={dataOnePlace} />
                     <div className="flex flex-col-reverse lg:flex-row gap-9">
                         <div className="flex flex-col gap-4">
+                            {comment &&
+                                <div className="flex flex-col mb-4">
+                                    <div className="flex gap-2.5 items-center w-full">
+                                        <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                        <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
+                                    </div>
+                                    <p className="text-sm truncate italic text-wrap w-full h-10 overflow-hidden">{comment.getComment()}</p>
+                                    <div className="flex gap-2 items-end">
+                                        <p>{comment.getLike()}</p>
+                                        <Like liked={comment.getLiked()} />
+                                    </div>
+                                </div>
+                            }
                             <p className="mr-5">{dataOnePlace.getDescribe()}</p>
                             {Object.keys(authentifiateUser).length>0 && dataOnePlace.getOwner() === authentifiateUser.getId() &&
                                 <div>
@@ -104,7 +134,7 @@ export const PlacePage:React.FC = () => {
                         }}>
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
-                            <Button size="md" onClick={() => {AxiosServices.postImages(filesTab as Array<File>,dataOnePlace.getId())}}>Valider</Button>
+                            <Button size="md" onClick={postImages}>Valider</Button>
                             {msg && <p className="text-red-500">{msg}</p>}
                         </div>
                     </Modal>
@@ -136,7 +166,7 @@ export const PlacePage:React.FC = () => {
                                                 <div className="w-full flex flex-col gap-3">
                                                     <Input placeholder="Climatisation, Coffre-fort" label="Equipement" name="equipment" value={moreInfo && moreInfo.equipment} />
                                                     <Input placeholder="Ascenceur..." label="Accessibilité" name="accessibility" value={moreInfo && moreInfo.accessibility}/>
-                                                    <HotelCategorieSelector selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
+                                                    <HotelCategorieOrNotationSelector type="star" selected={true} categorie={moreInfo && moreInfo.hotelCategorie}/>
                                                     <TextArea placeholder="Réservations, chaise hautes..." label="Services" name="services" size="xs" value={moreInfo && moreInfo.services} />
                                                 </div>
                                             }
@@ -155,7 +185,26 @@ export const PlacePage:React.FC = () => {
                         </div>
                         }
                 </div>
-                <SuggestionsPanel dataOnePlace={dataOnePlace} />
+                    <SuggestionsPanel dataOnePlace={dataOnePlace} />
+                <div>
+                    <h2 className="text-2xl font-bold">Avis</h2>
+                    <div className="flex flex-col gap-4 items-start">
+                        {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
+                        <Modal
+                            opened={addCommentModal}
+                            onClose={addCommentModalManager.close}
+                            size="xl"
+                            centered
+                            overlayProps={{
+                                backgroundOpacity:0.30,
+                                color:'#D98D30',
+                                blur:3,
+                            }}>
+                                <CommentFormular dataOnePlace={dataOnePlace} />
+                        </Modal>
+                        <CommentsViewer filter={true} visitor_id={Object.keys(authentifiateUser).length>0?authentifiateUser.getId():null} variant={1} findBy="place_id" idOfPlaceOrUser={dataOnePlace.getId()} />
+                    </div>
+                </div>
             </div>
         )
     }else{
