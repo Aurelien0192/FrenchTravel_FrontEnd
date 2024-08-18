@@ -1,3 +1,4 @@
+import { image } from "../Image/Image.type"
 
 export type userToSubmit = {
     firstName: string
@@ -15,4 +16,9 @@ export type userToUpdate = {
     password: string
     email:string
     about:string
+}
+
+export type userFromServer = {
+    username: string
+    profilePhoto: image
 }

@@ -18,8 +18,8 @@ import { DoubleInput } from "../Components/General/DoubleInput"
 import { TextArea } from "../Components/General/TextArea"
 import { SupplementaryInfo } from "../ComplexeComponents/Places/SupplementaryInfo"
 import { PhotosManagement } from "../ComplexeComponents/Image/PhotosManagement"
-import { useImageManagement } from "../../Module/ImageManagement.ts/ImageManagement.hook"
-import { useCategorieSelector } from "../../Module/HotelCategorieSelector/HotelCategorieSelector.hook"
+import { useImageManagement } from "../../Module/ImageManagement/ImageManagement.hook"
+import { useSelector } from "../../Module/HotelCategorieOrNotationSelector/HotelCategorieSelectorOrNotation.hook"
 import { placeFormularService } from "../../Module/PlaceFormular/PlaceFormular.service"
 import { Button } from "../Components/General/Button"
 import { FormularServices } from "../../Module/FormularGeneralServices/formularServices"
@@ -30,7 +30,7 @@ export function AddPlace() {
   const[categorie, setCategorie] = useState<string>("restaurant")
   const [msg, setMsg] = useState<string>("")
   const { filesTab } = useImageManagement()
-  const {hotelCategorie} = useCategorieSelector()
+  const {selectedNoteOrHotelCategorie} = useSelector()
   const { responseServer } = useResponseAxios()
 
   const changeCategorie = (value:string) => {
@@ -38,14 +38,14 @@ export function AddPlace() {
   }
 
   const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
-    const newMsg = await FormularServices.addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,hotelCategorie),"place")
+    const newMsg = await FormularServices.addResponseOfServer(placeFormularService.handleSubmit(e,filesTab as Array<File>,selectedNoteOrHotelCategorie),"place")
     setMsg(newMsg)
   }
   
   return (
   
     <form onSubmit={(e) => {changeMsg(e)}} 
-      className="flex flex-col mb-5 md:grid lg:grid-cols-2 gap-6 lg:gap-60 justify-between">
+      className="flex flex-col mb-5 md:grid lg:grid-cols-2 gap-6 lg:gap-60 justify-between w-full">
       
       <div className="flex flex-col gap-6">
         <Input placeholder="Les capucines" name="name" label="Nom du lieu*"/>

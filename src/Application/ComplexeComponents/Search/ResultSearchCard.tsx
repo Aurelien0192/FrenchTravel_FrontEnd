@@ -1,7 +1,9 @@
 import { Place } from "../../../Module/Place/Place.class"
-import { HotelCategorieShow } from "../Places/HotelCategorieShow"
+import { HotelCategorieOrNoteShow } from "../Places/HotelCategorieOrNotationShow"
 import { TypePlaceLabel } from "../../Components/Place/TypePlaceLabel"
 import { NavLink } from "react-router-dom"
+import { Comment } from "../../../Module/Comment/comment.class"
+import { Like } from "../../Components/svg/Like"
 
 type resultSearchCardProps = {
     place : Place
@@ -9,10 +11,11 @@ type resultSearchCardProps = {
 
 
 export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
+    const comment: Comment|null = props.place.getComment() ? props.place.getComment() : null
 
     return(
         <NavLink to={`/index/Place/${props.place.getId()}`} className="flex flex-col md:flex-row w-full shadow-md rounded-xl hover:bg-sand">
-            <div className="w-56 h-[186px] hidden md:block">
+            <div className="w-64 h-[200px] hidden md:block">
                 <img className=" size-full object-cover rounded-l-xl" src={props.place.getImage()[0].path}></img>
             </div>
             <div className=" flex flex-col gap-3 px-4 py-3 w-full">
@@ -20,11 +23,20 @@ export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
                     <div className=" w-[136px] h-[113px] md:hidden">
                         <img className=" w-[136px] h-[113px] object-cover rounded-l-xl" src={props.place.getImage()[0].path}></img>
                     </div>
-                    <div className="flex flex-col-reverse md:flex-row justify-between items-end md:items-center">
+                    <div className="flex flex-col-reverse md:flex-row justify-between items-end md:items-start">
                         <div className="flex flex-col">
-                            <h2 className="md:text-2xl font-bold">{props.place.getName()}</h2>
+                            <div className=" flex flex-col md:flex-row gap-2.5 items-center">
+                                <h2 className="md:text-2xl font-bold">{props.place.getName()}</h2>
+                                <div className="flex gap-2 items-center">
+                                    <HotelCategorieOrNoteShow type="circle" categorie={props.place.getNotation()} />
+                                    <p>{props.place.getNumberOfNote()}</p>
+                                </div>
+                            </div>
                             <p className="text-sm">{`${props.place.getCity()}, ${props.place.getCounty()}, ${props.place.getCountry()}`}</p>
+                            <div className="flex gap-2 items-center">
                         </div>
+                        </div>
+
                         <div className="flex gap-3">
                             <TypePlaceLabel labelName={props.place.getCategorie()} />
                             {props.place.getTypeOfPlace().length> 0 && props.place.getTypeOfPlace().map((typeOfPlace, index) => {
@@ -42,7 +54,7 @@ export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
                         props.place.getCategorie()==="hotel"?
                         <div className="flex gap-3">
                                 <p>Categorie d'hôtel : </p>
-                                <HotelCategorieShow categorie={props.place.getMoreInfo().hotelCategorie} />
+                                <HotelCategorieOrNoteShow type="star" categorie={props.place.getMoreInfo().hotelCategorie} />
                             </div>
                         : props.place.getCategorie() ==="restaurant" ?
                         <div className="flex gap-3">
@@ -55,6 +67,24 @@ export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
                                 {props.place.getMoreInfo().duration? <p>{`${props.place.getMoreInfo().duration!/60} heures`}</p>:<p>non renseigné</p> }
                             </div>
                         :<p>Aucune données</p>
+                    }
+                    {comment?
+                    <div className="flex flex-col w-full">
+                        <div className="flex gap-5 items-start">
+                            <div className="flex gap-2.5 items-center">
+                                <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
+                                <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
+                            </div>
+                            <div className="flex flex-col gap-2 w-full ">
+                                <p className="text-sm h- italic text-wrap truncate overflow-hidden">{comment.getComment()}</p>
+                                <div className="flex gap-2 items-end">
+                                    <p>{comment.getLike()}</p>
+                                    <Like liked={comment.getLiked()} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>:
+                    <p>Aucun commentaire trouvé</p>
                     }
                 </div>
             </div>

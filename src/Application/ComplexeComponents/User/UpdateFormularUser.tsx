@@ -39,9 +39,9 @@ export const UpdateFormularUser:React.FC = () => {
 
  return(
     <div>
-        <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
-        <div className="flex justify-between">
-            <div className="flex flex-col gap-2 items-start w-fit h-fit">
+        <p className={`w-full text-center ${responseServer?.getStatus && responseServer?.getStatus()===200?'text-green-500':'text-red-500'}`}>{msg}</p>
+        <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between">
+            <div className="flex flex-col gap-2 items-center md:items-start w-full md:w-fit h-fit">
                 <PhotoProfileDisplay />
                 <Button variant="transparent" onClick={manageConfirmDeletionUser.open}>Supprimer le profil</Button>
                 <Modal

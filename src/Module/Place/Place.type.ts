@@ -1,3 +1,4 @@
+import { commentFromServer } from "../Comment/comment.type"
 import { image } from "../Image/Image.type"
 
 export type moreInfo = {
@@ -96,7 +97,7 @@ export type placeUpdate = {
 export type place = {
     _id : string
     name : string
-    categorie: "activity"|"restaurant"
+    categorie: "activity"|"restaurant"|"hotel"
     typeOfPlace: Array<string>
     email: string
     phone:string
@@ -112,6 +113,8 @@ export type place = {
     create_at: Date,
     owner: string,
     notation:number,
+    numberOfNote:number,
+    comments: Array<commentFromServer>
     images : Array<image>
 
 

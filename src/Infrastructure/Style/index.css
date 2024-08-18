@@ -1,18 +1,19 @@
 @import '@mantine/core/styles.css';
-
+@import '@mantine/dates/styles.css';
+@import 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base{
-    @font-face {
-        font-family: 'Nunito';
+    /* @font-face {
+        font-family: 'Nunito Sans';
         src: url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-    }
+    } */
 }
 
 *{
-    font-family: 'Nunito';
+    font-family: 'Nunito Sans';
 }
 
 .errorInit{
@@ -25,3 +26,51 @@
     transition-duration: 3s;
 }
 
+/* configuration style datePicker mantine */
+
+.mantine-DatePicker-day{
+    font-family:'Nunito Sans';
+    &[data-selected]{
+        background-color: #D98D30;
+    };
+    &[data-selected]:hover{
+        border: 1px solid black;
+        background-color: #D98D30;
+    };
+    &[data-weekend]{
+        color:#8C3616
+    }
+    &[data-outside]{
+        color: #D98D30
+    }
+}
+
+.mantine-DatePicker-day:hover{
+    border: 1px solid black;
+    background-color: #F2E2CE
+}
+
+.mantine-DatePicker-weekday{
+    font-family:'Nunito Sans';
+    color: black;
+}
+
+.mantine-DatePicker-month{
+    font-family:'Nunito Sans';
+}
+
+.mantine-DatePicker-calendarHeaderLevel{
+    font-family:'Nunito Sans';
+}
+
+.mantine-DatePicker-monthsList{
+    font-family:'Nunito Sans';
+}
+
+[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}

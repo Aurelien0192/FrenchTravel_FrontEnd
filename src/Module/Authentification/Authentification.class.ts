@@ -36,7 +36,6 @@ export class AuthentifiateUser{
     private readonly profilePhoto:string
 
     constructor(responseServer: AxiosResponse){
-        console.log(responseServer.data)
         this._id = responseServer.data._id
         this.token = responseServer.data.token
         this.firstName = responseServer.data.firstName

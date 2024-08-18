@@ -9,7 +9,7 @@ type MoreInfoHotelProps = {
 
 export const MoreInfoHotel:React.FC<MoreInfoHotelProps> = (props) => {
     return (
-        <div className="flex flex-col md:flex-row gap-3 md:gap-0 md:justify-between">
+        <div className="flex flex-col w-full md:flex-row gap-3 md:gap-0 md:justify-between">
             <div className="flex  w-full flex-col items-center gap-3 md:w-1/3">
                 <div className="flex gap-2">
                     <IoTvSharp size={"30px"} />

@@ -10,7 +10,7 @@
 import { useEffect, useState } from "react"
 
 type textAreaProps = {
-    label: string
+    label?: string
     placeholder: string
     name : string
     flexDirection?: "flex-col"

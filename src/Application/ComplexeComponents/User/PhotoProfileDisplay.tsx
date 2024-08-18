@@ -24,7 +24,7 @@ export const PhotoProfileDisplay:React.FC = () => {
   }
 
     return(
-        <div className=" relative size-44 rounded-full">
+        <div className=" relative size-36 md:size-44 rounded-full">
             {
                 Object.keys(authentifiateUser).length !==0 ? <img className=" rounded-full size-full object-cover" src={authentifiateUser.getProfilePhoto()}
                 onMouseEnter={handleHoverImgEnter}

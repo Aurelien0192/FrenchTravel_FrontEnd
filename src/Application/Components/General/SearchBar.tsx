@@ -7,6 +7,7 @@ type SearchBarProps = {
     onClick?: MouseEventHandler<HTMLElement>
     onSubmit?: React.FormEventHandler<HTMLFormElement>
     value?:string|null
+    placeholder?:string
 }
 
 export const SearchBar: React.FC<SearchBarProps> = (props) => {
@@ -22,12 +23,11 @@ export const SearchBar: React.FC<SearchBarProps> = (props) => {
     return(
         <form onSubmit={props.onSubmit} className="flex w-full items-center">
             <Input 
-                placeholder="Un lieu ou dormir, manger, visiter, s'amuser, rêver?" 
+                placeholder={props.placeholder ? props.placeholder :  "Un lieu ou dormir, manger, visiter, s'amuser, rêver?"} 
                 name="search" 
                 forcefull={true} 
                 label=""
                 value={valueofInput}
-                onChange={((e) => {e.preventDefault(),setValueOfInput(e.currentTarget.value)})}
                 icon={logoSearch} 
             />
             <div className="hidden md:inline">

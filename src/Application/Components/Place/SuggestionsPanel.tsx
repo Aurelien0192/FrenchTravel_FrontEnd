@@ -16,10 +16,10 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
     },[props.dataOnePlace])
 
     return(
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col w-full gap-5">
             <div className="flex flex-col gap-3">
                 <h2 className="font-bold uppercase"> Activités aux alentours</h2>
-                <div className="w-full overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
+                <div className="w-[90lvw] overflow-auto lg:overflow-hidden pb-2 flex gap-3">
                     <div className="w-fit flex gap-3 ">
                         {placeToDisplay.activity ? 
                             placeToDisplay.activity.map((place, index) => {
@@ -32,9 +32,9 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col w-full gap-3">
                 <h2 className="font-bold uppercase"> Hôtels aux alentours</h2>
-                <div className="w-full overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
+                <div className="w-[90lvw] overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
                     <div className="flex gap-3 w-fit">
                         {placeToDisplay.hotel ? 
                             placeToDisplay.hotel.map((place, index) => {
@@ -47,9 +47,9 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col w-full gap-3">
                 <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
-                <div className="w-full overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
+                <div className="w-[90lvw] overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
                     <div className="flex gap-3 w-fit">
                         {placeToDisplay.restaurant ? 
                             placeToDisplay.restaurant.map((place, index) => {
