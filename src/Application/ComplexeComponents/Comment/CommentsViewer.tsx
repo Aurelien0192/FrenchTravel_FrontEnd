@@ -42,15 +42,15 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
     if (commentsTab){
 
         return(
-            <div className="flex flex-row-reverse gap-32 w-full">
+            <div className="flex flex-col-reverse md:flex-row-reverse md:gap-32 w-full">
                 <div className="flex flex-col gap-3 items-center w-full">
                     {commentsTab.length!==0 ? commentsTab.map((comment, index)=>{
                         if(props.variant === 1 || props.variant === 3){
                             return(
                                 <div key={index} className="flex flex-col gap-3 items-end w-full">
                                     {!comment.getIsResponse() && 
-                                        <div  className={props.variant===3?"w-full flex px-2.5 py-1.5 gap-2.5 rounded-xl shadow":"flex w-full p-2.5"} >
-                                            <div className="flex flex-col gap-4 border-r-2 border-black w-72">
+                                        <div  className={props.variant===3?"w-full flex px-2.5 py-1.5 gap-2.5 rounded-xl shadow":"flex flex-col gap-2 md:gap-0 md:flex-row w-full p-2.5"} >
+                                            <div className="flex md:flex-col gap-4 border-b-2 md:border-r-2 md:border-b-0 border-black w-72">
                                                 <div>
                                                     <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
                                                     <p>{comment.getUsernamePoster()}</p>
@@ -101,7 +101,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                         </div>
                                     }
                                     {comment.getResponse() &&
-                                        <div className="w-10/12">
+                                        <div className="md:w-10/12">
                                             <CommentResponseCard response={comment.getResponse() as Comment}/>
                                         </div>    
                                     }

@@ -6,7 +6,7 @@ type moreInfoRestaurantProps = {
 
 export const MoreInfoRestaurant:React.FC<moreInfoRestaurantProps> = (props) => {
     return(
-        <div className="flex justify-between">
+        <div className="flex w-full justify-between">
             <div className="w-1/2">
                 <div>
                     <p className="font-bold">Fourchette de prix</p>

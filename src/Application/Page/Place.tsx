@@ -78,11 +78,11 @@ export const PlacePage:React.FC = () => {
                         <div className="flex flex-col gap-4">
                             {comment &&
                                 <div className="flex flex-col mb-4">
-                                    <div className="flex gap-2.5 items-center">
+                                    <div className="flex gap-2.5 items-center w-full">
                                         <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
                                         <p className="text-sm font-bold">{comment.getUsernamePoster()}</p>
                                     </div>
-                                    <p className="text-sm h- italic text-wrap h-10 overflow-hidden">{comment.getComment()}</p>
+                                    <p className="text-sm truncate italic text-wrap w-full h-10 overflow-hidden">{comment.getComment()}</p>
                                     <div className="flex gap-2 items-end">
                                         <p>{comment.getLike()}</p>
                                         <Like liked={comment.getLiked()} />
