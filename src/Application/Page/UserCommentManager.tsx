@@ -12,8 +12,8 @@ export const UserCommentManager:React.FC = () => {
 
     return(
         <div className="flex flex-col gap-4 items-center">
-            <div className="flex gap-3 w-full">
-                <div className="flex">
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+                <div className="flex flex-col md:flex-row">
                     <SelectorNavLink to="/index/user/profile" selected={false}>{Object.keys(authentifiateUser).length>0 && authentifiateUser.getUserType() ==="professional" ?"Mes établissements": "Mes photos"}</SelectorNavLink>
                     <SelectorNavLink to="/index/user/comment" selected={true}>Mes commentaires</SelectorNavLink>
                 </div>

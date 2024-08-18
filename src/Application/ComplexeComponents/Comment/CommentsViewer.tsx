@@ -49,7 +49,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                             return(
                                 <div key={index} className="flex flex-col gap-3 items-end w-full">
                                     {!comment.getIsResponse() && 
-                                        <div  className={props.variant===3?"w-full flex px-2.5 py-1.5 gap-2.5 rounded-xl shadow":"flex flex-col gap-2 md:gap-0 md:flex-row w-full p-2.5"} >
+                                        <div  className={`flex w-full flex-col md:flex-row gap-2 ${props.variant===3?" px-2.5 py-1.5 md:gap-2.5 rounded-xl shadow":"flex flex-col md:gap-0 p-2.5"}`} >
                                             <div className="flex md:flex-col gap-4 border-b-2 md:border-r-2 md:border-b-0 border-black w-72">
                                                 <div>
                                                     <img className="size-10 rounded-full object-cover" src={comment.getProfilePhoto()} />
@@ -109,14 +109,14 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                             )
                         }else{
                             return(
-                                <div className="flex flex-col gap-3 items-start w-full">
+                                <div className="flex flex-col gap-3 items-end w-full">
                                     <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
-                                        <div className="flex justify-between items-start w-full">
+                                        <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between items-start w-full">
                                             <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
                                             <p>{`publié le : ${comment.getCreateAt()}`}</p>
                                             <p>{`visité le : ${comment.getDateVisited()}`}</p>
                                         </div>
-                                        <p>{comment.getComment()}</p>
+                                        <p className="border-t-2 border-black md:border-t-0">{comment.getComment()}</p>
                                         <div>
                                             <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
                                                 <Like liked={comment.getLiked()}/>

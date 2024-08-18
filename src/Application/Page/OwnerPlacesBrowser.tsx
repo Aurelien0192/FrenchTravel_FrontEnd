@@ -12,8 +12,8 @@ export const OwnerPlacesBrowser:React.FC = () => {
 
     return(
         <div className="flex flex-col gap-4 items-center">
-            <div className="flex gap-3 w-full">
-                <div className="flex">
+            <div className="flex flex-col md:flex-row gap-3 w-full">
+                <div className="flex flex-col md:flex-row">
                     <SelectorNavLink to="/index/user/profile" selected={true}>Mes établissements</SelectorNavLink>
                     <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                 </div>
@@ -21,7 +21,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
             </div>
             <div className="flex flex-col gap-5 w-full">
                 {placesTab ? placesTab.map((place,index) => {
-                    return <div className="flex items-center gap-3">
+                    return <div className="flex flex-col md:flex-row items-center gap-3">
                         <ResultSearchCard key={index} place={place}/>
                         <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
                         </div>

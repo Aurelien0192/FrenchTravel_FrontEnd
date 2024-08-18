@@ -11,13 +11,13 @@ export const UserPhotoManager:React.FC = () => {
 
         return(
             <div className="flex flex-col gap-4 items-center">
-                <div className="flex gap-3 w-full">
-                    <div className="flex ">
+                <div className="flex flex-col md:flex-row gap-3 w-full">
+                    <div className="flex flex-col md:flex-row">
                         <SelectorNavLink to="/index/user/profile" selected={true}>Mes photos</SelectorNavLink>
                         <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 w-full gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
                     {tabImages.map((image,index) => {
                         return (
                             <ImageProfileManagement key={index} image={image} onClick={(e) => {e.preventDefault();deleteOneImage(image.getId())}} />

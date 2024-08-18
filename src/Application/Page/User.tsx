@@ -16,14 +16,14 @@ export const UserPage:React.FC = () => {
   
     return(
         <div className="flex flex-col w-full gap-4">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row gap-4 md:justify-between md:items-center">
                 <div className="flex gap-5 items-end">
                     <PhotoProfileDisplay />
                     <div>
                         <h1 className="text-4xl font-medium">{Object.keys(authentifiateUser).length !==0  && authentifiateUser.getUsername()}</h1>
                     </div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-col-reverse w-fit md:flex-row gap-2">
                     {Object.keys(authentifiateUser).length !==0 && authentifiateUser.getUserType()==="professional" && Object.keys(authentifiateUser).length !==0 && <NavLinkButton to={"/index/AddPlace"}variant="transparent">Ajouter un établissement</NavLinkButton>}
                     <Button onClick={manageProfileModifier.open} variant="transparent">Modifier le profil</Button>
                 </div>
