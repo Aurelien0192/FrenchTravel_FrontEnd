@@ -119,7 +119,6 @@ export class Place{
     private comment : Comment|null
 
     constructor(placeFromApi : place){
-        console.log(placeFromApi)
         this.id = placeFromApi._id
         this.owner = placeFromApi.owner
         this.name = placeFromApi.name

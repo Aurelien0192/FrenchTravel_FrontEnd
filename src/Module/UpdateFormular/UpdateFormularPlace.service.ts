@@ -11,7 +11,7 @@ export class UpdateFormularPlaceService{
     const formData = new FormData(form)
     let data = JSON.parse(JSON.stringify(Object.fromEntries(formData.entries())))
     data.categorie = categorie
-    if(categorie === "restaurant" && (data.cook||data.services||data.price)){
+    if(categorie === "restaurant" && (data.cook||data.services||data.price1||data.price2)){
       data.moreInfo = {
         cook: data.cook,
         services: data.services,
@@ -67,6 +67,7 @@ export class UpdateFormularPlaceService{
     }
     
     const responseServer:AxiosResponse = await PlaceServices.updateOnePlace(data, place_id) as AxiosResponse
+    console.log(responseServer)
     if(responseServer.status !==200){
       return AxiosResponseError.createNewResponseError(responseServer.data, responseServer.status)
     }else{
