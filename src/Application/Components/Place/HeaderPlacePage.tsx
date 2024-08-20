@@ -11,6 +11,7 @@ import { SelectInput } from "../General/SelectInput"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
 import { HotelCategorieOrNoteShow } from "../../ComplexeComponents/Places/HotelCategorieOrNotationShow"
+import { FavoriteHeart } from "../svg/favoriteHeart"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -90,7 +91,8 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                         </Modal>
                     </div>}
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 items-center">
+                {authentifiateUser && Object.keys(authentifiateUser).length>0 && <FavoriteHeart place_id={props.dataOnePlace.getId()} />}
                 <TypePlaceLabel labelName={props.dataOnePlace.getCategorie()} />
                 {props.dataOnePlace.getTypeOfPlace().length> 0 && props.dataOnePlace.getTypeOfPlace().map((typeOfPlace, index) => {
                     return(
