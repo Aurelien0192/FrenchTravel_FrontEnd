@@ -17,6 +17,8 @@ import { AxiosResponse } from "axios"
 export const UserFavoriteManager:React.FC = () =>{
     const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
+    const [folderSelected, setFolderSelected] = useState<number>(0)
+    const [idFolderSelected, setIdFolderSelected] = useState<string>("")
     const [folders, setFolders] = useState<Array<Folder>>([])
     const [favorites, setFavorites] = useState<Array<Favorite>>([])
     const [hidden, setHidden] = useState<boolean>(true)
@@ -26,10 +28,10 @@ export const UserFavoriteManager:React.FC = () =>{
 
     useEffect(()=>{
         setFavoriteManager()
-    },[])
+    },[idFolderSelected])
 
     async function setFavoriteManager(){
-        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser()
+        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(idFolderSelected)
         const responseServerFolders: responseServerGetManyFolders = await FolderService.getFolderFromServer()
         const favoritesToDisplay:Array<Favorite> = responseServerFavorites.results.map((favorite)=>{return Favorite.createNewFavorite(favorite)})
         const foldersOfUser : Array<Folder>= responseServerFolders.results.map((folder)=>{return Folder.createNewFolder(folder)})
@@ -49,7 +51,6 @@ export const UserFavoriteManager:React.FC = () =>{
             foldersTab.push(newFolder)
             setFolders(foldersTab)
         }
-
     }
 
     function drag(e:React.DragEvent<HTMLDivElement>){
@@ -72,12 +73,12 @@ export const UserFavoriteManager:React.FC = () =>{
                     <Button onClick={()=>{setHidden(!hidden)}} size="xs">nouveau dossier</Button>
                     <div className="rounded-lg border border-black h-5/6 w-full">
                         <div className="flex flex-col p-2">
-                            <FolderButton>Tous</FolderButton>
-                            <FolderButton>Non catégorisé</FolderButton>
+                            <FolderButton selected={folderSelected===0} onClick={()=>{setFolderSelected(0);setIdFolderSelected("")}}>Tous</FolderButton>
+                            <FolderButton selected={folderSelected===1} onClick={()=>{setFolderSelected(1);setIdFolderSelected("")}}>Non catégorisé</FolderButton>
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
                                 <div onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>drop(e, folder.getId())}>
-                                    <FolderButton key={index}>{folder.getName()}</FolderButton>
+                                    <FolderButton selected={folderSelected===(index+2)} onClick={()=>{setFolderSelected((index+2));setIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
                                 </div>)
                             })}
                             <form onSubmit={(e)=>{createNewFolder(e)}} className={`${hidden && "hidden"} flex flex-col gap-2 p-2 rounded shadow bg-white`}>
@@ -102,7 +103,6 @@ export const UserFavoriteManager:React.FC = () =>{
                 <div>
                     {favorites.map((favorite)=>{return(
                         <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}}>
-                            test
                             <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
                         </div>
                     )})}
@@ -110,7 +110,6 @@ export const UserFavoriteManager:React.FC = () =>{
                 :<Loader />
                 }
             </div>
-            
         </div>
     )
 }
