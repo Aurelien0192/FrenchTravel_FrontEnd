@@ -4,7 +4,7 @@ import { Modal } from "@mantine/core"
 import { SubscriptionFormular } from "../User/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
-import { IoChatboxSharp, IoChevronDown, IoPerson } from "react-icons/io5";
+import { IoChatboxSharp, IoChevronDown, IoHeart, IoPerson } from "react-icons/io5";
 import { BiLogOutCircle } from "react-icons/bi"
 import { NavLinkButton } from "../../Components/General/NavLinkButton"
 import { MdAddBusiness } from "react-icons/md"
@@ -66,6 +66,12 @@ export const HeaderWithSearch:React.FC = () => {
                                         <NavLink className="flex gap-[10px] items-end w-full cursor-pointer hover:bg-sand" to="/index/user/comment">
                                             <IoChatboxSharp fill="#D98D30" size={"25px"} />
                                             <p className="text-2xl text-nowrap font-bold">Mes commentaires</p>
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink className="flex gap-[10px] items-end w-full cursor-pointer hover:bg-sand" to="/index/favorite">
+                                        <IoHeart fill="#D98D30" size={"25px"} />
+                                        <p className="text-2xl text-nowrap font-bold">Mes favoris</p>
                                         </NavLink>
                                     </li>
                                     <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand">

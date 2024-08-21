@@ -8,6 +8,7 @@ import { SearchPage } from "../../Application/Page/SearchPage";
 import { UserPage } from "../../Application/Page/User";
 import { UserConditionalProfile } from "../../Application/Page/UserConditionnalProfile";
 import { UserCommentManager } from "../../Application/Page/UserCommentManager";
+import { UserFavoriteManager } from "../../Application/Page/UserFavoriteManager";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,9 @@ export const router = createBrowserRouter([
                 path:"/index/user/comment",
                 element:<UserCommentManager />
             }]
+        },{
+            path:"/index/favorite",
+            element: <UserFavoriteManager />
         }]
     },
 ])

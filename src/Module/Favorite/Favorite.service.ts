@@ -14,7 +14,13 @@ export class FavoriteService{
     }
 
     static async removeOfFavorite(place_id:string){
-        const response: AxiosResponse = await AxiosServices.deleteElementOnServer(`favorite/${place_id}`) as AxiosResponse
+        const response: AxiosResponse = await AxiosServices.deleteElementOnServer(`/favorite/${place_id}`) as AxiosResponse
         return response.status
+    }
+
+    static async getsFavoritesOfUser(){
+        const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites`) as responseServerGetManyFavorites
+        console.log(response)
+        return response
     }
 }
