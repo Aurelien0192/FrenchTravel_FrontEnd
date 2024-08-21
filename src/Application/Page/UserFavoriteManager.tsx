@@ -13,6 +13,7 @@ import { FolderService } from "../../Module/Folder/Folder.service"
 import { FolderButton } from "../Components/General/FolderButton"
 import { Input } from "../Components/General/Input"
 import { AxiosResponse } from "axios"
+import { IoTrash } from "react-icons/io5"
 
 export const UserFavoriteManager:React.FC = () =>{
     const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
@@ -22,6 +23,7 @@ export const UserFavoriteManager:React.FC = () =>{
     const [folders, setFolders] = useState<Array<Folder>>([])
     const [favorites, setFavorites] = useState<Array<Favorite>>([])
     const [hidden, setHidden] = useState<boolean>(true)
+    const [hiddenTrash, setHiddenTrash] = useState<boolean>(true)
     function changeSelected(index:number){
         setSelectedIndex(index)
     }
@@ -54,10 +56,11 @@ export const UserFavoriteManager:React.FC = () =>{
     }
 
     function drag(e:React.DragEvent<HTMLDivElement>){
+        setHiddenTrash(false)
         e.dataTransfer.setData("text",e.currentTarget.id)
     }
 
-    function allowDrop(e:React.DragEvent<HTMLDivElement>){
+    function allowDrop(e:React.DragEvent<HTMLDivElement|SVGElement>){
         e.preventDefault()
     }
 
@@ -67,9 +70,20 @@ export const UserFavoriteManager:React.FC = () =>{
         console.log(response.status)
     }
 
+    async function dropDelete(e:React.DragEvent<SVGElement>){
+        const favorite_id:string=e.dataTransfer.getData("text")
+        const response: number = await FavoriteService.removeOfFavorite(favorite_id)
+        if(response === 200){
+            const favoritesTab = [...favorites]
+            favoritesTab.splice(favoritesTab.findIndex((favorite)=>favorite.getId()=== favorite_id),1)
+            setFavorites(favoritesTab)
+        }
+
+    }
+
     return(
         <div className="w-full flex gap-4">
-            <aside className="flex flex-col justify-between w-1/4 h-[70lvh]">
+            <aside className="flex flex-col relative justify-between w-1/4 h-[70lvh]">
                     <Button onClick={()=>{setHidden(!hidden)}} size="xs">nouveau dossier</Button>
                     <div className="rounded-lg border border-black h-5/6 w-full">
                         <div className="flex flex-col p-2">
@@ -77,7 +91,7 @@ export const UserFavoriteManager:React.FC = () =>{
                             <FolderButton selected={folderSelected===1} onClick={()=>{setFolderSelected(1);setIdFolderSelected("")}}>Non catégorisé</FolderButton>
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
-                                <div onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>drop(e, folder.getId())}>
+                                <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>drop(e, folder.getId())}>
                                     <FolderButton selected={folderSelected===(index+2)} onClick={()=>{setFolderSelected((index+2));setIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
                                 </div>)
                             })}
@@ -87,6 +101,7 @@ export const UserFavoriteManager:React.FC = () =>{
                             </form>
                         </div>
                     </div>
+                    <IoTrash onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>{dropDelete(e)}} className={`absolute bottom-0 z-0 right-12 ${hiddenTrash && "hidden"}`} fill="#808080" size={"100px"} />
             </aside>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex">
@@ -100,9 +115,9 @@ export const UserFavoriteManager:React.FC = () =>{
                 </div>
                 <SearchBar placeholder="rechercher dans vos favoris" />
                 {favorites.length>0?
-                <div>
+                <div className="grid grid-cols-3 justify-between">
                     {favorites.map((favorite)=>{return(
-                        <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}}>
+                        <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{setHiddenTrash(true)}}>
                             <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
                         </div>
                     )})}

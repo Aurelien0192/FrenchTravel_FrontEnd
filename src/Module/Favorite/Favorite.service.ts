@@ -13,8 +13,8 @@ export class FavoriteService{
         return response.status
     }
 
-    static async removeOfFavorite(place_id:string){
-        const response: AxiosResponse = await AxiosServices.deleteElementOnServer(`/favorite/${place_id}`) as AxiosResponse
+    static async removeOfFavorite(placeOrFavorite_id:string){
+        const response: AxiosResponse = await AxiosServices.deleteElementOnServer(`/favorite/${placeOrFavorite_id}`) as AxiosResponse
         return response.status
     }
 
