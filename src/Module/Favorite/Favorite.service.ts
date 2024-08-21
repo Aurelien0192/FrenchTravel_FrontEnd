@@ -19,7 +19,7 @@ export class FavoriteService{
     }
 
     static async getsFavoritesOfUser(ids?:string){
-        const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites${ids?`?ids=${ids}`:""}`) as responseServerGetManyFavorites
+        const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites${ids?ids==="uncategorized"?"?option=true":`?ids=${ids}`:""}`) as responseServerGetManyFavorites
         return response
     }
 

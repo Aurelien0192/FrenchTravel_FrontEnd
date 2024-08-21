@@ -64,7 +64,7 @@ export const UserFavoriteManager:React.FC = () =>{
         e.preventDefault()
     }
 
-    async function drop(e:React.DragEvent<HTMLDivElement>, folder_id:string){
+    async function drop(e:React.DragEvent<HTMLDivElement>, folder_id:string|undefined){
         const favorite_id:string=e.dataTransfer.getData("text")
         const response: AxiosResponse = await FavoriteService.udpateFavorite(favorite_id, {folder:folder_id})
         console.log(response.status)
@@ -88,7 +88,9 @@ export const UserFavoriteManager:React.FC = () =>{
                     <div className="rounded-lg border border-black h-5/6 w-full">
                         <div className="flex flex-col p-2">
                             <FolderButton selected={folderSelected===0} onClick={()=>{setFolderSelected(0);setIdFolderSelected("")}}>Tous</FolderButton>
-                            <FolderButton selected={folderSelected===1} onClick={()=>{setFolderSelected(1);setIdFolderSelected("")}}>Non catégorisé</FolderButton>
+                            <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>drop(e,undefined)}>
+                                <FolderButton selected={folderSelected===1} onClick={()=>{setFolderSelected(1);setIdFolderSelected("uncategorized")}}>Non catégorisé</FolderButton>
+                            </div>
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
                                 <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>drop(e, folder.getId())}>
