@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { AxiosServices } from "../HTTP/axios.services";
-import { responseServerGetManyFavorites } from "./Favorite.type";
+import { modifyFavorite, responseServerGetManyFavorites } from "./Favorite.type";
 
 export class FavoriteService{
     static async getFavorite(place_id:string){
@@ -20,7 +20,11 @@ export class FavoriteService{
 
     static async getsFavoritesOfUser(){
         const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites`) as responseServerGetManyFavorites
-        console.log(response)
+        return response
+    }
+
+    static async udpateFavorite(favorite_id:string, data:modifyFavorite){
+        const response:AxiosResponse = await AxiosServices.updateElementOnServer(`/favorite/${favorite_id}`,data) as AxiosResponse
         return response
     }
 }

@@ -12,3 +12,8 @@ export type responseServerGetManyFavorites={
     count:number,
     results:Array<favorite>
 }
+
+export type modifyFavorite = {
+    visited?:boolean
+    folder?:string
+}

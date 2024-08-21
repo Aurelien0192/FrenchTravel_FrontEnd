@@ -52,6 +52,20 @@ export const UserFavoriteManager:React.FC = () =>{
 
     }
 
+    function drag(e:React.DragEvent<HTMLDivElement>){
+        e.dataTransfer.setData("text",e.currentTarget.id)
+    }
+
+    function allowDrop(e:React.DragEvent<HTMLDivElement>){
+        e.preventDefault()
+    }
+
+    async function drop(e:React.DragEvent<HTMLDivElement>, folder_id:string){
+        const favorite_id:string=e.dataTransfer.getData("text")
+        const response: AxiosResponse = await FavoriteService.udpateFavorite(favorite_id, {folder:folder_id})
+        console.log(response.status)
+    }
+
     return(
         <div className="w-full flex gap-4">
             <aside className="flex flex-col justify-between w-1/4 h-[70lvh]">
@@ -61,7 +75,10 @@ export const UserFavoriteManager:React.FC = () =>{
                             <FolderButton>Tous</FolderButton>
                             <FolderButton>Non catégorisé</FolderButton>
                             {folders.length>0 && folders.map((folder,index)=>{
-                                return <FolderButton key={index}>{folder.getName()}</FolderButton>
+                                return (
+                                <div onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>drop(e, folder.getId())}>
+                                    <FolderButton key={index}>{folder.getName()}</FolderButton>
+                                </div>)
                             })}
                             <form onSubmit={(e)=>{createNewFolder(e)}} className={`${hidden && "hidden"} flex flex-col gap-2 p-2 rounded shadow bg-white`}>
                                 <Input placeholder="nouveau nom" name="name" />
@@ -84,7 +101,10 @@ export const UserFavoriteManager:React.FC = () =>{
                 {favorites.length>0?
                 <div>
                     {favorites.map((favorite)=>{return(
-                        <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
+                        <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}}>
+                            test
+                            <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
+                        </div>
                     )})}
                 </div>
                 :<Loader />
