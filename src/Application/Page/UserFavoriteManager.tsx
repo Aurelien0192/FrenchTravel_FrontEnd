@@ -19,6 +19,7 @@ export const UserFavoriteManager:React.FC = () =>{
     const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
     const [selectedIndex, setSelectedIndex] = useState<number>(0)
     const [folderSelected, setFolderSelected] = useState<number>(0)
+    const [responseServerDone, setResponseServerDone] = useState<boolean>(false)
     const [idFolderSelected, setIdFolderSelected] = useState<string>("")
     const [folders, setFolders] = useState<Array<Folder>>([])
     const [favorites, setFavorites] = useState<Array<Favorite>>([])
@@ -34,7 +35,9 @@ export const UserFavoriteManager:React.FC = () =>{
 
     async function setFavoriteManager(){
         const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(idFolderSelected)
+        setResponseServerDone(false)
         const responseServerFolders: responseServerGetManyFolders = await FolderService.getFolderFromServer()
+        setResponseServerDone(true)
         const favoritesToDisplay:Array<Favorite> = responseServerFavorites.results.map((favorite)=>{return Favorite.createNewFavorite(favorite)})
         const foldersOfUser : Array<Folder>= responseServerFolders.results.map((folder)=>{return Folder.createNewFolder(folder)})
         setFavorites(favoritesToDisplay)
@@ -68,6 +71,7 @@ export const UserFavoriteManager:React.FC = () =>{
         const favorite_id:string=e.dataTransfer.getData("text")
         const response: AxiosResponse = await FavoriteService.udpateFavorite(favorite_id, {folder:folder_id})
         console.log(response.status)
+        setFavoriteManager()
     }
 
     async function dropDelete(e:React.DragEvent<SVGElement>){
@@ -88,12 +92,12 @@ export const UserFavoriteManager:React.FC = () =>{
                     <div className="rounded-lg border border-black h-5/6 w-full">
                         <div className="flex flex-col p-2">
                             <FolderButton selected={folderSelected===0} onClick={()=>{setFolderSelected(0);setIdFolderSelected("")}}>Tous</FolderButton>
-                            <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>drop(e,undefined)}>
+                            <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>{drop(e,undefined);e.currentTarget.style.background="#ffffff"}}>
                                 <FolderButton selected={folderSelected===1} onClick={()=>{setFolderSelected(1);setIdFolderSelected("uncategorized")}}>Non catégorisé</FolderButton>
                             </div>
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
-                                <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>drop(e, folder.getId())}>
+                                <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>{drop(e, folder.getId());e.currentTarget.style.background="#ffffff"}}>
                                     <FolderButton selected={folderSelected===(index+2)} onClick={()=>{setFolderSelected((index+2));setIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
                                 </div>)
                             })}
@@ -124,7 +128,7 @@ export const UserFavoriteManager:React.FC = () =>{
                         </div>
                     )})}
                 </div>
-                :<Loader />
+                :responseServerDone?<p>Aucun lieu dans ce dossier</p>:<Loader />
                 }
             </div>
         </div>
