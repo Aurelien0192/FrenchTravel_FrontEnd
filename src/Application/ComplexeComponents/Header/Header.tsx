@@ -14,6 +14,8 @@ import { MdAddBusiness } from "react-icons/md"
 import { NavLink } from "react-router-dom"
 import { useHeader } from "../../../Module/Header/Header.hook"
 import { HeaderService } from "../../../Module/Header/Header.services"
+import { NavLinkList } from "../../Components/General/NavLinkList"
+import { ButtonList } from "../../Components/General/ButtonList"
 
 
 export const Header:React.FC = () => {
@@ -24,7 +26,7 @@ export const Header:React.FC = () => {
 
     if(Object.keys(authentifiateUser).length>0){
         return(
-            <div className="flex justify-end w-full md:justify-between items-center">
+            <header className="flex justify-end w-full md:justify-between items-center">
                 <NavLink to="/">
                     <img className="hidden md:inline" src={logoTravel} />
                 </NavLink>
@@ -37,45 +39,25 @@ export const Header:React.FC = () => {
                     </div>
                     {!hidden &&(
                         <div ref={ref}>
-                            <div className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
+                            <nav className={`w-fit p-[10px] rounded-xl shadow-xl absolute right-0 bg-white`}>
                                 <ul className="w-full">
-                                    <li className="flex gap-[10px] items-center cursor-pointer hover:bg-sand">
-                                        <NavLink className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand" to={"/index/user/profile"}>
-                                            <IoPerson fill="#D98D30" size={'25px'} />
-                                            <p className="text-2xl text-nowrap font-bold">Profil</p>
-                                        </NavLink>
-                                    </li>
-                                    {(authentifiateUser && authentifiateUser.getUserType()==="professional") && <li >
-                                        <NavLink className="flex gap-[10px] items-center w-full cursor-pointer hover:bg-sand" to="/index/AddPlace">
-                                            <MdAddBusiness fill="#D98D30" size={'25px'} />
-                                            <p className="text-2xl text-nowrap font-bold">Ajouter un lieu</p>
-                                        </NavLink>
-                                    </li>}
-                                    <li>
-                                        <NavLink className="flex gap-[10px] items-end w-full cursor-pointer hover:bg-sand" to="/index/user/comment">
-                                            <IoChatboxSharp fill="#D98D30" size={"25px"} />
-                                            <p className="text-2xl text-nowrap font-bold">Mes commentaires</p>
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink className="flex gap-[10px] items-end w-full cursor-pointer hover:bg-sand" to="/index/favorite">
-                                        <IoHeart fill="#D98D30" size={"25px"} />
-                                        <p className="text-2xl text-nowrap font-bold">Mes favoris</p>
-                                        </NavLink>
-                                    </li>
-                                    <li onClick={() => {HeaderService.disconnect()}} className="flex gap-[10px] w-full items-center cursor-pointer hover:bg-sand">
-                                        <BiLogOutCircle fill="#D98D30" size={"25px"}  />
-                                        <p className="text-2xl font-bold">Déconnexion </p>
-                                    </li>
+                                    <NavLinkList to="/index/user/profile" icon={<IoPerson fill="#D98D30" size={'25px'} />}>Profil</NavLinkList>
+                                    {(authentifiateUser && authentifiateUser.getUserType()==="professional") && 
+                                        <NavLinkList to="/index/AddPlace" icon={<MdAddBusiness fill="#D98D30" size={'25px'} />}>Ajouter un lieu</NavLinkList>
+                                    }
+                                    <NavLinkList to="/index/user/comment" icon={<IoChatboxSharp fill="#D98D30" size={"25px"} />}>Mes commentaires</NavLinkList>
+                                    <NavLinkList to="/index/favorite" icon={<IoHeart fill="#D98D30" size={"25px"} />}>Mes favoris</NavLinkList>
+                                    <ButtonList onClick={() => {HeaderService.disconnect()}} icon={<BiLogOutCircle fill="#D98D30" size={"25px"} />}>Déconnexion</ButtonList>
                                 </ul>
-                            </div>
-                        </div>)}
+                            </nav>
+                        </div>
+                    )}
                 </div>
-            </div>
+            </header>
         )
     }
     return(
-        <div className="flex justify-between w-full items-center">
+        <header className="flex justify-between w-full items-center">
             <NavLink to="/">
                     <img className="hidden md:inline" src={logoTravel} />
                 </NavLink>
@@ -106,6 +88,6 @@ export const Header:React.FC = () => {
                         <ConnectionFormular />
                 </Modal>
             </div>
-        </div>
+        </header>
     )
 }
