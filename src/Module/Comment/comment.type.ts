@@ -17,7 +17,7 @@ export type commentFromServer={
     dateVisited: Date
     create_at: Date
     user_id: userFromServer|string
-    place_id: Array<place>|string
+    place_id: place|string
     liked:boolean
     response : commentFromServer
     isResponse: boolean
