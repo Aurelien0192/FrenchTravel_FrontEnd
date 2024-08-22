@@ -5,7 +5,7 @@ import { Button } from "../Components/General/Button"
 import { Favorite } from "../../Module/Favorite/Favorite.class"
 import { responseServerGetManyFavorites } from "../../Module/Favorite/Favorite.type"
 import { FavoriteService } from "../../Module/Favorite/Favorite.service"
-import { Loader } from "@mantine/core"
+import { Loader, Pagination } from "@mantine/core"
 import { PlaceDisplayLittleCard } from "../ComplexeComponents/Places/PlaceDisplayLittleCards"
 import { Folder } from "../../Module/Folder/Folder.class"
 import { folder, folderToSubmit, responseServerGetManyFolders } from "../../Module/Folder/Folder.type"
@@ -26,6 +26,8 @@ export const UserFavoriteManager:React.FC = () =>{
     const [favorites, setFavorites] = useState<Array<Favorite>>([])
     const [hidden, setHidden] = useState<boolean>(true)
     const [hiddenTrash, setHiddenTrash] = useState<boolean>(true)
+    const [nbOfPage, setNbOfPage] = useState<number>(0)
+    const [page, setPage] = useState<number>(1)
 
     const ref = useClickOutside(() => setHidden(true))
 
@@ -35,10 +37,15 @@ export const UserFavoriteManager:React.FC = () =>{
 
     useEffect(()=>{
         setFavoriteManager()
-    },[idFolderSelected, folderSelected])
+    },[idFolderSelected, folderSelected, page])
+
+    function changePage(newPage: number){
+        setPage(newPage)
+    }
 
     async function setFavoriteManager(){
-        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(idFolderSelected)
+        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(page,idFolderSelected)
+        setNbOfPage(Math.ceil(responseServerFavorites.count/9))
         setResponseServerDone(false)
         const responseServerFolders: responseServerGetManyFolders = await FolderService.getFoldersFromServer()
         setResponseServerDone(true)
@@ -102,7 +109,7 @@ export const UserFavoriteManager:React.FC = () =>{
 
     return(
         <div className="w-full flex gap-4">
-            <aside className="flex flex-col relative justify-between w-1/4 h-[70lvh]">
+            <aside className="flex flex-col relative justify-between w-1/4 h-[95lvh]">
                     <Button onClick={()=>{setHidden(!hidden)}} size="xs">nouveau dossier</Button>
                     <div className="rounded-lg border border-black h-5/6 w-full">
                         <div className="flex flex-col p-2">
@@ -122,7 +129,7 @@ export const UserFavoriteManager:React.FC = () =>{
                             </form>
                         </div>
                     </div>
-                    <IoTrash onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>{dropDelete(e)}} className={`absolute bottom-0 z-0 right-12 ${hiddenTrash && "hidden"}`} fill="#808080" size={"100px"} />
+                    <IoTrash onDragOver={(e)=>{allowDrop(e)}} onDrop={(e)=>{dropDelete(e)}} className={`fixed z-0 left-36 bottom-20 ${hiddenTrash && "hidden"}`} fill="#808080" size={"100px"} />
             </aside>
             <div className="w-full flex flex-col gap-2">
                 <div className="flex">
@@ -136,12 +143,22 @@ export const UserFavoriteManager:React.FC = () =>{
                 </div>
                 <SearchBar placeholder="rechercher dans vos favoris" />
                 {favorites.length>0?
-                <div className="grid grid-cols-3 justify-between">
-                    {favorites.map((favorite)=>{return(
-                        <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{setHiddenTrash(true)}}>
-                            <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
-                        </div>
-                    )})}
+                <div className="flex flex-col justify-between h-[95lvh] items-center">
+                    <div className="grid grid-cols-3 justify-between gap-y-4">
+                        {favorites.map((favorite)=>{return(
+                            <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{setHiddenTrash(true)}}>
+                                <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
+                            </div>
+                        )})}
+                    </div>
+                    <Pagination 
+                        total={nbOfPage}
+                        color={"#8C3616"}
+                        value={page}
+                        onChange={(value:number) => changePage(value)}
+                        onNextPage={() => changePage(page+1)}
+                        onPreviousPage={() => changePage(page-1)} 
+                    />
                 </div>
                 :responseServerDone?<p>Aucun lieu dans ce dossier</p>:<Loader />
                 }
