@@ -14,6 +14,7 @@ import { FolderButton } from "../Components/General/FolderButton"
 import { Input } from "../Components/General/Input"
 import { AxiosResponse } from "axios"
 import { IoTrash } from "react-icons/io5"
+import { useClickOutside } from "@mantine/hooks"
 
 export const UserFavoriteManager:React.FC = () =>{
     const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
@@ -25,18 +26,21 @@ export const UserFavoriteManager:React.FC = () =>{
     const [favorites, setFavorites] = useState<Array<Favorite>>([])
     const [hidden, setHidden] = useState<boolean>(true)
     const [hiddenTrash, setHiddenTrash] = useState<boolean>(true)
+
+    const ref = useClickOutside(() => setHidden(true))
+
     function changeSelected(index:number){
         setSelectedIndex(index)
     }
 
     useEffect(()=>{
         setFavoriteManager()
-    },[idFolderSelected])
+    },[idFolderSelected, folderSelected])
 
     async function setFavoriteManager(){
         const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(idFolderSelected)
         setResponseServerDone(false)
-        const responseServerFolders: responseServerGetManyFolders = await FolderService.getFolderFromServer()
+        const responseServerFolders: responseServerGetManyFolders = await FolderService.getFoldersFromServer()
         setResponseServerDone(true)
         const favoritesToDisplay:Array<Favorite> = responseServerFavorites.results.map((favorite)=>{return Favorite.createNewFavorite(favorite)})
         const foldersOfUser : Array<Folder>= responseServerFolders.results.map((folder)=>{return Folder.createNewFolder(folder)})
@@ -56,6 +60,7 @@ export const UserFavoriteManager:React.FC = () =>{
             foldersTab.push(newFolder)
             setFolders(foldersTab)
         }
+        setHidden(true)
     }
 
     function drag(e:React.DragEvent<HTMLDivElement>){
@@ -82,7 +87,17 @@ export const UserFavoriteManager:React.FC = () =>{
             favoritesTab.splice(favoritesTab.findIndex((favorite)=>favorite.getId()=== favorite_id),1)
             setFavorites(favoritesTab)
         }
+    }
 
+    async function deleteFolder(folder_id:string){
+        const responseStatus = await FolderService.deleteOneFolder(folder_id)
+        if(responseStatus === 200){
+            const foldersTab = [...folders]
+            foldersTab.splice(foldersTab.findIndex((folder)=>folder.getId() === folder_id),1)
+            setFolders(foldersTab)
+
+            idFolderSelected===folder_id && setFolderSelected(0)
+        }
     }
 
     return(
@@ -98,10 +113,10 @@ export const UserFavoriteManager:React.FC = () =>{
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
                                 <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>{drop(e, folder.getId());e.currentTarget.style.background="#ffffff"}}>
-                                    <FolderButton selected={folderSelected===(index+2)} onClick={()=>{setFolderSelected((index+2));setIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
+                                    <FolderButton onClickButtonDelete={()=>{deleteFolder(folder.getId())}} folder={folder} menu={true} selected={folderSelected===(index+2)} onClick={()=>{setFolderSelected((index+2));setIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
                                 </div>)
                             })}
-                            <form onSubmit={(e)=>{createNewFolder(e)}} className={`${hidden && "hidden"} flex flex-col gap-2 p-2 rounded shadow bg-white`}>
+                            <form ref={ref} onSubmit={(e)=>{createNewFolder(e)}} className={`${hidden && "hidden"} flex flex-col gap-2 p-2 rounded shadow bg-white`}>
                                 <Input placeholder="nouveau nom" name="name" />
                                 <Button size="xs" type="submit">Valider</Button>
                             </form>
