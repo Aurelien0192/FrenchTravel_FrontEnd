@@ -42,7 +42,7 @@ export class Comment{
         this.create_at = new Date(comment.create_at).toLocaleDateString()
         this.usernamePoster = typeof comment.user_id !== "string" ? comment.user_id.username : undefined
         this.profilePhotoUser = typeof comment.user_id !== "string" ?"http://localhost:3001/"+comment.user_id.profilePhoto.path :undefined
-        this.placeName = typeof comment.place_id !== "string" ? comment.place_id.name : undefined
+        this.placeName = typeof comment.place_id !== "string" ? comment.place_id[0].name : undefined
         this.liked = comment.liked
         this.isResponse = comment.isResponse
         this.response = (comment.response && typeof comment.response === "object")? new Comment(comment.response) : undefined

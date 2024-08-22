@@ -28,7 +28,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
     const {page, commentsTab, numberOfElement, changeNotationChoice, changePage, LikeAComment} = useComment(props.idOfPlaceOrUser, props.findBy,props.visitor_id?props.visitor_id:null, props.search?props.search:null)
     const [RespondCommentModal, RespondCommentModalManager] = useDisclosure()
     const [msg, setMsg] = useState<string>("")
-
+         
     const changeMsgComment = async (e:React.FormEvent<HTMLFormElement>, comment_id:string) => {
         e.preventDefault()
         const form = e.currentTarget
