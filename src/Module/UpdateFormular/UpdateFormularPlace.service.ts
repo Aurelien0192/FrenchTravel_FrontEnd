@@ -67,7 +67,6 @@ export class UpdateFormularPlaceService{
     }
     
     const responseServer:AxiosResponse = await PlaceServices.updateOnePlace(data, place_id) as AxiosResponse
-    console.log(responseServer)
     if(responseServer.status !==200){
       return AxiosResponseError.createNewResponseError(responseServer.data, responseServer.status)
     }else{
