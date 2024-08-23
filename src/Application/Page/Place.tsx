@@ -185,7 +185,7 @@ export const PlacePage:React.FC = () => {
                         </div>
                         }
                 </div>
-                    <SuggestionsPanel dataOnePlace={dataOnePlace} />
+                <SuggestionsPanel dataOnePlace={dataOnePlace} />
                 <div>
                     <h2 className="text-2xl font-bold">Avis</h2>
                     <div className="flex flex-col gap-4 items-start">
