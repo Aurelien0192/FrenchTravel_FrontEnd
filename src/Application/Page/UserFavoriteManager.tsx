@@ -28,6 +28,7 @@ export const UserFavoriteManager:React.FC = () =>{
     const [hiddenTrash, setHiddenTrash] = useState<boolean>(true)
     const [nbOfPage, setNbOfPage] = useState<number>(0)
     const [page, setPage] = useState<number>(1)
+    const [search, setSearch] = useState<string>("")
 
     const ref = useClickOutside(() => setHidden(true))
 
@@ -37,14 +38,14 @@ export const UserFavoriteManager:React.FC = () =>{
 
     useEffect(()=>{
         setFavoriteManager()
-    },[idFolderSelected, folderSelected, page])
+    },[idFolderSelected, folderSelected, page, search])
 
     function changePage(newPage: number){
         setPage(newPage)
     }
 
     async function setFavoriteManager(){
-        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(page,idFolderSelected)
+        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(page,idFolderSelected,search)
         setNbOfPage(Math.ceil(responseServerFavorites.count/9))
         setResponseServerDone(false)
         const responseServerFolders: responseServerGetManyFolders = await FolderService.getFoldersFromServer()
@@ -107,6 +108,12 @@ export const UserFavoriteManager:React.FC = () =>{
         }
     }
 
+    async function searchPlace(e:FormEvent<HTMLFormElement>){
+        const search:string = JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search
+        setSearch(search)
+
+    }
+
     return(
         <div className="w-full flex gap-4">
             <aside className="flex flex-col relative justify-between w-1/4 h-[95lvh]">
@@ -141,10 +148,10 @@ export const UserFavoriteManager:React.FC = () =>{
                         )
                     })}
                 </div>
-                <SearchBar placeholder="rechercher dans vos favoris" />
+                <SearchBar onSubmit={(e)=>{e.preventDefault();searchPlace(e)}} placeholder="rechercher dans vos favoris" />
                 {favorites.length>0?
-                <div className="flex flex-col justify-between h-[95lvh] items-center">
-                    <div className="grid grid-cols-3 justify-between gap-y-4">
+                <div className="flex flex-col justify-between justify-items-center h-[95lvh] mt-10 w-full items-center">
+                    <div className="grid grid-cols-3 justify-items-center gap-5 w-full ">
                         {favorites.map((favorite)=>{return(
                             <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{setHiddenTrash(true)}}>
                                 <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
