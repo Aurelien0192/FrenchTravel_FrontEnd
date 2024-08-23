@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css'
 
-import { MapContainer, Marker, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { Place } from '../../../Module/Place/Place.class';
 import L from 'leaflet'
@@ -13,6 +13,7 @@ import { placesTab } from '../../../Module/Place/Place.hook';
 import Control from 'react-leaflet-custom-control'
 import { SelectorButton } from '../../Components/General/SelectorButton';
 import { useState } from 'react';
+import { PlaceDisplayLittleCard } from './PlaceDisplayLittleCards';
 
 
 
@@ -56,13 +57,31 @@ export const InteractivMap:React.FC<interactivMapProps> = (props) => {
                     />
                 <Marker position={[props.placeData.getLatCoordinate(), props.placeData.getLonCoordinate()]} icon={hereIcon} />
                 {(props.suggestions.activity && (selected==="all" || selected==="activity")) && props.suggestions.activity.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={activityIcon} />
+                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={activityIcon}>
+                        <Popup>
+                            <div className='size-full'>
+                                <PlaceDisplayLittleCard type="little" place={place}/>
+                            </div>
+                        </Popup>
+                    </Marker>
                 )})}
                 {(props.suggestions.hotel && (selected==="all" || selected==="hotels")) && props.suggestions.hotel.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={hotelIcon} />
+                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={hotelIcon}>
+                        <Popup>
+                            <div className='size-full'>
+                                <PlaceDisplayLittleCard type="little" place={place}/>
+                            </div>
+                        </Popup>
+                    </Marker>
                 )})}
                 {(props.suggestions.restaurant && (selected==="all" || selected==="restaurants")) && props.suggestions.restaurant.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={restaurantIcon} />
+                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={restaurantIcon}>
+                        <Popup>
+                            <div className='size-full'>
+                                <PlaceDisplayLittleCard type="little" place={place}/>
+                            </div>
+                        </Popup>
+                    </Marker>
                 )})}
                 <Control position='topright'>
                     <div className=' flex flex-col bg-white bg-opacity-50 rounded'>

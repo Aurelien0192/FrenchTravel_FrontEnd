@@ -12,9 +12,9 @@ export const PlaceDisplayLittleCard:React.FC<propsPlaceDisplayLittleCard> = (pro
     const comment: Comment|null = props.place.getComment() ? props.place.getComment() : null
     return(
         <NavLink to={`/index/Place/${props.place.getId()}`} className= {`flex flex-col gap-2 shadow-md hover:shadow-lg rounded-xl ${props.type!=="little" ?"w-[377px] md:w-full h-[400px]":"w-[281px] h-[186px]"} p-[10px]`}>
-            <div className={`relative ${props.type !=="little"?"h-64" : "h-full"}`}>
+            <div className={`relative flex ${props.type !=="little"?"h-64" : "h-full"}`}>
                 <img className="rounded-xl object-cover size-full" src={props.place.getImage()[0].path} />
-                <p className={`px-4 py-2 w-full rounded-b-xl absolute bottom-0 ${props.type !== "little"? "text-xl" :"text-2xl"} font-bold text-white bg-gradient-to-t from-black`}
+                <p className={`!m-0 px-4 py-2 w-full rounded-b-xl absolute bottom-0 ${props.type !== "little"? "text-2xl" :"text-xl"} font-bold text-white bg-gradient-to-t from-black`}
                 >{props.place.getName()}</p>
             </div>
             {props.type!=="little" && 
