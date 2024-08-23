@@ -15,10 +15,10 @@ import { Input } from "../Components/General/Input"
 import { AxiosResponse } from "axios"
 import { IoTrash } from "react-icons/io5"
 import { useClickOutside } from "@mantine/hooks"
+import { SearchFilterServices } from "../../Module/SearchFilter/SearchFilter.service"
 
 export const UserFavoriteManager:React.FC = () =>{
-    const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
-    const [selectedIndex, setSelectedIndex] = useState<number>(0)
+    const [selectedIndexCategorie, setSelectedIndexCategorie] = useState<number>(0)
     const [folderSelected, setFolderSelected] = useState<number>(0)
     const [responseServerDone, setResponseServerDone] = useState<boolean>(false)
     const [idFolderSelected, setIdFolderSelected] = useState<string>("")
@@ -29,23 +29,29 @@ export const UserFavoriteManager:React.FC = () =>{
     const [nbOfPage, setNbOfPage] = useState<number>(0)
     const [page, setPage] = useState<number>(1)
     const [search, setSearch] = useState<string>("")
-
+    const [categorie, setCategorie] = useState<string>("")
+    
+    const categoriesFavorites:Array<string> = ["Tous","Hôtel","Restaurant","Activité"]
+    
     const ref = useClickOutside(() => setHidden(true))
 
-    function changeSelected(index:number){
-        setSelectedIndex(index)
+    function changeSelectedCategorie(index:number){
+        setCategorie(SearchFilterServices.categoriesMap(index))
+        setSelectedIndexCategorie(index)
     }
-
+    
     useEffect(()=>{
         setFavoriteManager()
-    },[idFolderSelected, folderSelected, page, search])
+    },[idFolderSelected, folderSelected, page, search, categorie])
 
     function changePage(newPage: number){
         setPage(newPage)
     }
 
+    console.log(search)
+
     async function setFavoriteManager(){
-        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(page,idFolderSelected,search)
+        const responseServerFavorites: responseServerGetManyFavorites = await FavoriteService.getsFavoritesOfUser(page,idFolderSelected,search,categorie)
         setNbOfPage(Math.ceil(responseServerFavorites.count/9))
         setResponseServerDone(false)
         const responseServerFolders: responseServerGetManyFolders = await FolderService.getFoldersFromServer()
@@ -114,6 +120,7 @@ export const UserFavoriteManager:React.FC = () =>{
 
     }
 
+
     return(
         <div className="w-full flex gap-4">
             <aside className="flex flex-col relative justify-between w-1/4 h-[95lvh]">
@@ -143,7 +150,7 @@ export const UserFavoriteManager:React.FC = () =>{
                     {categoriesFavorites.map((category, index)=>{
                         return(
                             <div>
-                                <SelectorButton onClick={()=>{changeSelected(index)}} key={index} selected={selectedIndex === index} value={category}>{category}</SelectorButton>
+                                <SelectorButton onClick={()=>{changeSelectedCategorie(index)}} key={index} selected={selectedIndexCategorie === index} value={category}>{category}</SelectorButton>
                             </div>
                         )
                     })}

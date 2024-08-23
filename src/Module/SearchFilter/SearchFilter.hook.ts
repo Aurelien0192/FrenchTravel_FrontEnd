@@ -40,7 +40,7 @@ export const useSearchFilter = () => {
         if(newSelect!==1){
             pathNewSearch.get('hotelCategorie') && pathNewSearch.delete('hotelCategorie')
         }
-        pathNewSearch.set("categorie",SearchFilterServices.catergoriesMap(newSelect))
+        pathNewSearch.set("categorie",SearchFilterServices.categoriesMap(newSelect))
         pathNewSearch.set('page',"1")
         setPathNewSearch(pathNewSearch)
         setCategoryChoice(Categories[newSelect])

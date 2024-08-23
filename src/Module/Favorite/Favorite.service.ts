@@ -18,8 +18,8 @@ export class FavoriteService{
         return response.status
     }
 
-    static async getsFavoritesOfUser(page:number, ids?:string, search?:string){
-        const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites?page=${page}&limit=9${ids?ids==="uncategorized"?"&option=true":`&ids=${ids}`:""}${search?`&q=${search}`:""}`) as responseServerGetManyFavorites
+    static async getsFavoritesOfUser(page:number, ids?:string, search?:string, categorie?:string){
+        const response:responseServerGetManyFavorites = await AxiosServices.getDataFromDatabase(`/favorites?page=${page}&limit=9${ids?ids==="uncategorized"?"&option=true":`&ids=${ids}`:""}${search?`&search=${search}`:""}${categorie?`&categorie=${categorie}`:""}`) as responseServerGetManyFavorites
         return response
     }
 

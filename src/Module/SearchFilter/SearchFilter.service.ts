@@ -24,7 +24,7 @@ export class SearchFilterServices{
         placeService.razPlacesInObservable()
     }
 
-    static catergoriesMap(index:number){
+    static categoriesMap(index:number){
     let category = ""
     switch(index){
         case 1 :
