@@ -32,7 +32,8 @@ export const useUserFavoriteManager = () => {
         setIdFolderSelected(id)
     }
     
-    function changeHidden(hidden:boolean){
+    function changeHidden(){
+        console.log(hidden)
         setHidden(!hidden)
     }
 

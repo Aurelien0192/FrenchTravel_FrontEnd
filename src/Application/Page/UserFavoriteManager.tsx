@@ -21,7 +21,7 @@ export const UserFavoriteManager:React.FC = () =>{
         <div className="relative w-full flex flex-col-reverse md:flex-row gap-4">
             <aside className={`flex flex-col top-0 bottom-0 right-0 left-0 w-full bg-white z-50 absolute ${hiddenFolderManager && "hidden"} md:relative md:flex gap-16 md:w-1/4 md:h-[95lvh]`}>
                     <div className="flex justify-between items-center">
-                        <Button onClick={()=>{changeHidden(!hidden)}} size="xs">nouveau dossier</Button>
+                        <Button onClick={()=>{changeHidden()}} size="xs">nouveau dossier</Button>
                         <button className=" md:hidden" onClick={()=>{setHiddenFolderManager(true)}}>
                             <IoCloseSharp size="40px" />
                         </button>
