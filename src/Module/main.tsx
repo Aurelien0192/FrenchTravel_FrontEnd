@@ -13,6 +13,7 @@ import 'dayjs/locale/fr'
 
 import'dayjs/locale/index.d.ts'
 
+
 if(sessionStorage.getItem("UserAuthentifiate") !== null){
   const authentifiateUser = sessionStorage.getItem("UserAuthentifiate")
   authentifiateUser &&  authentificationService.updateAuthentifiateUser(AuthentifiateUser.createAuthentifiateUser(JSON.parse(authentifiateUser)))

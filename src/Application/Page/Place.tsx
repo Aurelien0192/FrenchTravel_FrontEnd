@@ -28,6 +28,7 @@ import { CommentsViewer } from "../ComplexeComponents/Comment/CommentsViewer.tsx
 import { Comment } from "../../Module/Comment/comment.class.ts"
 import { Like } from "../Components/svg/Like.tsx"
 import { AxiosResponse } from "axios"
+import { ScrollToTop } from "../../Module/Place/scrollToTop.ts"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -72,6 +73,7 @@ export const PlacePage:React.FC = () => {
     if(dataOnePlace){
         return(
             <div className="flex flex-col gap-14">
+                <ScrollToTop />
                 <div className="flex flex-col gap-11">
                         <HeaderPlacePage dataOnePlace={dataOnePlace} />
                     <div className="flex flex-col-reverse lg:flex-row gap-9">
