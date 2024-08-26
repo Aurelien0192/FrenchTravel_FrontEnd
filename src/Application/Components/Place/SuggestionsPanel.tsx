@@ -18,10 +18,10 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
 
     return(
         <div className="flex justify-between">
-            <div className="flex flex-col md:w-[867px] gap-5">
+            <div className="flex flex-col md:w-[60lvw] gap-5">
                 <div className="flex flex-col gap-3">
                     <h2 className="font-bold uppercase"> Activités aux alentours</h2>
-                    <div className="w-[90lvw] overflow-auto lg:overflow-hidden pb-2 flex gap-3">
+                    <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
                         <div className="w-fit flex gap-3 ">
                             {placeToDisplay.activity ? 
                                 placeToDisplay.activity.map((place, index) => {
@@ -36,8 +36,8 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                 </div>
                 <div className="flex flex-col w-full gap-3">
                     <h2 className="font-bold uppercase"> Hôtels aux alentours</h2>
-                    <div className="w-[90lvw] overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
-                        <div className="flex gap-3 w-fit">
+                    <div className=" overflow-auto w-[90lvw] md:w-full pb-2 flex gap-3">
+                        <div className="flex gap-3 box-content w-fit md:mx-3">
                             {placeToDisplay.hotel ? 
                                 placeToDisplay.hotel.map((place, index) => {
                                     return(
@@ -51,7 +51,7 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                 </div>
                 <div className="flex flex-col w-full gap-3">
                     <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
-                    <div className="w-[90lvw] overflow-scroll lg:overflow-hidden pb-2 flex gap-3">
+                    <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
                         <div className="flex gap-3 w-fit">
                             {placeToDisplay.restaurant ? 
                                 placeToDisplay.restaurant.map((place, index) => {

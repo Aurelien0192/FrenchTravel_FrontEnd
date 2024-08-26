@@ -34,8 +34,8 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
 
     return(
         <div className="flex flex-col-reverse items-end md:flex-row md:items-start relative justify-between">
-            <div className="flex gap-14 items-center w-full">
-                <div className="flex flex-col w-full">
+            <div className="flex flex-col-reverse md:flex-row md:gap-14 md:items-start w-full">
+                <div className="flex flex-col">
                     {props.dataOnePlace.getCategorie() === "hotel" && <HotelCategorieOrNoteShow type="star" categorie={props.dataOnePlace.getMoreInfo().hotelCategorie} />}
                     <div className="flex gap-9 items-center">
                         <h1 className="text-2xl font-bold">{props.dataOnePlace.getName()}</h1>
@@ -51,6 +51,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                     <div>
                         <Button onClick={nameUpdateManager.open} size="xs">Modifier</Button>
                         <Modal
+                        zIndex={1000}
                         opened={nameUpdate}
                         onClose={nameUpdateManager.close}
                         size="lg"
@@ -103,7 +104,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                 })}
             </div>
             {!hiddenContact &&
-                <div className="absolute top-24 left-3 bg-white rounded-xl shadow-xl p-3" ref={ref}>
+                <div className="absolute top-24 left-3 z-50 bg-white rounded-xl shadow-xl p-3" ref={ref}>
                     <ul className="flex flex-col gap-3">
                         <li className="flex gap-3">
                             <p className="font-bold">Adresse : </p>
