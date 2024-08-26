@@ -49,7 +49,7 @@ export const InteractivMap:React.FC<interactivMapProps> = (props) => {
     
     
     return(
-        <div id="map" className='w-1/3 h-[700px] shadow-lg'>
+        <div id="map" className='hidden md:block w-1/3 h-[700px] shadow-lg'>
             <MapContainer center={[props.placeData.getLatCoordinate(), props.placeData.getLonCoordinate()]} zoom={15} style={{ height: '100%', width: '100%' }}>
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -18,7 +18,7 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
 
     return(
         <div className="flex justify-between">
-            <div className="flex flex-col w-[867px] gap-5">
+            <div className="flex flex-col md:w-[867px] gap-5">
                 <div className="flex flex-col gap-3">
                     <h2 className="font-bold uppercase"> Activités aux alentours</h2>
                     <div className="w-[90lvw] overflow-auto lg:overflow-hidden pb-2 flex gap-3">
