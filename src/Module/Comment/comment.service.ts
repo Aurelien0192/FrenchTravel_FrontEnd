@@ -32,6 +32,7 @@ export class CommentService{
 
     static async findManyCommentsByOwner(page:number, limit:number, visitor_id:string|null,search:string|null){
         const response: responseGetManyComments = await AxiosServices.getDataFromDatabase(`/commentsByOwner?page=${page}&limit=${limit}&${visitor_id? `visitor_id=${visitor_id}`:""}${search?`&search=${search}`:""}`) as responseGetManyComments
+        console.log(response)
         const comments : Array<Comment> = response.results.map((comment) =>{ return Comment.createNewComment(comment)})
         const nbOfCommments: number = response.count
         return {comments, nbOfCommments}

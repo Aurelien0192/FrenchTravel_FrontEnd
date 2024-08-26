@@ -27,8 +27,8 @@ export const UserFavoriteManager:React.FC = () =>{
                             </div>
                             {folders.length>0 && folders.map((folder,index)=>{
                                 return (
-                                <div onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>{drop(e, folder.getId());e.currentTarget.style.background="#ffffff"}}>
-                                    <FolderButton onClickButtonDelete={()=>{deleteFolder(folder.getId())}} folder={folder} menu={true} selected={folderSelected===(index+2)} onClick={()=>{changeFolderSelected((index+2));changeIdFolderSelected(folder.getId())}} key={index}>{folder.getName()}</FolderButton>
+                                <div key={index} onDragOver={(e)=>{allowDrop(e)}} onDragEnter={(e)=>{e.currentTarget.style.background="#F2E2CE"}} onDragLeave={(e)=>{e.currentTarget.style.background="#ffffff"}} onDrop={(e)=>{drop(e, folder.getId());e.currentTarget.style.background="#ffffff"}}>
+                                    <FolderButton onClickButtonDelete={()=>{deleteFolder(folder.getId())}} folder={folder} menu={true} selected={folderSelected===(index+2)} onClick={()=>{changeFolderSelected((index+2));changeIdFolderSelected(folder.getId())}}>{folder.getName()}</FolderButton>
                                 </div>)
                             })}
                             <form ref={ref} onSubmit={(e)=>{createNewFolder(e)}} className={`${hidden && "hidden"} flex flex-col gap-2 p-2 rounded shadow bg-white`}>
@@ -43,9 +43,7 @@ export const UserFavoriteManager:React.FC = () =>{
                 <div className="flex">
                     {categoriesFavorites.map((category, index)=>{
                         return(
-                            <div>
-                                <SelectorButton onClick={()=>{changeSelectedCategorie(index)}} key={index} selected={selectedIndexCategorie === index} value={category}>{category}</SelectorButton>
-                            </div>
+                            <SelectorButton onClick={()=>{changeSelectedCategorie(index)}} key={index} selected={selectedIndexCategorie === index} value={category}>{category}</SelectorButton>
                         )
                     })}
                 </div>
@@ -53,8 +51,8 @@ export const UserFavoriteManager:React.FC = () =>{
                 {favorites.length>0?
                 <div className="flex flex-col justify-between justify-items-center h-[95lvh] mt-10 w-full items-center">
                     <div className="grid grid-cols-3 justify-items-center gap-5 w-full ">
-                        {favorites.map((favorite)=>{return(
-                            <div id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{changeHiddenTrash(true)}}>
+                        {favorites.map((favorite, index)=>{return(
+                            <div key={index} id={favorite.getId()} draggable={true} onDragStart={(e)=>{drag(e)}} onDragEnd={()=>{changeHiddenTrash(true)}}>
                                 <PlaceDisplayLittleCard type="little" place={favorite.getPlace()} />
                             </div>
                         )})}

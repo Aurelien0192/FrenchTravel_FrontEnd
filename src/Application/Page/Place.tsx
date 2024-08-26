@@ -125,6 +125,7 @@ export const PlacePage:React.FC = () => {
                         </div>
                     </div>
                     <Modal
+                        zIndex={1000}
                         opened={photoOpen}
                         onClose={photoOpenController.close}
                         centered
@@ -148,6 +149,7 @@ export const PlacePage:React.FC = () => {
                                 <div>
                                     <Button onClick={moreInfoUpdateManager.open} size="xs">Modifier</Button>
                                     <Modal
+                                        zIndex={1000}
                                         opened={moreInfoUpdate}
                                         onClose={moreInfoUpdateManager.close}
                                         size="lg"
@@ -193,6 +195,7 @@ export const PlacePage:React.FC = () => {
                     <div className="flex flex-col gap-4 items-start">
                         {Object.keys(authentifiateUser).length>0 &&  <Button size="xs" onClick={addCommentModalManager.open}>Ajouter un commentaire</Button>}
                         <Modal
+                            zIndex={1000}
                             opened={addCommentModal}
                             onClose={addCommentModalManager.close}
                             size="xl"

@@ -56,32 +56,35 @@ export const InteractivMap:React.FC<interactivMapProps> = (props) => {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
                 <Marker position={[props.placeData.getLatCoordinate(), props.placeData.getLonCoordinate()]} icon={hereIcon} />
-                {(props.suggestions.activity && (selected==="all" || selected==="activity")) && props.suggestions.activity.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={activityIcon}>
-                        <Popup>
-                            <div className='size-full'>
-                                <PlaceDisplayLittleCard type="little" place={place}/>
-                            </div>
-                        </Popup>
-                    </Marker>
+                {(props.suggestions.activity && (selected==="all" || selected==="activity")) && props.suggestions.activity.map((place, index)=>{return(
+                    place.getId()!== props.placeData.getId() && 
+                        <Marker key={index} position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={activityIcon}>
+                            <Popup>
+                                <div className='size-full'>
+                                    <PlaceDisplayLittleCard type="little" place={place}/>
+                                </div>
+                            </Popup>
+                        </Marker>
                 )})}
-                {(props.suggestions.hotel && (selected==="all" || selected==="hotels")) && props.suggestions.hotel.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={hotelIcon}>
-                        <Popup>
-                            <div className='size-full'>
-                                <PlaceDisplayLittleCard type="little" place={place}/>
-                            </div>
-                        </Popup>
-                    </Marker>
+                {(props.suggestions.hotel && (selected==="all" || selected==="hotels")) && props.suggestions.hotel.map((place,index)=>{return(
+                    place.getId()!== props.placeData.getId() && 
+                        <Marker key={index} position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={hotelIcon}>
+                            <Popup>
+                                <div className='size-full'>
+                                    <PlaceDisplayLittleCard type="little" place={place}/>
+                                </div>
+                            </Popup>
+                        </Marker>
                 )})}
-                {(props.suggestions.restaurant && (selected==="all" || selected==="restaurants")) && props.suggestions.restaurant.map((place)=>{return(
-                    place.getId()!== props.placeData.getId() && <Marker position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={restaurantIcon}>
-                        <Popup>
-                            <div className='size-full'>
-                                <PlaceDisplayLittleCard type="little" place={place}/>
-                            </div>
-                        </Popup>
-                    </Marker>
+                {(props.suggestions.restaurant && (selected==="all" || selected==="restaurants")) && props.suggestions.restaurant.map((place,index)=>{return(
+                    place.getId()!== props.placeData.getId() && 
+                        <Marker key={index} position={[place.getLatCoordinate(), place.getLonCoordinate()]} icon={restaurantIcon}>
+                            <Popup>
+                                <div className='size-full'>
+                                    <PlaceDisplayLittleCard type="little" place={place}/>
+                                </div>
+                            </Popup>
+                        </Marker>
                 )})}
                 <Control position='topright'>
                     <div className=' flex flex-col bg-white bg-opacity-50 rounded'>

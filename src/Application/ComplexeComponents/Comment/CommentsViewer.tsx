@@ -109,8 +109,8 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                             )
                         }else{
                             return(
-                                <div className="flex flex-col gap-3 items-end w-full">
-                                    <div key={index} className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
+                                <div key={index} className="flex flex-col gap-3 items-end w-full">
+                                    <div className="w-full flex flex-col px-2.5 py-1.5 gap-2.5 rounded-xl shadow">
                                         <div className="flex flex-col md:flex-row gap-2 md:gap-0 justify-between items-start w-full">
                                             <h2 className="text-2xl font-bold">{comment.getPlaceName()}</h2>
                                             <p>{`publié le : ${comment.getCreateAt()}`}</p>

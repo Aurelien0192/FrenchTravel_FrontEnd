@@ -38,8 +38,8 @@ export const StarHotelAndNote:React.FC<starHotelAndNoteProps> =(props) => {
                     </g>
                     <path d="M9.52447 3.08156C9.67415 2.6209 10.3259 2.6209 10.4755 3.08156L11.5451 6.37336C11.7459 6.99139 12.3218 7.40983 12.9717 7.40983H16.4329C16.9172 7.40983 17.1186 8.02964 16.7268 8.31434L13.9266 10.3488C13.4009 10.7307 13.1809 11.4078 13.3817 12.0258L14.4513 15.3176C14.6009 15.7783 14.0737 16.1613 13.6818 15.8766L10.8817 13.8422C10.3559 13.4602 9.64405 13.4602 9.11832 13.8422L6.31815 15.8766C5.9263 16.1613 5.39906 15.7783 5.54873 15.3176L6.6183 12.0258C6.81911 11.4078 6.59913 10.7307 6.07339 10.3488L3.27323 8.31434C2.88137 8.02964 3.08276 7.40983 3.56712 7.40983H7.02832C7.67816 7.40983 8.25409 6.99139 8.4549 6.37336L9.52447 3.08156Z" stroke="#D98D30"/>
                     <defs>
-                        <filter id="filter0_i_385_2577" x="2.56519" y="2.23607" width="14.8696" height="16.2406" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                        <filter id="filter0_i_385_2577" x="2.56519" y="2.23607" width="14.8696" height="16.2406" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+                            <feFlood floodOpacity="0" result="BackgroundImageFix"/>
                             <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
                             <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
                             <feOffset dy="2"/>

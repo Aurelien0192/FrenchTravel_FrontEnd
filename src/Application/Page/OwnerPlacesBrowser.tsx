@@ -21,10 +21,11 @@ export const OwnerPlacesBrowser:React.FC = () => {
             </div>
             <div className="flex flex-col gap-5 w-full">
                 {placesTab ? placesTab.map((place,index) => {
-                    return <div className="flex flex-col md:flex-row items-center gap-3">
-                        <ResultSearchCard key={index} place={place}/>
-                        <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
-                        </div>
+                    return( 
+                        <div key={index} className="flex flex-col md:flex-row items-center gap-3">
+                            <ResultSearchCard  place={place}/>
+                            <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
+                        </div>)
                 }):<Loader />}
             </div>
             <Modal
