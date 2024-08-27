@@ -15,6 +15,7 @@ import { useState } from "react"
 import { subscriptionFormularService } from "../../../Module/SubscriptionFormular/SubscriptionFormular.services"
 import { useResponseAxios } from "../../../Module/HTTP/axiosResponse.hook"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
+import { NavLink } from "react-router-dom"
 
 
 export const SubscriptionFormular:React.FC = () => {
@@ -46,7 +47,7 @@ export const SubscriptionFormular:React.FC = () => {
             </div>
             <p className="w-full">*Champs Obligatoires</p>
             <Button type="submit" size="md">S'inscrire</Button>
-            <p className="w-5/6 text-center"> En poursuivant, vous acceptez nos Conditions d'utilisation et vous confirmez que vous avez lu notre Politique de confidentialité et d'utilisation des cookies.</p>
+            <NavLink to="/policy" className="w-5/6 text-center"> En poursuivant, vous acceptez nos Conditions d'utilisation et vous confirmez que vous avez lu notre Politique de confidentialité et d'utilisation des cookies.</NavLink>
         </form>
     )
 }

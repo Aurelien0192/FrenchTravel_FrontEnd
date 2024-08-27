@@ -9,6 +9,7 @@ import { UserPage } from "../../Application/Page/User";
 import { UserConditionalProfile } from "../../Application/Page/UserConditionnalProfile";
 import { UserCommentManager } from "../../Application/Page/UserCommentManager";
 import { UserFavoriteManager } from "../../Application/Page/UserFavoriteManager";
+import { PrivacyPolicy } from "../../Application/Page/PrivacyPolicy";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,9 @@ export const router = createBrowserRouter([
         children:[{
             element: <App />,
             index:true
+        },{
+            path:"/policy",
+            element:<PrivacyPolicy />
         }]
     },{
         path:"/index",
