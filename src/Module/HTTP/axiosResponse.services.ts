@@ -46,7 +46,7 @@ export class AxiosResponseServices{
             case 201 : 
                 return "La création du lieu c'est correctement déroulée"
             case 401 :
-                return "La création d'un nouveau lieu ne vous est pas autorisé"
+                return "La création d'un nouveau lieu ne vous est pas autorisée"
             case 404 :
                 return "L'adresse renseignée n'a pas été trouvée, vérifier l'adresse"
             case 500 :

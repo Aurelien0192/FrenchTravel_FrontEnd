@@ -22,3 +22,9 @@ export type userFromServer = {
     username: string
     profilePhoto: image
 }
+
+export type userPasswordResData = {
+    email: string,
+    password: string,
+    confirmPassword : string,
+}
