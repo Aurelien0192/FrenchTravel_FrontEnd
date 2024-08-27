@@ -6,7 +6,11 @@ import { useResponseAxios } from "../../../Module/HTTP/axiosResponse.hook"
 import { useState } from "react"
 import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
 
-export const ConnectionFormular: React.FC = () => {
+type connectionFomularProps = {
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+}
+
+export const ConnectionFormular: React.FC<connectionFomularProps> = (props) => {
 
     const {responseServer} = useResponseAxios()    
     const [msg, setMsg] = useState<string>("")
@@ -17,17 +21,19 @@ export const ConnectionFormular: React.FC = () => {
     }
 
     return(
-        <form className="flex flex-col gap-5 items-center" onSubmit={(e) => changeMsg(e)}>
-            <h1 className="text-2xl font-bold w-full text-center">Heureux de vous revoir !</h1>
-            <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
-            <div className=" flex flex-col gap-5 w-full">
-                <Input label="Utilisateur" placeholder="henry.dupont" name="username" flexDirection="flex-col" />
-                <Input label="Mot de passe" type="password" placeholder="*********" name="password" flexDirection="flex-col" />
-            </div>
-            <p className="text-brown underline underline-offset-2">mot de passe oublié?</p>
-            <Checkbox name="save" label="se souvenir de moi" color="#D98D30" variant="outline" size="md"/>
-            <Button type="submit" size="md">Se connecter</Button>
-            <p className="text-center">Vous n'avez pas de compte? inscrivez-vous pour pouvoir accéder au meilleur de French TRAVEL</p>
-        </form>
+        <div>
+            <form className="flex flex-col mb-5 gap-5 items-center" onSubmit={(e) => changeMsg(e)}>
+                <h1 className="text-2xl font-bold w-full text-center">Heureux de vous revoir !</h1>
+                <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
+                <div className=" flex flex-col gap-5 w-full">
+                    <Input label="Utilisateur" placeholder="henry.dupont" name="username" flexDirection="flex-col" />
+                    <Input label="Mot de passe" type="password" placeholder="*********" name="password" flexDirection="flex-col" />
+                </div>
+                <p className="text-brown underline underline-offset-2">mot de passe oublié?</p>
+                <Checkbox name="save" label="se souvenir de moi" color="#D98D30" variant="outline" size="md"/>
+                <Button type="submit" size="md">Se connecter</Button>
+            </form>
+            <button onClick={props.onClick} className="text-center transition-all hover:shadow-lg">Vous n'avez pas de compte? inscrivez-vous pour pouvoir accéder au meilleur de French TRAVEL</button>
+        </div>
     )
 }

@@ -108,7 +108,7 @@ export const HeaderWithSearch:React.FC = () => {
                         color:'#D98D30',
                         blur:3,
                     }}>
-                        <ConnectionFormular />
+                        <ConnectionFormular onClick={() =>{manageSubscription.open();manageConnection.close()}} />
                 </Modal>
             </div>
         </header>
