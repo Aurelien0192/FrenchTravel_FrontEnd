@@ -17,6 +17,7 @@ export const ConnectionFormular: React.FC<connectionFomularProps> = (props) => {
     const {responseServer} = useResponseAxios()    
     const [msg, setMsg] = useState<string>("")
     const [openedResPassword, openedResPasswordManager] = useDisclosure()
+    const[checkBoxSelect, setCheckboxSelect] = useState<boolean>(false)
 
     const changeMsg = async (e:React.FormEvent<HTMLFormElement>) => {
         const newMsg = await FormularServices.addResponseOfServer(AuthentificationServices.handleSubmit(e),"login")
@@ -39,7 +40,8 @@ export const ConnectionFormular: React.FC<connectionFomularProps> = (props) => {
                     <Input label="Mot de passe" type="password" placeholder="*********" name="password" flexDirection="flex-col" />
                 </div>
                 <button type="button" onClick={() => {setMsg("");openedResPasswordManager.open()}} className="text-brown underline underline-offset-2">mot de passe oublié?</button>
-                <Checkbox name="save" label="se souvenir de moi" color="#D98D30" variant="outline" size="md"/>
+                <Checkbox onChange={() => {setCheckboxSelect(!checkBoxSelect)}} name="save" label="se souvenir de moi" color="#D98D30" variant="outline" size="md"/>
+                <p className={`text-center font-bold ${!checkBoxSelect && "hidden"}`} >Vos données de connexion seront stockées sur votre terminal via le LocalStorage. Décocher se souvenir de mois si vous refuser ce stockage</p>
                 <Button type="submit" size="md">Se connecter</Button>
             </form>
             <Modal
