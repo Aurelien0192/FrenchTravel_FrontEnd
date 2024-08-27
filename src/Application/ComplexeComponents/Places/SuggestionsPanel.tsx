@@ -1,9 +1,9 @@
 import { useEffect } from "react"
 import { usePlaceToDisplay } from "../../../Module/Place/Place.hook"
 import { Place } from "../../../Module/Place/Place.class"
-import { PlaceDisplayLittleCard } from "../../ComplexeComponents/Places/PlaceDisplayLittleCards"
+import { PlaceDisplayLittleCard } from "./PlaceDisplayLittleCards"
 import { Loader } from "@mantine/core"
-import { InteractivMap } from "../../ComplexeComponents/Places/interactiveMap"
+import { InteractivMap } from "./interactiveMap"
 
 type suggestionPanelProps = {
     dataOnePlace:Place

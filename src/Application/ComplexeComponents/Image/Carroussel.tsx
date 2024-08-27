@@ -1,9 +1,10 @@
 import { useCarroussel } from "../../../Module/Carroussel/Carroussel.hook"
 import { image } from "../../../Module/Image/Image.type"
 import { CarrousselController } from "../../Components/Image/CarrousselController"
+import noPhoto from "../../../../public/jpg/noPhoto.jpg"
 
 type carrousselProps = {
-    imagesTab: Array<image>
+    imagesTab: Array<image>|null
 }
 
 export const Carroussel:React.FC<carrousselProps> = (props) => {
@@ -19,19 +20,23 @@ export const Carroussel:React.FC<carrousselProps> = (props) => {
                 }} 
                 className={`w-fit h-fit overflow-scroll absolute flex md:pl-[30px] gap-5 `}
                 >
-                    {props.imagesTab.map((image, index) => {
+                    {props.imagesTab ? props.imagesTab.map((image, index) => {
                         return(
                             <div key={index} className=" w-96 h-56 md:w-[716px] md:h-[402px] rounded-xl">
                                 <img className=" rounded-xl object-cover size-full" src={image.path}></img>
                             </div>
                         )
-                    })}
+                    }):
+                        <div className=" w-96 h-56 md:w-[716px] md:h-[402px] rounded-xl">
+                                <img className=" rounded-xl object-cover size-full" src={noPhoto}></img>
+                            </div>
+                    }
                 </div>
                 <div className="hidden md:block">
                     <CarrousselController direction="left" disabled={index===0} onClick={indexDown} />
                 </div>
                 <div className="hidden md:block">
-                    <CarrousselController direction="right" disabled={index === props.imagesTab.length-1} onClick={()=>indexUp(props.imagesTab.length-1)} />
+                    <CarrousselController direction="right" disabled={index === (props.imagesTab ? props.imagesTab.length-1:0)} onClick={()=>indexUp(props.imagesTab ? props.imagesTab.length-1:0)} />
                 </div>
             </div>
         </div>

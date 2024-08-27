@@ -115,7 +115,7 @@ export class Place{
     private lonCoordinate: number
     private notation:number
     private numberOfNote:number
-    private images : Array<image>
+    private images : Array<image>|null
     private comment : Comment|null
 
     constructor(placeFromApi : place){
@@ -137,15 +137,17 @@ export class Place{
         this.lonCoordinate = placeFromApi.lonCoordinate
         this.notation = placeFromApi.notation ? placeFromApi.notation : 0
         this.numberOfNote = placeFromApi.numberOfNote ? placeFromApi.numberOfNote : 0
-        this.images = placeFromApi.images
+        this.images = (placeFromApi.images && placeFromApi.images.length>0) ? placeFromApi.images : null 
         this.setImagesPath()
         this.comment = (placeFromApi.comments && placeFromApi.comments.length===1) ? Comment.createNewComment(placeFromApi.comments[0]) : null
     }
 
     setImagesPath(){
-        this.images.forEach((image)=>{
-            image.path = "http://localhost:3001/"+image.path
-        })
+        if(this.images){
+            this.images.forEach((image)=>{
+                image.path = "http://localhost:3001/"+image.path
+            })
+        }
     }
 
     getId(){

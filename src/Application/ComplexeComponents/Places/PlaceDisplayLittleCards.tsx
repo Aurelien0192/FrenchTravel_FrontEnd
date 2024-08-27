@@ -2,6 +2,8 @@ import { Comment } from "../../../Module/Comment/comment.class"
 import { Place } from "../../../Module/Place/Place.class"
 import { NavLink } from "react-router-dom"
 import { HotelCategorieOrNoteShow } from "./HotelCategorieOrNotationShow"
+import { image } from "../../../Module/Image/Image.type"
+import noPhoto from "../../../../public/jpg/noPhoto.jpg"
 
 type propsPlaceDisplayLittleCard = {
     place: Place
@@ -9,11 +11,13 @@ type propsPlaceDisplayLittleCard = {
 }
 
 export const PlaceDisplayLittleCard:React.FC<propsPlaceDisplayLittleCard> = (props) =>{
+
     const comment: Comment|null = props.place.getComment() ? props.place.getComment() : null
+    const images: Array<image>|null = props.place.getImage()
     return(
         <NavLink to={`/index/Place/${props.place.getId()}`} className= {`flex flex-col gap-2 shadow-md hover:shadow-lg rounded-xl ${props.type!=="little" ?"w-[377px] md:w-full h-[400px]":"w-[281px] h-[186px]"} p-[10px]`}>
             <div className={`relative flex ${props.type !=="little"?"h-64" : "h-full"}`}>
-                <img className="rounded-xl object-cover size-full" src={props.place.getImage()[0].path} />
+                <img className="rounded-xl object-cover size-full" src={images ? images[0].path : noPhoto} />
                 <p className={`!m-0 px-4 py-2 w-full rounded-b-xl absolute bottom-0 ${props.type !== "little"? "text-2xl" :"text-xl"} font-bold text-white bg-gradient-to-t from-black`}
                 >{props.place.getName()}</p>
             </div>
