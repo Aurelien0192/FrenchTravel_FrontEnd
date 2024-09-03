@@ -1,6 +1,7 @@
 import { moreInfo, place, placeSubmit } from "./Place.type"
 import { image } from "../Image/Image.type"
 import { Comment } from "../Comment/comment.class"
+import { getURL } from "../HTTP/axios.instance"
 export class PlaceToSubmit{
     public name: string
     public categorie: string
@@ -145,7 +146,7 @@ export class Place{
     setImagesPath(){
         if(this.images){
             this.images.forEach((image)=>{
-                image.path = "http://localhost:3001/"+image.path
+                image.path = `http://${getURL()}:3001/`+image.path
             })
         }
     }

@@ -1,3 +1,4 @@
+import { getURL } from "../HTTP/axios.instance"
 import { image } from "./Image.type"
 
 export class Image{
@@ -8,7 +9,7 @@ export class Image{
     constructor(image: image){
         this._id = image._id
         this.name = image.name
-        this.path = "http://localhost:3001/"+image.path
+        this.path = `http://${getURL()}:3001/`+image.path
     }
 
     getId(){

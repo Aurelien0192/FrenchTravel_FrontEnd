@@ -1,3 +1,4 @@
+import { getURL } from "../HTTP/axios.instance"
 import { comment, commentFromServer } from "./comment.type"
 
 export class CommentToSend{
@@ -41,7 +42,7 @@ export class Comment{
         this.dateVisited = new Date(comment.dateVisited).toLocaleDateString()
         this.create_at = new Date(comment.create_at).toLocaleDateString()
         this.usernamePoster = typeof comment.user_id !== "string" ? comment.user_id.username : undefined
-        this.profilePhotoUser = typeof comment.user_id !== "string" ?"http://localhost:3001/"+comment.user_id.profilePhoto.path :undefined
+        this.profilePhotoUser = typeof comment.user_id !== "string" ?`http://${getURL()}:3001/`+comment.user_id.profilePhoto.path :undefined
         this.placeName = typeof comment.place_id !== "string" ? comment.place_id.name : undefined
         this.liked = comment.liked
         this.isResponse = comment.isResponse

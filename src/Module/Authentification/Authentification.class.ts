@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios"
 import { authentificationRequestData } from "./Authentification.type"
+import { getURL } from "../HTTP/axios.instance"
 
 export class AuthentificationToSubmit{
     private readonly username: string
@@ -44,7 +45,7 @@ export class AuthentifiateUser{
         this.email = responseServer.data.email
         this.userType = responseServer.data.userType
         this.about = responseServer.data.about
-        this.profilePhoto = "http://localhost:3001/"+(responseServer.data.profilePhoto.path ? responseServer.data.profilePhoto.path : "data/images/noPhoto.png1722879215765.png")
+        this.profilePhoto = `http://${getURL()}:3001/`+(responseServer.data.profilePhoto.path ? responseServer.data.profilePhoto.path : "data/images/noPhoto.png1722879215765.png")
     }
 
     getId(){
