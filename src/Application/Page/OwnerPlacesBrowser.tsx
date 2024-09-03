@@ -21,13 +21,18 @@ export const OwnerPlacesBrowser:React.FC = () => {
                 <SearchBar onSubmit={(e)=>{e.preventDefault();changeValueOfSearch(JSON.parse(JSON.stringify(Object.fromEntries(new FormData(e.currentTarget).entries()))).search)}} placeholder="Rechercher un établissement"/>
             </div>
             <div className="flex flex-col gap-5 w-full">
-                {placesTab ? placesTab.map((place,index) => {
+                {placesTab ? 
+                placesTab.length>0?
+                placesTab.map((place,index) => {
                     return( 
                         <div key={index} className="flex flex-col md:flex-row items-center gap-3">
                             <ResultSearchCard  place={place}/>
                             <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
                         </div>)
-                }):<FrenchTravelAnimated />}
+                }):<p className="w-full text-center font-bold mt-20">Vous n'avez enregistrer aucun établissement</p>:
+                <div className="flex justify-center mt-24">
+                    <FrenchTravelAnimated />
+                </div>}
             </div>
             <Modal
                 opened={openedConfirmationDeletionPlace}
@@ -54,6 +59,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
                 </Modal>
             <Pagination 
                 total={totalOfPlace ? Math.ceil(totalOfPlace/4) : 1}
+                hidden={totalOfPlace===0}
                 color={"#8C3616"}
                 value={page}
                 onChange={(value:number) => changePage(value)}

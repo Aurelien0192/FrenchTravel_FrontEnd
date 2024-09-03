@@ -38,6 +38,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
 
       const newMsgComment = await FormularServices.addResponseOfServer(CommentService.respondToComment(comment,comment_id), "comment")
       setMsg(newMsgComment)
+      console.log(commentsTab)
     }
     if (commentsTab){
         return(
@@ -131,11 +132,12 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                             )
                         }
                     
-                    }):<p>Aucun commentaire</p>}
+                    }):<p className="font-bold">Aucun commentaire</p>}
                     <Pagination 
                         total={numberOfElement ? Math.ceil(numberOfElement/5) : 1}
                         color={"#8C3616"}
                         value={page}
+                        hidden={numberOfElement===0}
                         onChange={(value:number) => changePage(value)}
                         onNextPage={() => changePage(page+1)}
                         onPreviousPage={() => changePage(page-1)} />
@@ -145,7 +147,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
         )
     }else{
         return(
-            <div className="flex justify-center my-24">
+            <div className="flex justify-center mt-24">
                 <FrenchTravelAnimated />
             </div>
         )

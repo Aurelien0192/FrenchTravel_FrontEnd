@@ -18,18 +18,22 @@ export const UserPhotoManager:React.FC = () => {
                         <SelectorNavLink to="/index/user/comment" selected={false}>Mes commentaires</SelectorNavLink>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-4">
-                    {tabImages.map((image,index) => {
+                <div className={`${tabImages.length>0?"grid grid-cols-2 md:grid-cols-4":"flex flex-col"} w-full gap-4`}>
+                    { tabImages.length>0 ?tabImages.map((image,index) => {
                         return (
                             <ImageProfileManagement key={index} image={image} onClick={(e) => {e.preventDefault();deleteOneImage(image.getId())}} />
-
                         )
-                    })}
+                    }):
+                        <div>
+                            <p className="font-bold text-center w-full">Vous n'avez pas encore posté de photos</p>
+                        </div>
+                    }
                 </div>
                 <Pagination
                 total={numberOfPage ? numberOfPage : 1}
                 color={"#8C3616"}
                 value={page}
+                hidden={tabImages.length===0}
                 onChange={(value:number) => changePage(value)}
                 onNextPage={() => changePage(page+1)}
                 onPreviousPage={() => changePage(page-1)} />

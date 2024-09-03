@@ -19,12 +19,12 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
     return(
         <div className="flex justify-between">
             <div className="flex flex-col md:w-[60lvw] gap-5">
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col w-full gap-3">
                     <h2 className="font-bold uppercase"> Activités aux alentours</h2>
-                    <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
-                        <div className="w-fit flex gap-3 ">
+                    <div className=" overflow-auto w-[90lvw] md:w-full pb-2 flex gap-3">
+                        <div className="flex gap-3 box-content w-fit md:mx-3">
                             {placeToDisplay.activity ? 
-                                placeToDisplay.activity.length>0?
+                                (placeToDisplay.activity.length>0) ?
                                     placeToDisplay.activity.map((place, index) => {
                                         return(
                                             props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
@@ -40,7 +40,7 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     <div className=" overflow-auto w-[90lvw] md:w-full pb-2 flex gap-3">
                         <div className="flex gap-3 box-content w-fit md:mx-3">
                             {placeToDisplay.hotel ? 
-                                placeToDisplay.hotel.length>0?
+                                (placeToDisplay.hotel.length>0) ?
                                     placeToDisplay.hotel.map((place, index) => {
                                         return(
                                             props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
@@ -52,11 +52,11 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     </div>
                 </div>
                 <div className="flex flex-col w-full gap-3">
-                    <h2 className="font-bold uppercase"> Restaurant aux alentours</h2>
-                    <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
-                        <div className="flex gap-3 w-fit">
+                    <h2 className="font-bold uppercase"> Restaurants aux alentours</h2>
+                    <div className=" overflow-auto w-[90lvw] md:w-full pb-2 flex gap-3">
+                        <div className="flex gap-3 box-content w-fit md:mx-3">
                             {placeToDisplay.restaurant ? 
-                                placeToDisplay.restaurant.length>0?
+                                (placeToDisplay.restaurant.length>0) ?
                                     placeToDisplay.restaurant.map((place, index) => {
                                         return(
                                             props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />

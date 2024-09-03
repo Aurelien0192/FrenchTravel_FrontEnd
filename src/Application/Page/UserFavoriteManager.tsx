@@ -77,7 +77,7 @@ export const UserFavoriteManager:React.FC = () =>{
                         onPreviousPage={() => changePage(page-1)} 
                     />
                 </div>
-                :responseServerDone?<p>Aucun lieu dans ce dossier</p>:<FrenchTravelAnimated />
+                :responseServerDone?<p className="w-full text-center mt-56 font-bold">{(folderSelected<=1)?"Vous n'avez aucun lieu en favoris":"Aucun lieu dans ce dossier"}</p>:<FrenchTravelAnimated />
                 }
             </div>
         </div>
