@@ -1,13 +1,14 @@
 import { SelectorButton } from "../Components/General/SelectorButton"
 import { SearchBar } from "../Components/General/SearchBar"
 import { Button } from "../Components/General/Button"
-import { Loader, Pagination } from "@mantine/core"
+import { Pagination } from "@mantine/core"
 import { PlaceDisplayLittleCard } from "../ComplexeComponents/Places/PlaceDisplayLittleCards"
 import { FolderButton } from "../Components/General/FolderButton"
 import { Input } from "../Components/General/Input"
 import { IoCloseSharp, IoTrash } from "react-icons/io5"
 import { useUserFavoriteManager } from "../../Module/UserFavoriteManager/userFavoriteManager.hook"
 import { useState } from "react"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export const UserFavoriteManager:React.FC = () =>{
 
@@ -76,7 +77,7 @@ export const UserFavoriteManager:React.FC = () =>{
                         onPreviousPage={() => changePage(page-1)} 
                     />
                 </div>
-                :responseServerDone?<p>Aucun lieu dans ce dossier</p>:<Loader />
+                :responseServerDone?<p>Aucun lieu dans ce dossier</p>:<FrenchTravelAnimated />
                 }
             </div>
         </div>

@@ -1,4 +1,4 @@
-import { Loader, Modal, Pagination } from "@mantine/core"
+import { Modal, Pagination } from "@mantine/core"
 import { HotelCategorieOrNoteShow } from "../Places/HotelCategorieOrNotationShow"
 import { useComment } from "../../../Module/Comment/comment.hook"
 import { Like } from "../../Components/svg/Like"
@@ -13,6 +13,7 @@ import { CommentResponseCard } from "./CommentResponseCard"
 import { Comment } from "../../../Module/Comment/comment.class"
 import { IoCheckmarkCircleOutline } from "react-icons/io5"
 import { CommentFilter } from "./CommentFilter"
+import { FrenchTravelAnimated } from "../../Components/svg/FrenchTravelAnimated"
 
 type commentsViewerProps={
     visitor_id:string|null
@@ -38,9 +39,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
       const newMsgComment = await FormularServices.addResponseOfServer(CommentService.respondToComment(comment,comment_id), "comment")
       setMsg(newMsgComment)
     }
-
     if (commentsTab){
-
         return(
             <div className="flex flex-col-reverse md:flex-row-reverse md:gap-32 w-full">
                 <div className="flex flex-col gap-3 items-center w-full">
@@ -143,8 +142,12 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                 </div>
                 {props.filter && <CommentFilter onChange={changeNotationChoice}/>}
             </div>
-    )
+        )
     }else{
-        <Loader />
+        return(
+            <div className="flex justify-center my-24">
+                <FrenchTravelAnimated />
+            </div>
+        )
     }
 }

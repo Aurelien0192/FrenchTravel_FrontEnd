@@ -8,6 +8,7 @@ import { HotelCategorieOrNotationSelector } from "../ComplexeComponents/Places/H
 import { Button } from "../Components/General/Button"
 import { useState } from "react"
 import { IoCloseSharp } from "react-icons/io5"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export const SearchPage:React.FC = () => {
     
@@ -72,7 +73,7 @@ export const SearchPage:React.FC = () => {
         )
     }else{
         return(
-            <Loader />
+            <FrenchTravelAnimated />
         )
     }
 

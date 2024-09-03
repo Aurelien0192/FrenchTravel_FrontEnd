@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { usePlaceToDisplay } from "../../../Module/Place/Place.hook"
 import { Place } from "../../../Module/Place/Place.class"
 import { PlaceDisplayLittleCard } from "./PlaceDisplayLittleCards"
-import { Loader } from "@mantine/core"
 import { InteractivMap } from "./interactiveMap"
+import { FrenchTravelAnimated } from "../../Components/svg/FrenchTravelAnimated"
 
 type suggestionPanelProps = {
     dataOnePlace:Place
@@ -24,12 +24,13 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
                         <div className="w-fit flex gap-3 ">
                             {placeToDisplay.activity ? 
-                                placeToDisplay.activity.map((place, index) => {
-                                    return(
-                                        props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
-                                    )
-                                }):
-                                <Loader />
+                                placeToDisplay.activity.length>0?
+                                    placeToDisplay.activity.map((place, index) => {
+                                        return(
+                                            props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                        )
+                                    }): <p>Aucune activité à proximité</p>
+                                :<FrenchTravelAnimated />
                             }
                         </div>
                     </div>
@@ -39,12 +40,13 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     <div className=" overflow-auto w-[90lvw] md:w-full pb-2 flex gap-3">
                         <div className="flex gap-3 box-content w-fit md:mx-3">
                             {placeToDisplay.hotel ? 
-                                placeToDisplay.hotel.map((place, index) => {
-                                    return(
-                                        props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
-                                    )
-                                }):
-                                <Loader />
+                                placeToDisplay.hotel.length>0?
+                                    placeToDisplay.hotel.map((place, index) => {
+                                        return(
+                                            props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                        )
+                                    }): <p>Aucun hôtel à proximité</p>
+                                :<FrenchTravelAnimated />
                             }
                         </div>
                     </div>
@@ -54,12 +56,13 @@ export const SuggestionsPanel:React.FC<suggestionPanelProps> = (props) => {
                     <div className="w-[90lvw] overflow-auto pb-2 flex gap-3">
                         <div className="flex gap-3 w-fit">
                             {placeToDisplay.restaurant ? 
-                                placeToDisplay.restaurant.map((place, index) => {
-                                    return(
-                                        props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
-                                    )
-                                }):
-                                <Loader />
+                                placeToDisplay.restaurant.length>0?
+                                    placeToDisplay.restaurant.map((place, index) => {
+                                        return(
+                                            props.dataOnePlace.getId() !== place.getId() && <PlaceDisplayLittleCard key={index} place={place} type="little" />
+                                        )
+                                    }): <p>Aucun restaurant à proximité</p>
+                                :<FrenchTravelAnimated />
                             }
                         </div>
                     </div>

@@ -1,10 +1,11 @@
 import { SearchBar } from "../Components/General/SearchBar"
 import { SelectorNavLink } from "../Components/General/SelectorNavLink"
-import { Loader, Modal, Pagination } from "@mantine/core"
+import { Modal, Pagination } from "@mantine/core"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 import { Button } from "../Components/General/Button"
 import { useOwnerPlacesBrowser } from "../../Module/OwnerPlacesBrowser/OwnerPlacesBrowser.hook"
 import { OwnerPlacesBrowserServices } from "../../Module/OwnerPlacesBrowser/OwnerPlacesBrowser.services"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export const OwnerPlacesBrowser:React.FC = () => {
 
@@ -26,7 +27,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
                             <ResultSearchCard  place={place}/>
                             <Button onClick={()=>{openConfirmationPlace(place.getName(), place.getId())}}>supprimer</Button>
                         </div>)
-                }):<Loader />}
+                }):<FrenchTravelAnimated />}
             </div>
             <Modal
                 opened={openedConfirmationDeletionPlace}

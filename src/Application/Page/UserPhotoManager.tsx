@@ -1,7 +1,8 @@
-import { Loader, Pagination } from "@mantine/core"
+import { Pagination } from "@mantine/core"
 import { SelectorNavLink } from "../Components/General/SelectorNavLink"
 import { ImageProfileManagement } from "../ComplexeComponents/Image/ImageProfileManagement"
 import { useUserPhotoManager } from "../../Module/UserPhotoManager/UserPhotoManager.hook"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export const UserPhotoManager:React.FC = () => {
 
@@ -35,6 +36,6 @@ export const UserPhotoManager:React.FC = () => {
             </div>
         )
     }else{
-        <Loader />
+        return(<FrenchTravelAnimated />)
     }
 }

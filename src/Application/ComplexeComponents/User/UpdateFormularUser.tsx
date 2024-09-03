@@ -1,4 +1,4 @@
-import { Loader, Modal } from "@mantine/core"
+import { Modal } from "@mantine/core"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
 import { Button } from "../../Components/General/Button"
 import { Input } from "../../Components/General/Input"
@@ -12,6 +12,7 @@ import { useDisclosure } from "@mantine/hooks"
 import { AxiosResponseError } from "../../../Module/HTTP/axiosResponseError.dto"
 import { ProfilService } from "../../../Module/Profil/Profil.service"
 import { useNavigate } from "react-router-dom"
+import { FrenchTravelAnimated } from "../../Components/svg/FrenchTravelAnimated"
 
 export const UpdateFormularUser:React.FC = () => {
     const {responseServer} = useResponseAxios()    
@@ -80,7 +81,7 @@ export const UpdateFormularUser:React.FC = () => {
                     <div>
                         <Button variant="transparent" type="submit">Enregistrer</Button>
                     </div>
-                </form>:<Loader />}
+                </form>:<FrenchTravelAnimated />}
         </div>
     </div>
  )

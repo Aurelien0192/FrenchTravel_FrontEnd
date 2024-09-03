@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useAuthentification } from "../../Module/Authentification/authentification.hook"
-import { Loader } from "@mantine/core"
 import { OwnerPlacesBrowser } from "./OwnerPlacesBrowser"
 import { UserPhotoManager } from "./UserPhotoManager"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export const UserConditionalProfile: React.FC = () =>{
     const {authentifiateUser} = useAuthentification()
@@ -14,7 +14,7 @@ export const UserConditionalProfile: React.FC = () =>{
         }
     },[authentifiateUser])
     if(Object.keys(authentifiateUser).length===0){
-        return <Loader />
+        return <FrenchTravelAnimated />
     }else{
         return isProfessional ? <OwnerPlacesBrowser /> : <UserPhotoManager />
     }

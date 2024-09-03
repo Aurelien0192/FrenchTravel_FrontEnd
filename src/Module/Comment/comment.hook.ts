@@ -3,7 +3,7 @@ import { CommentService } from "./comment.service"
 import { Comment } from "./comment.class"
 
 export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:string|null,search:string|null) => {
-    const [commentsTab, setCommentsTab] = useState<Array<Comment>>([])
+    const [commentsTab, setCommentsTab] = useState<Array<Comment>|undefined>(undefined)
     const [page, setPage] = useState<number>(1)
     const [numberOfElement, setNumberOfElement] = useState<number>(0)
     const [notationChoice, setNotationChoice] = useState<Array<number>>([])
@@ -24,12 +24,14 @@ export const useComment = (idOfPlaceOrUser:string, findBy:string,visitor_id:stri
     },[page, idOfPlaceOrUser,visitor_id,notationChoice, search])
 
     async function LikeAComment(comment_id:string){
-        const commentLiked = [...commentsTab]
-        const index = commentLiked.findIndex((comment)=>comment.getId() === comment_id)
-        commentLiked[index].getLiked() ? await CommentService.unLikeAComment(comment_id) : await CommentService.likeAComment(comment_id) 
-        commentLiked[index].getLiked()? commentLiked[index].setLike(-1): commentLiked[index].setLike(+1)
-        commentLiked[index].setLiked()
-        setCommentsTab(commentLiked)
+        if(commentsTab){
+            const commentLiked = [...commentsTab]
+            const index = commentLiked.findIndex((comment)=>comment.getId() === comment_id)
+            commentLiked[index].getLiked() ? await CommentService.unLikeAComment(comment_id) : await CommentService.likeAComment(comment_id) 
+            commentLiked[index].getLiked()? commentLiked[index].setLike(-1): commentLiked[index].setLike(+1)
+            commentLiked[index].setLiked()
+            setCommentsTab(commentLiked)
+        }
     }
 
     function changeNotationChoice(notation: number, checked:boolean){

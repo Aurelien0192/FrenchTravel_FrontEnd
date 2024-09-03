@@ -76,3 +76,43 @@
 [type="date"]::-webkit-calendar-picker-indicator {
   display: none;
 }
+
+.logoFrenchTravel{
+    animation: spin 2s linear infinite
+}
+
+.logoFrench{
+    animation: dissolute 2s linear infinite;
+}
+
+@keyframes spin{
+    10%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(20deg);
+    }
+    75%{
+        transform: rotate(340deg);
+    }
+    100%{
+        transform:  rotate(360deg);
+    }
+}
+@keyframes dissolute{
+    15%{
+        opacity: 1;
+    }
+    25%{
+        opacity: 0.5;
+    }
+    35%{
+        opacity: 0;
+    }
+    75%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}

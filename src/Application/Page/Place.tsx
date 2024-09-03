@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Place } from "../../Module/Place/Place.class"
 import { PlaceServices } from "../../Module/Place/Place.services"
-import { Loader, Modal } from "@mantine/core"
+import { Modal } from "@mantine/core"
 import { Button } from "../Components/General/Button.tsx"
 import { Carroussel } from "../ComplexeComponents/Image/Carroussel"
 import { PhotosManagement } from "../ComplexeComponents/Image/PhotosManagement.tsx"
@@ -29,6 +29,7 @@ import { Comment } from "../../Module/Comment/comment.class.ts"
 import { Like } from "../Components/svg/Like.tsx"
 import { AxiosResponse } from "axios"
 import { ScrollToTop } from "../../Module/Place/scrollToTop.ts"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated.tsx"
 
 export const PlacePage:React.FC = () => {
     const {id} = useParams<string>()
@@ -213,8 +214,10 @@ export const PlacePage:React.FC = () => {
             </div>
         )
     }else{
-        <div>
-            <Loader />
-        </div>
+        return(
+            <div>
+                <FrenchTravelAnimated />
+            </div>
+        )
     }
 }
