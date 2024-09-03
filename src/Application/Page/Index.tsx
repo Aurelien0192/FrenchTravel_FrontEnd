@@ -5,12 +5,12 @@ import { Footer } from "../ComplexeComponents/Footer/Footer"
 export const Index:React.FC =() => {
 
     return(
-        <div>
-            <div className="w-full px-2 pt-10 md:pt-0 lg:px-14 flex flex-col items-center gap-7">
+        <div className=" min-h-lvh flex flex-col">
+            <div className="w-full px-2 pt-10 md:pt-0 lg:px-14 flex flex-col grow items-center gap-7">
                 <Header />
                 <Outlet />
             </div>
-                <Footer />
+            <Footer />
         </div>
     )
 }

@@ -5,8 +5,8 @@ import { Footer } from "../ComplexeComponents/Footer/Footer"
 export const IndexWithSearch:React.FC =() => {
 
     return(
-        <div>
-            <div className="w-full px-2 pt-10 md:pt-0 items-center lg:px-14 flex flex-col gap-7">
+        <div className=" min-h-lvh flex flex-col">
+            <div className="w-full px-2 pt-10 md:pt-0 lg:px-14 flex flex-col grow items-center gap-7">
                 <HeaderWithSearch />
                 <Outlet />
             </div>

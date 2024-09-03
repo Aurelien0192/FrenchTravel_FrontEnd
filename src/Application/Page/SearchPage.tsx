@@ -1,4 +1,4 @@
-import { Loader, Pagination } from "@mantine/core"
+import { Pagination } from "@mantine/core"
 import { useSearchFilter } from "../../Module/SearchFilter/SearchFilter.hook"
 import { SearchBar } from "../Components/General/SearchBar"
 import { Categories } from "../../Module/Place/Categories.variable"
