@@ -26,7 +26,7 @@ export const SearchPage:React.FC = () => {
                     <div className="md:hidden">
                         <Button onClick={()=>{setFilterHidden(false)}} size="xs">filtre</Button>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 w-full">
                         {placesSearch.map((e,index) => {
                             return(
                                 <ResultSearchCard key={index} place={e} />

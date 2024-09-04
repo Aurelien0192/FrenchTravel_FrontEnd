@@ -4,6 +4,8 @@ import { TypePlaceLabel } from "../../Components/Place/TypePlaceLabel"
 import { NavLink } from "react-router-dom"
 import { Comment } from "../../../Module/Comment/comment.class"
 import { Like } from "../../Components/svg/Like"
+import { image } from "../../../Module/Image/Image.type"
+import noPhoto from "../../../../public/jpg/noPhoto.jpg"
 
 type resultSearchCardProps = {
     place : Place
@@ -13,15 +15,17 @@ type resultSearchCardProps = {
 export const ResultSearchCard:React.FC<resultSearchCardProps> = (props) => {
     const comment: Comment|null = props.place.getComment() ? props.place.getComment() : null
 
+    const imageDisplay:Array<image>|null = props.place.getImage()
+
     return(
         <NavLink to={`/index/Place/${props.place.getId()}`} className="flex flex-col md:flex-row w-full shadow-md rounded-xl hover:bg-sand">
             <div className="w-64 h-[200px] hidden md:block">
-                <img className=" size-full object-cover rounded-l-xl" src={props.place.getImage()[0].path}></img>
+                <img className=" size-full object-cover rounded-l-xl" src={imageDisplay?imageDisplay[0].path:noPhoto}></img>
             </div>
             <div className=" flex flex-col gap-3 px-4 py-3 w-full">
                 <div className="flex items-start justify-between md:block">
                     <div className=" w-[136px] h-[113px] md:hidden">
-                        <img className=" w-[136px] h-[113px] object-cover rounded-l-xl" src={props.place.getImage()[0].path}></img>
+                        <img className=" w-[136px] h-[113px] object-cover rounded-l-xl" src={imageDisplay?imageDisplay[0].path:noPhoto}></img>
                     </div>
                     <div className="flex flex-col-reverse md:flex-row justify-between items-end md:items-start">
                         <div className="flex flex-col">
