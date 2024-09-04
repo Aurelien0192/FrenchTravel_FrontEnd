@@ -17,8 +17,8 @@ export const SearchPage:React.FC = () => {
 
     if(placesSearch){
         return(
-            <div className="flex flex-row-reverse w-full gap-4 relative items-center">
-                <div className="flex flex-col gap-5 w-full md:w-5/6">
+            <div className="flex flex-row-reverse w-full gap-4 relative items-start">
+                <div className="flex flex-col gap-5 items-center w-full md:w-5/6">
                     <SearchBar value={pathNewSearch.get('search') && pathNewSearch.get('search')} 
                     onSubmit={(e) => {
                         e.preventDefault()
