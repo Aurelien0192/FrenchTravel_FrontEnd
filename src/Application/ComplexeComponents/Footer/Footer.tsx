@@ -3,7 +3,7 @@ import { FrenchTravel } from "../../Components/svg/FrenchTravel"
 
 export const Footer:React.FC = () => {
     return(
-        <div className="bg-brown px-14 py-7 mt-4 flex flex-col md:flex-row items-center gap-5 mdjustify-between">
+        <div className="bg-brown px-14 py-7 mt-4 flex flex-col md:flex-row items-center gap-5 md:justify-between">
             <div>
                 <div className="flex items-center">
                     <FrenchTravel />
