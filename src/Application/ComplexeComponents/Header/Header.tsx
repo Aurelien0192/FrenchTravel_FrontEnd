@@ -24,12 +24,12 @@ export const Header:React.FC = () => {
 
     const { authentifiateUser} = useAuthentification()
 
-    if(Object.keys(authentifiateUser).length>0){
-        return(
-            <header className="flex justify-end w-full md:justify-between items-center">
-                <NavLink to="/">
-                    <img className="hidden md:inline" src={logoTravel} />
-                </NavLink>
+    return(
+        <header className="flex justify-end w-full md:justify-between items-center">
+            <NavLink to="/">
+                <img className="hidden md:inline" src={logoTravel} />
+            </NavLink>
+            { Object.keys(authentifiateUser).length>0 ? 
                 <div className="relative">
                     <div className="cursor-pointer" onClick={hiddenNavOption}>
                     <img className="size-10 rounded-full object-cover" src={authentifiateUser.getProfilePhoto()} />
@@ -53,24 +53,18 @@ export const Header:React.FC = () => {
                         </div>
                     )}
                 </div>
-            </header>
-        )
-    }
-    return(
-        <header className="flex justify-between w-full items-center">
-            <NavLink to="/">
-                    <img className="hidden md:inline" src={logoTravel} />
-                </NavLink>
-            <div className="flex w-full md:w-fit justify-between md:gap-3 md:mr-8">
-                <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
-                <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
-                <CustomModal opened={openedSubscription} onClose={manageSubscription.close} >
-                    <SubscriptionFormular/>
-                </CustomModal>
-                <CustomModal opened={openedConnection} onClose={manageConnection.close}>
+            :
+                <div className="flex w-full md:w-fit justify-between md:gap-3 md:mr-8">
+                    <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
+                    <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
+                    <CustomModal opened={openedSubscription} onClose={manageSubscription.close} >
+                        <SubscriptionFormular/>
+                    </CustomModal>
+                    <CustomModal opened={openedConnection} onClose={manageConnection.close}>
                         <ConnectionFormular onClick={() =>{manageSubscription.open();manageConnection.close()}} />
-                </CustomModal>
-            </div>
+                    </CustomModal>
+                </div>
+            }
         </header>
     )
 }

@@ -1,11 +1,12 @@
 import { SearchBar } from "../Components/General/SearchBar"
 import { SelectorNavLink } from "../Components/General/SelectorNavLink"
-import { Modal, Pagination } from "@mantine/core"
+import { Pagination } from "@mantine/core"
 import { ResultSearchCard } from "../ComplexeComponents/Search/ResultSearchCard"
 import { Button } from "../Components/General/Button"
 import { useOwnerPlacesBrowser } from "../../Module/OwnerPlacesBrowser/OwnerPlacesBrowser.hook"
 import { OwnerPlacesBrowserServices } from "../../Module/OwnerPlacesBrowser/OwnerPlacesBrowser.services"
 import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
+import { CustomModal } from "../Components/General/CustomModal"
 
 export const OwnerPlacesBrowser:React.FC = () => {
 
@@ -34,16 +35,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
                     <FrenchTravelAnimated />
                 </div>}
             </div>
-            <Modal
-                opened={openedConfirmationDeletionPlace}
-                onClose={manageConfirmationDeletionPlace.close}
-                centered
-                overlayProps={{
-                    backgroundOpacity:0.30,
-                    color:'#D98D30',
-                    blur:3,
-                }}
-                >
+            <CustomModal opened={openedConfirmationDeletionPlace} onClose={manageConfirmationDeletionPlace.close}>
                     <div className="flex flex-col gap-4">
                         <h3 className="text-2xl font-bold text-red-500">Attention!</h3>
                         <div className="flex flex-col gap-1">
@@ -56,7 +48,7 @@ export const OwnerPlacesBrowser:React.FC = () => {
                             <Button onClick={()=>{OwnerPlacesBrowserServices.deleteOnePlace(idForDeletion)}}>Confirmer</Button>
                         </div>
                     </div>
-                </Modal>
+                </CustomModal>
             <Pagination 
                 total={totalOfPlace ? Math.ceil(totalOfPlace/4) : 1}
                 hidden={totalOfPlace===0}
