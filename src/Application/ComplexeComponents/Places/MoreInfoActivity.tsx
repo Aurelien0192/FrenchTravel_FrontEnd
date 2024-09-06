@@ -4,12 +4,12 @@ import { Button } from "../../Components/General/Button"
 import { useDisclosure } from "@mantine/hooks"
 import { Place } from "../../../Module/Place/Place.class"
 import { moreInfo } from "../../../Module/Place/Place.type"
-import { Modal } from "@mantine/core"
 import { Schedules } from "./Schedules"
 import { SelectInput } from "../../Components/General/SelectInput"
 import { useState } from "react"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 type MoreInfoActivityProps = {
     dataOnePlace : Place
@@ -65,16 +65,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
             {Object.keys(authentifiateUser).length>0 && props.dataOnePlace.getOwner() === authentifiateUser.getId() &&
                         <div>
                             <Button onClick={udpateMoreInfoManager.open} size="xs">Modifier</Button>
-                            <Modal
-                                opened={udpateMoreInfo}
-                                onClose={udpateMoreInfoManager.close}
-                                size="lg"
-                                centered
-                                overlayProps={{
-                                    backgroundOpacity:0.30,
-                                    color:'#D98D30',
-                                    blur:3,
-                                }}>
+                            <CustomModal opened={udpateMoreInfo} onClose={udpateMoreInfoManager.close} size="lg">
                                 <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                     <div className="w-full flex flex-col gap-3">
                                         <p>Horaire d'ouverture</p>
@@ -130,7 +121,7 @@ export const MoreInfoActivity:React.FC<MoreInfoActivityProps> = (props) => {
                                     <Button size="xs" type="submit">Valider</Button>
                                     <p className="text-red-500">{msg}</p>
                                 </form>
-                            </Modal>
+                            </CustomModal>
                         </div>
                     }
         </div>

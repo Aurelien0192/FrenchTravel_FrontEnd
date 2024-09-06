@@ -1,4 +1,4 @@
-import { Checkbox, Modal } from "@mantine/core"
+import { Checkbox } from "@mantine/core"
 import { Input } from "../../Components/General/Input"
 import { Button } from "../../Components/General/Button"
 import { FormularServices } from "../../../Module/FormularGeneralServices/formularServices"
@@ -7,6 +7,7 @@ import { useState } from "react"
 import { AuthentificationServices } from "../../../Module/Authentification/Authentification.service"
 import { useDisclosure } from "@mantine/hooks"
 import { UserServices } from "../../../Module/User/User.services"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 type connectionFomularProps = {
     onClick: React.MouseEventHandler<HTMLButtonElement>
@@ -44,16 +45,7 @@ export const ConnectionFormular: React.FC<connectionFomularProps> = (props) => {
                 <p className={`text-center font-bold ${!checkBoxSelect && "hidden"}`} >Vos données de connexion seront stockées sur votre terminal via le LocalStorage. Décocher se souvenir de mois si vous refuser ce stockage</p>
                 <Button type="submit" size="md">Se connecter</Button>
             </form>
-            <Modal
-                    opened={openedResPassword}
-                    onClose={openedResPasswordManager.close}
-                    centered
-                    overlayProps={{
-                        backgroundOpacity:0.30,
-                        color:'#D98D30',
-                        blur:3,
-                    }}
-                >
+            <CustomModal opened={openedResPassword} onClose={openedResPasswordManager.close}>
                     <form onSubmit={(e)=>{changeMsgResPassword(e)}} className="flex flex-col gap-5 items-center">
                         <h2 className="text-xl">Réinitialiser mot de passe</h2>
                         <p className={`w-full  text-center ${responseServer?.getStatus && responseServer?.getStatus()===201?'text-green-500':'text-red-500'}`}>{msg}</p>
@@ -62,7 +54,7 @@ export const ConnectionFormular: React.FC<connectionFomularProps> = (props) => {
                         <Input label="Confirmer nouveau mot de passe" flexDirection="flex-col" placeholder="*******" type="password" name="confirmPassword" />
                         <Button type="submit">Valider</Button>
                     </form>
-                </Modal>
+                </CustomModal>
             <button onClick={props.onClick} className="text-center transition-all hover:shadow-lg">Vous n'avez pas de compte? inscrivez-vous pour pouvoir accéder au meilleur de French TRAVEL</button>
         </div>
     )

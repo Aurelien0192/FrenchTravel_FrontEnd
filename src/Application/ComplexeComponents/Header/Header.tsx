@@ -4,7 +4,6 @@
 
 import { Button } from "../../Components/General/Button"
 import logoTravel from "../../../../public/Logo/logoTravel 1.svg"
-import { Modal } from "@mantine/core"
 import { SubscriptionFormular } from "../User/SubscriptionFormular"
 import { ConnectionFormular } from "../User/ConnectionFomular"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
@@ -16,6 +15,7 @@ import { useHeader } from "../../../Module/Header/Header.hook"
 import { HeaderService } from "../../../Module/Header/Header.services"
 import { NavLinkList } from "../../Components/General/NavLinkList"
 import { ButtonList } from "../../Components/General/ButtonList"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 
 export const Header:React.FC = () => {
@@ -64,29 +64,12 @@ export const Header:React.FC = () => {
             <div className="flex w-full md:w-fit justify-between md:gap-3 md:mr-8">
                 <Button size={"md"} onClick={manageSubscription.open} variant="light">S'inscrire</Button>
                 <Button size={"md"} onClick={manageConnection.open} variant="light">Se connecter</Button>
-                <Modal
-                    opened={openedSubscription}
-                    onClose={manageSubscription.close}
-                    centered
-                    overlayProps={{
-                        backgroundOpacity:0.30,
-                        color:'#D98D30',
-                        blur:3,
-                    }}
-                    >
+                <CustomModal opened={openedSubscription} onClose={manageSubscription.close} >
                     <SubscriptionFormular/>
-                </Modal>
-                <Modal
-                    opened={openedConnection}
-                    onClose={manageConnection.close}
-                    centered
-                    overlayProps={{
-                        backgroundOpacity:0.30,
-                        color:'#D98D30',
-                        blur:3,
-                    }}>
+                </CustomModal>
+                <CustomModal opened={openedConnection} onClose={manageConnection.close}>
                         <ConnectionFormular onClick={() =>{manageSubscription.open();manageConnection.close()}} />
-                </Modal>
+                </CustomModal>
             </div>
         </header>
     )

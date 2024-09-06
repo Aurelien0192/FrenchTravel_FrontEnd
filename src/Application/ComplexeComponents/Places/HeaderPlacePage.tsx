@@ -4,7 +4,6 @@ import { Button } from "../../Components/General/Button"
 import { TypePlaceLabel } from "../../Components/Place/TypePlaceLabel"
 import { useClickOutside, useDisclosure } from "@mantine/hooks"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
-import { Modal } from "@mantine/core"
 import { Input } from "../../Components/General/Input"
 import { DoubleInput } from "../../Components/General/DoubleInput"
 import { SelectInput } from "../../Components/General/SelectInput"
@@ -12,6 +11,7 @@ import { FormularServices } from "../../../Module/FormularGeneralServices/formul
 import { UpdateFormularPlaceService } from "../../../Module/UpdateFormular/UpdateFormularPlace.service"
 import { HotelCategorieOrNoteShow } from "./HotelCategorieOrNotationShow"
 import { FavoriteHeart } from "../../Components/svg/favoriteHeart"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 type headerPlacePage = {
     dataOnePlace: Place
@@ -50,17 +50,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                 {Object.keys(authentifiateUser).length>0 && props.dataOnePlace.getOwner() === authentifiateUser.getId() && 
                     <div>
                         <Button onClick={nameUpdateManager.open} size="xs">Modifier</Button>
-                        <Modal
-                        zIndex={1000}
-                        opened={nameUpdate}
-                        onClose={nameUpdateManager.close}
-                        size="lg"
-                        centered
-                        overlayProps={{
-                            backgroundOpacity:0.30,
-                            color:'#D98D30',
-                            blur:3,
-                        }}>
+                        <CustomModal zIndex={1000} opened={nameUpdate} onClose={nameUpdateManager.close} size="lg">
                             <form onSubmit={(e) => {changeMsg(e)}}className="flex flex-col gap-3 items-end">
                                 <div className="w-full flex flex-col gap-3">
                                     <Input label="nom" placeholder="Obligatoire" name="name" value={props.dataOnePlace.getName()} />
@@ -89,7 +79,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                                 <Button size="xs" type="submit">Valider</Button>
                                 <p className="text-red-500">{msg}</p>
                             </form>
-                        </Modal>
+                        </CustomModal>
                     </div>}
             </div>
             <div className="flex gap-3 items-center">
@@ -129,16 +119,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                     {Object.keys(authentifiateUser).length>0 && props.dataOnePlace.getOwner() === authentifiateUser.getId() &&
                         <div>
                             <Button onClick={contactUpdateManager.open} size="xs">Modifier</Button>
-                            <Modal
-                                opened={contactUpdate}
-                                onClose={contactUpdateManager.close}
-                                size="lg"
-                                centered
-                                overlayProps={{
-                                    backgroundOpacity:0.30,
-                                    color:'#D98D30',
-                                    blur:3,
-                                }}>
+                            <CustomModal opened={contactUpdate} onClose={contactUpdateManager.close} size="lg">
                                 <form onSubmit={(e)=>{changeMsg(e)}} className="flex flex-col gap-3 items-end">
                                     <div className="w-full flex flex-col gap-3">
                                         <Input label="Adresse" placeholder="Obligatoire" name="street" value={props.dataOnePlace.getStreet()} />
@@ -151,7 +132,7 @@ export const HeaderPlacePage:React.FC<headerPlacePage> = (props) => {
                                     <Button size="xs" type="submit">Valider</Button>
                                     <p className="text-red-500">{msg}</p>
                                 </form>
-                            </Modal>
+                            </CustomModal>
                         </div>
                     }
                 </div>

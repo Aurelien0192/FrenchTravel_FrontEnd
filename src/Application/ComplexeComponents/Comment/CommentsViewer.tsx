@@ -1,4 +1,4 @@
-import { Modal, Pagination } from "@mantine/core"
+import { Pagination } from "@mantine/core"
 import { HotelCategorieOrNoteShow } from "../Places/HotelCategorieOrNotationShow"
 import { useComment } from "../../../Module/Comment/comment.hook"
 import { Like } from "../../Components/svg/Like"
@@ -14,6 +14,7 @@ import { Comment } from "../../../Module/Comment/comment.class"
 import { IoCheckmarkCircleOutline } from "react-icons/io5"
 import { CommentFilter } from "./CommentFilter"
 import { FrenchTravelAnimated } from "../../Components/svg/FrenchTravelAnimated"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 type commentsViewerProps={
     visitor_id:string|null
@@ -79,16 +80,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                                         </div>
                                                         : props.variant === 3 && <Button size="xs" onClick={RespondCommentModalManager.open}>Répondre</Button>}
                                                 </div>
-                                                <Modal
-                                                    opened={RespondCommentModal}
-                                                        onClose={RespondCommentModalManager.close}
-                                                    size="lg"
-                                                    centered
-                                                    overlayProps={{
-                                                        backgroundOpacity:0.30,
-                                                        color:'#D98D30',
-                                                        blur:3,
-                                                    }}>
+                                                <CustomModal opened={RespondCommentModal} onClose={RespondCommentModalManager.close} size="lg">
                                                     <form onSubmit={(e)=>{changeMsgComment(e, comment.getId())}} className="flex flex-col gap-3 items-end">
                                                         <p className="w-full">Commentaires:</p>
                                                         <p className="rounded shadow p-2.5">{comment.getComment()}</p>
@@ -96,7 +88,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                                         <Button type ="submit" size="xs">Envoyer</Button>
                                                         <p>{msg}</p>
                                                     </form>
-                                                </Modal>
+                                                </CustomModal>
                                             </div>
                                         </div>
                                     }

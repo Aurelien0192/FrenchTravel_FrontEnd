@@ -32,5 +32,5 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <RouterProvider router={router} />
       </DatesProvider>
     </MantineProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

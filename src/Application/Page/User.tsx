@@ -1,12 +1,12 @@
 
 import { useAuthentification } from "../../Module/Authentification/authentification.hook"
-import { Modal } from "@mantine/core"
 import { Button } from "../Components/General/Button"
 import { NavLinkButton } from "../Components/General/NavLinkButton"
 import { useDisclosure } from "@mantine/hooks"
 import { UpdateFormularUser } from "../ComplexeComponents/User/UpdateFormularUser"
 import { PhotoProfileDisplay } from "../ComplexeComponents/User/PhotoProfileDisplay"
 import { Outlet } from "react-router-dom"
+import { CustomModal } from "../Components/General/CustomModal"
 
 
 export const UserPage:React.FC = () => {
@@ -27,19 +27,9 @@ export const UserPage:React.FC = () => {
                     {Object.keys(authentifiateUser).length !==0 && authentifiateUser.getUserType()==="professional" && Object.keys(authentifiateUser).length !==0 && <NavLinkButton to={"/index/AddPlace"}variant="transparent">Ajouter un établissement</NavLinkButton>}
                     <Button onClick={manageProfileModifier.open} variant="transparent">Modifier le profil</Button>
                 </div>
-                <Modal
-                    opened={openedProfileModifier}
-                    onClose={manageProfileModifier.close}
-                    centered
-                    size="xl"
-                    overlayProps={{
-                        backgroundOpacity:0.30,
-                        color:'#D98D30',
-                        blur:3,
-                    }}
-                    >
+                <CustomModal opened={openedProfileModifier} onClose={manageProfileModifier.close} size="xl">
                     <UpdateFormularUser />
-                </Modal>
+                </CustomModal>
             </div>
             <Outlet />
         </div>

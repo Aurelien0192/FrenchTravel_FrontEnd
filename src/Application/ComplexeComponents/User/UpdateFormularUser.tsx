@@ -1,4 +1,3 @@
-import { Modal } from "@mantine/core"
 import { useAuthentification } from "../../../Module/Authentification/authentification.hook"
 import { Button } from "../../Components/General/Button"
 import { Input } from "../../Components/General/Input"
@@ -13,6 +12,7 @@ import { AxiosResponseError } from "../../../Module/HTTP/axiosResponseError.dto"
 import { ProfilService } from "../../../Module/Profil/Profil.service"
 import { useNavigate } from "react-router-dom"
 import { FrenchTravelAnimated } from "../../Components/svg/FrenchTravelAnimated"
+import { CustomModal } from "../../Components/General/CustomModal"
 
 export const UpdateFormularUser:React.FC = () => {
     const {responseServer} = useResponseAxios()    
@@ -45,16 +45,7 @@ export const UpdateFormularUser:React.FC = () => {
             <div className="flex flex-col gap-2 items-center md:items-start w-full md:w-fit h-fit">
                 <PhotoProfileDisplay />
                 <Button variant="transparent" onClick={manageConfirmDeletionUser.open}>Supprimer le profil</Button>
-                <Modal
-                    opened={openedConfirmDeletionUser}
-                    onClose={manageConfirmDeletionUser.close}
-                    centered
-                    overlayProps={{
-                        backgroundOpacity:0.30,
-                        color:'#D98D30',
-                        blur:3,
-                    }}
-                    >
+                <CustomModal opened={openedConfirmDeletionUser} onClose={manageConfirmDeletionUser.close}>
                     <div className="flex flex-col gap-4">
                         <h3 className="text-2xl font-bold text-red-500">Attention!</h3>
                         <div className="flex flex-col gap-1">
@@ -67,7 +58,7 @@ export const UpdateFormularUser:React.FC = () => {
                             <Button onClick={deleteAccount}>Confirmer</Button>
                         </div>
                     </div>
-                </Modal>
+                </CustomModal>
             </div>
             {Object.keys(authentifiateUser).length>0 ?
                 <form className="flex flex-col gap-6 items-end" onSubmit={(e) => {e.preventDefault;changeMsg(e)}}>
