@@ -15,8 +15,10 @@ export class UpdateFormularService{
     const formData = new FormData(form)
     const formJson =Object.fromEntries(formData.entries())
     const data: userToUpdate = JSON.parse(JSON.stringify(formJson))
-    const responseOfServer:AxiosResponse = await UserServices.updateUser(data) as AxiosResponse
+    let responseOfServer:AxiosResponse = await UserServices.updateUser(data) as AxiosResponse
     if(responseOfServer.status===200){
+      responseOfServer = {...JSON.parse(sessionStorage.getItem("UserAuthentifiate") as string), responseOfServer}
+      console.log(responseOfServer)
       const newUser: AuthentifiateUser = AuthentifiateUser.createAuthentifiateUser(responseOfServer)
       sessionStorage.setItem("UserAuthentifiate",JSON.stringify(responseOfServer))
       authentificationService.updateAuthentifiateUser(newUser)
