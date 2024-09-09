@@ -35,6 +35,7 @@ export const Button:React.FC<buttonProps> = (props) => {
             } 
             onClick={action}
             type={props.type? props.type: "button"}
+            disabled={props.disabled}
         >{props.children}</button>
     )
 }
