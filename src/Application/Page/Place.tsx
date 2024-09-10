@@ -116,7 +116,7 @@ export const PlacePage:React.FC = () => {
                             {sessionStorage.getItem("UserAuthentifiate") && <Button onClick={photoOpenController.open} size="md">Ajouter des Photos</Button>}
                         </div>
                     </div>
-                    <CustomModal zIndex={1000} opened={photoOpen} onClose={photoOpenController.close}>
+                    <CustomModal size="xl" zIndex={1000} opened={photoOpen} onClose={photoOpenController.close}>
                         <div className="flex flex-col gap-3">
                             <PhotosManagement />
                             <Button size="md" onClick={postImages}>Valider</Button>
