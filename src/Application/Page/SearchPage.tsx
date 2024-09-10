@@ -27,11 +27,13 @@ export const SearchPage:React.FC = () => {
                         <Button onClick={()=>{setFilterHidden(false)}} size="xs">filtre</Button>
                     </div>
                     <div className="flex flex-col gap-4 w-full">
-                        {placesSearch.map((e,index) => {
+                        {placesSearch.length>0 ? placesSearch.map((e,index) => {
                             return(
                                 <ResultSearchCard key={index} place={e} />
                             )
-                        })}
+                        }):
+                        <p className="text-xl font-bold text-center mt-10">Aucun résultat</p>
+                        }
                     </div>
                     <Pagination 
                         total={Math.ceil(totalOfPlace/7)}
