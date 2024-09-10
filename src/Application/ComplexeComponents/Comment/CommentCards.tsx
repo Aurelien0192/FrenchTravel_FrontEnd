@@ -43,7 +43,7 @@ export const CommentCard:React.FC<CommentCardProps> = (props) => {
                         <div className="flex justify-between">
                             <div className="flex gap-2 items-center">
                                 <p>{props.comment.getLike()}</p>
-                                <button className="w-fit" onClick={props.LikeComment}>
+                                <button disabled={sessionStorage.getItem("UserAuthentifiate")===null} className="w-fit" onClick={props.LikeComment}>
                                     <Like liked={props.comment.getLiked()} />
                                 </button>
                             </div>

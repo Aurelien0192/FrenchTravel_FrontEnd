@@ -35,6 +35,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
       setMsg(newMsgComment)
       console.log(commentsTab)
     }
+    console.log(sessionStorage.getItem("UserAuthentifiate")===null)
 
     if (commentsTab){
         return(
@@ -56,7 +57,7 @@ export const CommentsViewer:React.FC<commentsViewerProps> = (props) => {
                                         </div>
                                         <p className="border-t-2 border-black md:border-t-0">{comment.getComment()}</p>
                                         <div>
-                                            <button className="w-fit" onClick={()=>{LikeAComment(comment.getId())}}>
+                                            <button className="w-fit" disabled={sessionStorage.getItem("UserAuthentifiate")===null} onClick={()=>{LikeAComment(comment.getId())}}>
                                                 <Like liked={comment.getLiked()}/>
                                             </button>
                                         </div>
