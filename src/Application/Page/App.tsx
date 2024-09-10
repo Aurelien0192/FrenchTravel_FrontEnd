@@ -1,8 +1,8 @@
-import { usePlaceToDisplay } from "../Module/Place/Place.hook"
-import { PlaceDisplayLittleCard } from "./ComplexeComponents/Places/PlaceDisplayLittleCards"
-import { SearchPlacesManagement } from "./ComplexeComponents/Places/SearchPlacesManager"
+import { usePlaceToDisplay } from "../../Module/Place/Place.hook"
+import { PlaceDisplayLittleCard } from "../ComplexeComponents/Places/PlaceDisplayLittleCards"
+import { SearchPlacesManagement } from "../ComplexeComponents/Places/SearchPlacesManager"
 import { useEffect } from "react"
-import { FrenchTravelAnimated } from "./Components/svg/FrenchTravelAnimated"
+import { FrenchTravelAnimated } from "../Components/svg/FrenchTravelAnimated"
 
 export function App() {
 

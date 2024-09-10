@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "../../Application/App";
+import App from "../../Application/Page/App";
 import { AddPlace } from "../../Application/Page/AddPlace";
 import { Index } from "../../Application/Page/Index";
 import { IndexWithSearch } from "../../Application/Page/IndexWithSearch";
